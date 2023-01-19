@@ -9,8 +9,4 @@
         }
     }
 
-    public int GetNumber()
-    {
-        return 3;
-    }
 }
