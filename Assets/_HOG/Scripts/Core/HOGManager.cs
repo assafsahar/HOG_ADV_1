@@ -1,12 +1,15 @@
-﻿public class HOGManager
+﻿namespace HOG.Core
 {
-    public static HOGManager Instance;
-    public HOGManager()
+    public class HOGManager
     {
-        if(Instance == null)
+        public static HOGManager Instance;
+        public HOGManager()
         {
-            Instance = this;
+            if (Instance == null)
+            {
+                Instance = this;
+            }
         }
-    }
 
+    }
 }

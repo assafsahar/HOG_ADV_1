@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public class HOGMonoBehaviour : MonoBehaviour
+namespace HOG.Core
 {
-    protected HOGManager Manager => HOGManager.Instance;
+    public class HOGMonoBehaviour : MonoBehaviour
+    {
+        protected HOGManager Manager => HOGManager.Instance;
+    }
+
 }
