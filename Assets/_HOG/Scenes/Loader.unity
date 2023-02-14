@@ -251,6 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2081032112}
   - component: {fileID: 2081032111}
+  - component: {fileID: 2081032113}
   m_Layer: 0
   m_Name: Loader
   m_TagString: Untagged
@@ -270,6 +271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1cdc9207e038f24aa1069916ee6bcb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameLogicLoader: {fileID: 2081032113}
 --- !u!4 &2081032112
 Transform:
   m_ObjectHideFlags: 0
@@ -285,3 +287,16 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2081032113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2081032110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 007a2b139bf03454f8c78f7ec398a848, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletComponent: {fileID: -4170575417782725187, guid: 69efe14315d551d43b650bd2d7c408f4, type: 3}

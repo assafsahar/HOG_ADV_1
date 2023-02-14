@@ -7,39 +7,56 @@ namespace HOG.Core
 {
     public class HOGEventsManager
     {
-        private Dictionary<string, List<Action<object>>> listOfListeners = new();
+        private Dictionary<HOGEventNames, List<Action<object>>> activeListeners = new();
 
-        public void AddListener(string eventName, Action<object> listener)
+        public void AddListener(HOGEventNames eventName, Action<object> onGameStart)
         {
-            if (listOfListeners.TryGetValue(eventName, out List<Action<object>> listenersList))
+            if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
-                listenersList.Add(listener);
+                if (listOfEvents.Contains(onGameStart))
+                {
+                    return;
+                }
+                listOfEvents.Add(onGameStart);
                 return;
             }
-            listOfListeners.Add(eventName, new List<Action<object>> { listener });
+
+            activeListeners.Add(eventName, new List<Action<object>> { onGameStart });
         }
 
-        public void RemoveListener(string eventName, Action<object> listener)
+        public void RemoveListener(HOGEventNames eventName, Action<object> onGameStart)
         {
-            if (listOfListeners.TryGetValue(eventName, out List<Action<object>> listenersList))
+            if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
-                listenersList.Remove(listener);
+                listOfEvents.Remove(onGameStart);
 
-                if (listenersList.Count <= 0)
+                if (listOfEvents.Count <= 0)
                 {
-                    listOfListeners.Remove(eventName);
+                    activeListeners.Remove(eventName);
                 }
             }
         }
-        public void InvokeEvent(string eventName, object obj = null)
+
+        public void InvokeEvent(HOGEventNames eventName, object obj)
         {
-            if (listOfListeners.TryGetValue(eventName, out List<Action<object>> listenersList))
+            if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
-                foreach (var listener in listenersList)
+                //TODO: Do For Loop
+                foreach (var action in listOfEvents)
                 {
-                    listener.Invoke(obj);
+                    action.Invoke(obj);
                 }
             }
         }
+    }
+
+    public enum HOGEventNames
+    {
+        OnScoreSet,
+        OnGameStart,
+        OnUpgraded,
+        PlayerTaken,
+        pressSpace,
+        ReturnBullet
     }
 }

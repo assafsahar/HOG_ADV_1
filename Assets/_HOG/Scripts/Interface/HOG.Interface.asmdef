@@ -1,7 +1,9 @@
 {
-    "name": "HOG.Core",
+    "name": "HOG.Interface",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:d79cdf23c9a884a4aae6dfb9b7e1570c"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,

@@ -7,9 +7,9 @@ namespace HOG.Core
     {
         protected HOGManager Manager => HOGManager.Instance;
 
-        protected void AddListener(string eventName, Action<object> listener) => Manager.EventsManager.AddListener(eventName, listener);
-        protected void RemoveListener(string eventName, Action<object> listener) => Manager.EventsManager.RemoveListener(eventName, listener);
-        protected void InvokeEvent(string eventName, object obj = null) => Manager.EventsManager.InvokeEvent(eventName, obj);
+        protected void AddListener(HOGEventNames eventName, Action<object> listener) => Manager.EventsManager.AddListener(eventName, listener);
+        protected void RemoveListener(HOGEventNames eventName, Action<object> listener) => Manager.EventsManager.RemoveListener(eventName, listener);
+        protected void InvokeEvent(HOGEventNames eventName, object obj = null) => Manager.EventsManager.InvokeEvent(eventName, obj);
     }
     
 

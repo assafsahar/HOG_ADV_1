@@ -1,7 +1,10 @@
 {
-    "name": "HOG.Core",
+    "name": "HOG.Test",
     "rootNamespace": "",
-    "references": [],
+    "references": [
+        "GUID:d79cdf23c9a884a4aae6dfb9b7e1570c",
+        "GUID:9e6393954502bfc489390a4c7e8ab439"
+    ],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
