@@ -21,17 +21,7 @@ namespace HOG.Menus
         private void OnStartGameClicked()
         {
             Manager.EventsManager.InvokeEvent(Core.HOGEventNames.OnGameStart, null);
-        }
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
+            gameObject.SetActive(false);
 
         }
     }

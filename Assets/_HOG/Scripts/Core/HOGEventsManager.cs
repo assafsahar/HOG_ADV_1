@@ -9,26 +9,26 @@ namespace HOG.Core
     {
         private Dictionary<HOGEventNames, List<Action<object>>> activeListeners = new();
 
-        public void AddListener(HOGEventNames eventName, Action<object> onGameStart)
+        public void AddListener(HOGEventNames eventName, Action<object> listener)
         {
             if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
-                if (listOfEvents.Contains(onGameStart))
+                if (listOfEvents.Contains(listener))
                 {
                     return;
                 }
-                listOfEvents.Add(onGameStart);
+                listOfEvents.Add(listener);
                 return;
             }
 
-            activeListeners.Add(eventName, new List<Action<object>> { onGameStart });
+            activeListeners.Add(eventName, new List<Action<object>> { listener });
         }
 
-        public void RemoveListener(HOGEventNames eventName, Action<object> onGameStart)
+        public void RemoveListener(HOGEventNames eventName, Action<object> listener)
         {
             if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
-                listOfEvents.Remove(onGameStart);
+                listOfEvents.Remove(listener);
 
                 if (listOfEvents.Count <= 0)
                 {

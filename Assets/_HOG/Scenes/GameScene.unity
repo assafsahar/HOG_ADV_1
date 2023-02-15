@@ -272,7 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed39b4118127c4d4c8e13f986c340016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceship: {fileID: 536450523}
   speed: 30
 --- !u!4 &677450024
 Transform:
@@ -373,7 +372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &696836767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,7 +385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed39b4118127c4d4c8e13f986c340016, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spaceship: {fileID: 0}
   speed: 30
 --- !u!4 &696836768
 Transform:
@@ -621,6 +619,7 @@ GameObject:
   - component: {fileID: 1544680975}
   - component: {fileID: 1544680974}
   - component: {fileID: 1544680973}
+  - component: {fileID: 1544680977}
   m_Layer: 5
   m_Name: OpenningScreen
   m_TagString: Untagged
@@ -711,6 +710,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1544680977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544680972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f02e5ebcb964eb44d999bb8537fe2471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startGameButton: {fileID: 1356010843}
 --- !u!1 &1809377459
 GameObject:
   m_ObjectHideFlags: 0
