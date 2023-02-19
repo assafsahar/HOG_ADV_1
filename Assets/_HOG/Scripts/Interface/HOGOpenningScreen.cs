@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace HOG.Menus
+namespace HOG.Screens
 {
     public class HOGOpenningScreen : HOGScreenBase
     {

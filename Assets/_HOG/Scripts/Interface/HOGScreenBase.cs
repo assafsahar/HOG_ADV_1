@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HOG.Menus
+namespace HOG.Screens
 {
     public class HOGScreenBase : HOGMonoBehaviour
     {
