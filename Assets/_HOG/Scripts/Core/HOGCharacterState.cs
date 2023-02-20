@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HOG.Character
+namespace HOG.Core
 {
     public class HOGCharacterState
     {

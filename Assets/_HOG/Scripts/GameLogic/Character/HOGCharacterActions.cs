@@ -7,11 +7,15 @@ namespace HOG.Character
     public class HOGCharacterActions
     {
         
-        List<HOGCharacterActionBase> characterAttacks;
+        List<HOGCharacterActionBase> characterAttacks = new();
 
         public void AddAction(HOGCharacterActionBase action)
         {
             characterAttacks.Add(action);
+        }
+        public HOGCharacterActionBase GetAction()
+        {
+            return characterAttacks[characterAttacks.Count - 1];
         }
 
         public void RemoveAction(int actionIndex)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HOG.Core;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace HOG.Character
 {
     public class HOGCharacterActionBase
     {
-        public HOGCharacterState ActionId { get; private set; }
+        public HOGCharacterState.CharacterStates ActionId { get; private set; }
         public HOGCharacterActionBase(HOGCharacterState.CharacterStates actionId)
         {
             ActionId = actionId;
