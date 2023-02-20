@@ -6,13 +6,14 @@ using UnityEngine.UI;
 
 namespace HOG.Screens
 {
-    public class HOGOpenningScreen : HOGScreenBase
+    public class HOGOpeningScreen : HOGScreenBase
     {
         [SerializeField] Button startGameButton;
 
         private void Awake()
         {
-            if(startGameButton != null)
+            ScreenName = HOGScreenNames.OpeningScreen;
+            if (startGameButton != null)
             {
                 startGameButton.onClick.AddListener(OnStartGameClicked);
             }
@@ -21,7 +22,7 @@ namespace HOG.Screens
         private void OnStartGameClicked()
         {
             Manager.EventsManager.InvokeEvent(Core.HOGEventNames.OnGameStart, null);
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
 
         }
     }

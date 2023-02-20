@@ -2,7 +2,8 @@
     "name": "HOG.GameLogic",
     "rootNamespace": "",
     "references": [
-        "GUID:d79cdf23c9a884a4aae6dfb9b7e1570c"
+        "GUID:d79cdf23c9a884a4aae6dfb9b7e1570c",
+        "GUID:49cb61730d43bbb4ea12d639a9c362e1"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

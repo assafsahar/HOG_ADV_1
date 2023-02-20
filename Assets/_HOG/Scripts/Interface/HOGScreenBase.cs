@@ -7,6 +7,7 @@ namespace HOG.Screens
 {
     public class HOGScreenBase : HOGMonoBehaviour
     {
+        public HOGScreenNames ScreenName { get; set; }
 
         public void EnableScreen()
         {
@@ -16,5 +17,11 @@ namespace HOG.Screens
         {
             gameObject.SetActive(false);
         }
+    }
+    public enum HOGScreenNames
+    {
+        OpeningScreen,
+        GameScreen,
+        SummaryScreen
     }
 }
