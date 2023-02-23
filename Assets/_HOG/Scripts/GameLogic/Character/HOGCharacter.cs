@@ -1,17 +1,21 @@
 using HOG.Anims;
 using HOG.Core;
+using HOG.Screens;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace HOG.Character
 {
-    public class HOGCharacter : MonoBehaviour
+    public class HOGCharacter : HOGMonoBehaviour
     {
-        HOGCharacterActions Actions;
+        [SerializeField] int characterNumber = 1;
         [SerializeField] float attackStrength = 10f;
         [SerializeField] float attackRate = 10f;
-        HOGCharacterHealth health;
+        [SerializeField] HOGCharacterHealth health;
+
+        HOGCharacterActions Actions;
+        
         SpriteRenderer spriteRenderer;
         HOGCharacterAnims characterAnims;
 
@@ -25,7 +29,12 @@ namespace HOG.Character
         }
         private void Start()
         {
-            PlayActionSequence();
+            health = new HOGCharacterHealth();
+            //PlayActionSequence();
+        }
+        public void TakeDamage(int amount)
+        {
+            health.TakeDamage(amount);
         }
         public void PlayAction(HOGCharacterActionBase action)
         {
@@ -35,15 +44,33 @@ namespace HOG.Character
             }
             spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
         }
-        public void PlayActionSequence()
+        public IEnumerator PlayActionSequence()
         {
-            //PlayAction(Actions.GetAction());
+            while(Actions.GetAttacksCount() > 0)
+            {
+                PlayAction(Actions.GetAction());
+                yield return new WaitForSeconds(1f);
+            }
+            FinishAttackSequence();
+            yield break;
         }
 
         public void CreateActionSequence()
         {
-            HOGCharacterActionBase action = new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Attack);
-            Actions.AddAction(action);
+            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle));
+            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Attack));
+            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Move));
+            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Defense));
+            
+
         }
+
+        private void FinishAttackSequence()
+        {
+            CreateActionSequence();
+            InvokeEvent(HOGEventNames.OnAttacksFinish, characterNumber);
+        }
+
+        
     }
 }

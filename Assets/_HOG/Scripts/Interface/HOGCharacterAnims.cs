@@ -13,6 +13,7 @@ namespace HOG.Anims
         [SerializeField] Sprite dieAnim;
         [SerializeField] Sprite defenseAnim;
         [SerializeField] Sprite winAnim;
+        [SerializeField] Sprite moveAnim;
 
         public Dictionary<HOGCharacterState.CharacterStates, Sprite> StatesAnims = new Dictionary<HOGCharacterState.CharacterStates, Sprite>();
 
@@ -24,6 +25,7 @@ namespace HOG.Anims
             StatesAnims[HOGCharacterState.CharacterStates.Die] = dieAnim;
             StatesAnims[HOGCharacterState.CharacterStates.Defense] = defenseAnim;
             StatesAnims[HOGCharacterState.CharacterStates.Win] = winAnim;
+            StatesAnims[HOGCharacterState.CharacterStates.Move] = moveAnim;
         }
 
     }

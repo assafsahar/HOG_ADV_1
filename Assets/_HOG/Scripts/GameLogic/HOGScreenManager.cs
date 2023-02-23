@@ -11,9 +11,8 @@ namespace HOG.GameLogic
     {
         [SerializeField] List<HOGScreenBase> Screens = new();
 
-        public HOGScreenManager()
+        private void Awake()
         {
-
             
         }
 
@@ -34,6 +33,8 @@ namespace HOG.GameLogic
         private void StartGame(object obj)
         {
             EnableScreen(HOGScreenNames.GameScreen);
+            //battleManager.Invoke("StartFight", 1f);
+
         }
 
         

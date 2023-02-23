@@ -56,7 +56,8 @@ namespace HOG.Core
         OnGameStart,
         OnUpgraded,
         PlayerTaken,
-        pressSpace,
-        ReturnBullet
+        ReturnBullet,
+        OnAttacksFinish,
+        OnGetHit
     }
 }
