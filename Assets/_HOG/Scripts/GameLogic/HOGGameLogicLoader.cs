@@ -11,8 +11,13 @@ namespace HOG.GameLogic
         //[SerializeField] HOGBulletComponent bulletComponent;
         public override void StartLoad(Action onComplete)
         {
+            HOGGameLogicManager hogGameLogicManager = new HOGGameLogicManager();
+            hogGameLogicManager.LoadManager( () =>
+            {
+                base.StartLoad(onComplete);
+            });
             //Manager.PoolManager.InitPool(bulletComponent, 20, 100);
-            base.StartLoad(onComplete);
+           
         }
     }
 

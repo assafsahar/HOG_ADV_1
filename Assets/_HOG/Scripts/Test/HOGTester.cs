@@ -1,4 +1,5 @@
 using HOG.Core;
+using HOG.GameLogic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -9,22 +10,24 @@ namespace HOG.Test
     
     public class HOGTester : HOGMonoBehaviour
     {
-        [SerializeField] float speed = 30f;
-        private Queue<HOGPoolable> poolables = new();
+        //[SerializeField] float speed = 30f;
+        //private Queue<HOGPoolable> poolables = new();
 
+        private void Start()
+        {
+            //HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(GameLogic.ScoreTags.MainScore, 50);
+        }
         private void OnEnable()
         {
+            Debug.Log("Tester enabled");
             //AddListener(HOGEventNames.ReturnBullet, ReturnPoolable);
         }
 
         private void OnDisable()
         {
-            RemoveListener(HOGEventNames.ReturnBullet, ReturnPoolable);
+            //RemoveListener(HOGEventNames.ReturnBullet, ReturnPoolable);
         }
-        private void ClonesCreated(List<GameObject> obj)
-        {
-            Debug.Log("clones created! " + obj.Count);
-        }
+
 
         // Update is called once per frame
         void Update()
@@ -33,12 +36,14 @@ namespace HOG.Test
             {
                 /*var bullet = Manager.PoolManager.GetPoolable("BulletsPool");
                 poolables.Enqueue(bullet);*/
+                HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(ScoreTags.MainScore, 50);
             }
             /*if (Input.GetKeyDown(KeyCode.A))
             {
                 var bullet = poolsables.Dequeue();
                 Manager.PoolManager.ReturnPoolable(bullet);
             }*/
+            
         }
         
 

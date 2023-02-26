@@ -3,67 +3,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HOGScoreManager
+namespace HOG.GameLogic
 {
-    public HOGPlayerScoreData PlayerScoreData;
-
-    public bool TryGetScoreByTag(ScoreTags tag, ref int scoreOut)
+    public class HOGScoreManager
     {
-        if (PlayerScoreData.ScoreByTag.TryGetValue(tag, out var score))
+        public HOGPlayerScoreData PlayerScoreData = new();
+        public HOGScoreManager()
         {
-            scoreOut = score;
-            return true;
+            HOGManager.Instance.SaveManager.Load<HOGPlayerScoreData>(delegate (HOGPlayerScoreData data)
+                {
+                    PlayerScoreData = data ?? new HOGPlayerScoreData();
+                    //if (data == null)
+                    //{
+                    //    PlayerScoreData = new HOGPlayerScoreData();
+                    //}
+                    //else
+                    //{
+                    //    PlayerScoreData = data;
+                    //}
+                });
         }
 
-        return false;
+        public bool TryGetScoreByTag(ScoreTags tag, ref int scoreOut)
+        {
+            if (PlayerScoreData.ScoreByTag.TryGetValue(tag, out var score))
+            {
+                scoreOut = score;
+                return true;
+            }
+
+            return false;
+        }
+
+        public void SetScoreByTag(ScoreTags tag, int amount = 0)
+        {
+            HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnScoreSet, (tag, amount));
+            PlayerScoreData.ScoreByTag[tag] = amount;
+            Debug.Log($" set score {amount}");
+            HOGManager.Instance.SaveManager.Save(PlayerScoreData);
+        }
+
+        public void ChangeScoreByTagByAmount(ScoreTags tag, int amount = 0)
+        {
+            if (PlayerScoreData.ScoreByTag.ContainsKey(tag))
+            {
+                SetScoreByTag(tag, PlayerScoreData.ScoreByTag[tag] + amount);
+            }
+            else
+            {
+                SetScoreByTag(tag, amount);
+            }
+        }
+
+        public bool TryUseScore(ScoreTags scoreTag, int amountToReduce)
+        {
+            var score = 0;
+            var hasType = TryGetScoreByTag(scoreTag, ref score);
+            var hasEnough = false;
+
+            if (hasType)
+            {
+                hasEnough = amountToReduce >= score;
+            }
+
+            if (hasEnough)
+            {
+                ChangeScoreByTagByAmount(scoreTag, -amountToReduce);
+            }
+
+            return hasEnough;
+        }
     }
 
-    public void SetScoreByTag(ScoreTags tag, int amount = 0)
+    public class HOGPlayerScoreData: IHOGSaveData
     {
-        HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnScoreSet, (tag, amount));
-        PlayerScoreData.ScoreByTag[tag] = amount;
+        public Dictionary<ScoreTags, int> ScoreByTag = new();
     }
 
-    public void ChangeScoreByTagByAmount(ScoreTags tag, int amount = 0)
+    public enum ScoreTags
     {
-        if (PlayerScoreData.ScoreByTag.ContainsKey(tag))
-        {
-            SetScoreByTag(tag, PlayerScoreData.ScoreByTag[tag] + amount);
-        }
-        else
-        {
-            SetScoreByTag(tag, amount);
-        }
+        MainScore = 0,
+        KillsScore = 1,
+        ShaharScore = 2,
     }
 
-    public bool TryUseScore(ScoreTags scoreTag, int amountToReduce)
-    {
-        var score = 0;
-        var hasType = TryGetScoreByTag(scoreTag, ref score);
-        var hasEnough = false;
-
-        if (hasType)
-        {
-            hasEnough = amountToReduce >= score;
-        }
-
-        if (hasEnough)
-        {
-            ChangeScoreByTagByAmount(scoreTag, -amountToReduce);
-        }
-
-        return hasEnough;
-    }
-}
-
-public class HOGPlayerScoreData
-{
-    public Dictionary<ScoreTags, int> ScoreByTag = new();
-}
-
-public enum ScoreTags
-{
-    MainScore = 0,
-    KillsScore = 1,
-    ShaharScore = 2,
 }

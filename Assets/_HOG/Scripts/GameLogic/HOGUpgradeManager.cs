@@ -21,7 +21,7 @@ namespace HOG.GameLogic
                 UpgradeConfig = config;
             });*/
 
-            /*HOGManager.Instance.SaveManager.Load(delegate (HOGPlayerUpgradeInventoryData data)
+            HOGManager.Instance.SaveManager.Load(delegate (HOGPlayerUpgradeInventoryData data)
             {
                 PlayerUpgradeInventoryData = data ?? new HOGPlayerUpgradeInventoryData
                 {
@@ -32,7 +32,7 @@ namespace HOG.GameLogic
                         }
                     }
                 };
-            });*/
+            });
         }
 
         public void UpgradeItemByID(UpgradeablesTypeID typeID)
@@ -117,7 +117,7 @@ namespace HOG.GameLogic
 
     //All player saved data
     [Serializable]
-    public class HOGPlayerUpgradeInventoryData 
+    public class HOGPlayerUpgradeInventoryData: IHOGSaveData
     {
         public List<HOGUpgradeableData> Upgradeables;
     }
@@ -128,4 +128,6 @@ namespace HOG.GameLogic
         Cake = 0,
         ClickPowerUpgrade = 1
     }
+
+    
 }
