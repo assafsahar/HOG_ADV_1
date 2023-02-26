@@ -16,10 +16,10 @@ namespace HOG.GameLogic
         //Load Config From Load
         public HOGUpgradeManager()
         {
-            /*HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradeManagerConfig>("upgrade_config", delegate (HOGUpgradeManagerConfig config)
+            HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradeManagerConfig>("upgrade_config", delegate (HOGUpgradeManagerConfig config)
             {
                 UpgradeConfig = config;
-            });*/
+            });
 
             HOGManager.Instance.SaveManager.Load(delegate (HOGPlayerUpgradeInventoryData data)
             {
@@ -127,6 +127,7 @@ namespace HOG.GameLogic
     {
         Cake = 0,
         ClickPowerUpgrade = 1
+        
     }
 
     

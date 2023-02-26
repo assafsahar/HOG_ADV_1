@@ -1,0 +1,66 @@
+{
+    "UpgradeableConfigs": [
+        {
+            "UpgradableTypeID": "ClickPowerUpgrade",
+            "ArtItemName": "Cookie",
+            "RecipeName": "Nice Cookie",
+            "UpgradableLevelData": [
+                {
+                    "Level": 1,
+                    "CoinsNeeded": 0,
+                    "CurrencyTag": "MainScore",
+                    "Power": 1
+                },
+                {
+                    "Level": 2,
+                    "CoinsNeeded": 50,
+                    "CurrencyTag": "MainScore",
+                    "Power": 15
+                },
+                {
+                    "Level": 3,
+                    "CoinsNeeded": 1500,
+                    "CurrencyTag": "MainScore",
+                    "Power": 40
+                },
+                {
+                    "Level": 4,
+                    "CoinsNeeded": 8000,
+                    "CurrencyTag": "MainScore",
+                    "Power": 100
+                }
+            ]
+        },
+        {
+            "UpgradableTypeID": "Cake",
+            "ArtItemName": "CakePink",
+            "RecipeName": "Ugly Cake",
+            "UpgradableLevelData": [
+                {
+                    "Level": 1,
+                    "CoinsNeeded": 0,
+                    "CurrencyTag": "Chocolate",
+                    "Power": 1
+                },
+                {
+                    "Level": 2,
+                    "CoinsNeeded": 50,
+                    "CurrencyTag": "Chocolate",
+                    "Power": 15
+                },
+                {
+                    "Level": 3,
+                    "CoinsNeeded": 1500,
+                    "CurrencyTag": "Chocolate",
+                    "Power": 40
+                },
+                {
+                    "Level": 4,
+                    "CoinsNeeded": 8000,
+                    "CurrencyTag": "Chocolate",
+                    "Power": 100
+                }
+            ]
+        }
+    ]
+}

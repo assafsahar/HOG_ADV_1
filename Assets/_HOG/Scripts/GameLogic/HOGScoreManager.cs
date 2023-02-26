@@ -85,6 +85,7 @@ namespace HOG.GameLogic
         MainScore = 0,
         KillsScore = 1,
         ShaharScore = 2,
+        Chocolate = 3
     }
 
 }
