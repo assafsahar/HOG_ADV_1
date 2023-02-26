@@ -9,7 +9,31 @@ namespace HOG.GameLogic
     public class HOGUpgradeManager
     {
         public HOGPlayerUpgradeInventoryData PlayerUpgradeInventoryData; //Player Saved Data
-        public HOGUpgradeManagerConfig UpgradeConfig; //From cloud
+        public HOGUpgradeManagerConfig UpgradeConfig = new HOGUpgradeManagerConfig(); //From cloud
+
+        //MockData
+        //Load From Save Data On Device (Future)
+        //Load Config From Load
+        public HOGUpgradeManager()
+        {
+            /*HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradeManagerConfig>("upgrade_config", delegate (HOGUpgradeManagerConfig config)
+            {
+                UpgradeConfig = config;
+            });*/
+
+            /*HOGManager.Instance.SaveManager.Load(delegate (HOGPlayerUpgradeInventoryData data)
+            {
+                PlayerUpgradeInventoryData = data ?? new HOGPlayerUpgradeInventoryData
+                {
+                    Upgradeables = new List<HOGUpgradeableData>(){new HOGUpgradeableData
+                        {
+                            upgradableTypeID = UpgradeablesTypeID.ClickPowerUpgrade,
+                            CurrentLevel = 0
+                        }
+                    }
+                };
+            });*/
+        }
 
         public void UpgradeItemByID(UpgradeablesTypeID typeID)
         {
@@ -26,6 +50,8 @@ namespace HOG.GameLogic
                 {
                     upgradeable.CurrentLevel++;
                     HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, typeID);
+
+                    //HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
                 }
                 else
                 {
@@ -36,8 +62,15 @@ namespace HOG.GameLogic
 
         public HOGUpgradeableConfig GetHogUpgradeableConfigByID(UpgradeablesTypeID typeID)
         {
-            HOGUpgradeableConfig upgradeableConfig = UpgradeConfig.UpgradeableConfigs.FirstOrDefault(upgradable => upgradable.upgradableTypeID == typeID);
+            HOGUpgradeableConfig upgradeableConfig = UpgradeConfig.UpgradeableConfigs.FirstOrDefault(upgradable => upgradable.UpgradableTypeID == typeID);
             return upgradeableConfig;
+        }
+
+        public int GetPowerByIDAndLevel(UpgradeablesTypeID typeID, int level)
+        {
+            var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
+            var power = upgradeableConfig.UpgradableLevelData[level].Power;
+            return power;
         }
 
         public HOGUpgradeableData GetUpgradeableByID(UpgradeablesTypeID typeID)
@@ -71,7 +104,7 @@ namespace HOG.GameLogic
     [Serializable]
     public class HOGUpgradeableConfig
     {
-        public UpgradeablesTypeID upgradableTypeID;
+        public UpgradeablesTypeID UpgradableTypeID;
         public List<HOGUpgradeableLevelData> UpgradableLevelData;
     }
 
@@ -84,7 +117,7 @@ namespace HOG.GameLogic
 
     //All player saved data
     [Serializable]
-    public class HOGPlayerUpgradeInventoryData
+    public class HOGPlayerUpgradeInventoryData 
     {
         public List<HOGUpgradeableData> Upgradeables;
     }
@@ -92,7 +125,7 @@ namespace HOG.GameLogic
     [Serializable]
     public enum UpgradeablesTypeID
     {
-        Upgradable1 = 0,
-        Upgradeable2 = 1
+        Cake = 0,
+        ClickPowerUpgrade = 1
     }
 }

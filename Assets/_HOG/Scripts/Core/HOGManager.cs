@@ -9,6 +9,7 @@ namespace HOG.Core
         public HOGEventsManager EventsManager;
         public HOGFactoryManager FactoryManager;
         public HOGPoolManager PoolManager;
+        //public HOGConfigManager
 
         public HOGManager()
         {
