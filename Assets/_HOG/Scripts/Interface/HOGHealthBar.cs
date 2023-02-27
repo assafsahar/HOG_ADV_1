@@ -11,7 +11,7 @@ namespace HOG.Screens
     {
         [SerializeField] Slider slider;
 
-        public void SetHealth(int healthPercentage)
+        public void SetHealth(float healthPercentage)
         {
             slider.value = healthPercentage;
         }

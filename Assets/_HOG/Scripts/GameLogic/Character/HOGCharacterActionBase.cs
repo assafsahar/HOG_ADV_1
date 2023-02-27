@@ -10,9 +10,12 @@ namespace HOG.Character
     public class HOGCharacterActionBase
     {
         public HOGCharacterState.CharacterStates ActionId { get; private set; }
-        public HOGCharacterActionBase(HOGCharacterState.CharacterStates actionId)
+        public int ActionStrength { get; private set; }
+        public HOGCharacterActionBase(HOGCharacterState.CharacterStates actionId, int actionStrength)
         {
             ActionId = actionId;
+            ActionStrength = actionStrength;
+
         }
 
     }

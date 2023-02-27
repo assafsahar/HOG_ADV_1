@@ -1,24 +1,30 @@
 using HOG.Character;
 using HOG.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class HOGBattleManager : HOGMonoBehaviour
 {
-    [SerializeField] GameObject[] characters;
+    [SerializeField] HOGCharacter[] characters;
     private HOGCharacter character1;
     private HOGCharacter character2;
+    private HOGCharacter chosenCharacter;
+    private Coroutine fightCoroutine = null;
 
     private void OnEnable()
     {
         AddListener(HOGEventNames.OnAttacksFinish, PlayCharacter);
         AddListener(HOGEventNames.OnGameStart, StartFight);
+        AddListener(HOGEventNames.OnCharacterDied, KillCharacter);
     }
+
     private void OnDisable()
     {
         RemoveListener(HOGEventNames.OnAttacksFinish, PlayCharacter);
         RemoveListener(HOGEventNames.OnGameStart, StartFight);
+        RemoveListener(HOGEventNames.OnCharacterDied, KillCharacter);
     }
     private void Awake()
     {
@@ -53,7 +59,7 @@ public class HOGBattleManager : HOGMonoBehaviour
 
     public void PlayCharacter(object previousPlayedCharacter)
     {
-        HOGCharacter chosenCharacter;
+        
         if ((int)previousPlayedCharacter == 2)
         {
             chosenCharacter = character1;
@@ -64,8 +70,31 @@ public class HOGBattleManager : HOGMonoBehaviour
         }
         if (chosenCharacter != null)
         {
-            StartCoroutine(chosenCharacter.PlayActionSequence());
+            fightCoroutine = StartCoroutine(chosenCharacter.PlayActionSequence());
         }
+    }
+
+    public void StopFight()
+    {
+        StopCoroutine(fightCoroutine);
+    }
+
+    private void KillCharacter(object obj)
+    {
+        Debug.Log("Character died: " + obj.ToString());
+        int num = (int)obj;
+        characters[num - 1].Die();
+        StopFight();
+        /*if ((int)obj == 1)
+        {
+            character1.Die();
+            
+        }
+        else if ((int)obj == 2)
+        {
+            character2.Die();
+            StopFight();
+        }*/
     }
 
 }

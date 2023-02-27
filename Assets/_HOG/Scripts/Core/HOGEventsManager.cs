@@ -58,6 +58,8 @@ namespace HOG.Core
         PlayerTaken,
         ReturnBullet,
         OnAttacksFinish,
-        OnGetHit
+        OnAttackFinish,
+        OnGetHit,
+        OnCharacterDied
     }
 }

@@ -16,6 +16,34 @@ namespace HOG.Character
         [SerializeField] int currentHealth;
         [SerializeField] int maxHealth;
         [SerializeField] HOGHealthBar healthBar;
+        private int characterNumber;
+
+        private void Awake()
+        {
+            characterNumber = GetComponent<HOGCharacter>().characterNumber;
+        }
+        private void OnEnable()
+        {
+            AddListener(HOGEventNames.OnAttackFinish,OnTakeDamage);
+        }
+        private void OnDisable()
+        {
+            RemoveListener(HOGEventNames.OnAttackFinish, OnTakeDamage);
+        }
+
+        private void OnTakeDamage(object obj)
+        {
+            if(obj is Tuple<int,int> tupleData)
+            {
+                if(tupleData.Item1 != characterNumber)
+                {
+                    TakeDamage(tupleData.Item2);
+                }
+                //Debug.Log(tupleData.Item1);
+                //Debug.Log(tupleData.Item2);
+
+            }
+        }
 
         public HOGCharacterHealth()
         {
@@ -30,11 +58,12 @@ namespace HOG.Character
             {
                 Die();
             }
-            healthBar.SetHealth(currentHealth / maxHealth);
+            healthBar.SetHealth(currentHealth);
         }
 
         private void Die()
         {
+            InvokeEvent(HOGEventNames.OnCharacterDied, characterNumber);
             Debug.Log("Character died");
         }
     }
