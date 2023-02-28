@@ -15,14 +15,14 @@ public class HOGBattleManager : HOGMonoBehaviour
 
     private void OnEnable()
     {
-        AddListener(HOGEventNames.OnAttacksFinish, PlayCharacter);
+        AddListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
         AddListener(HOGEventNames.OnGameStart, StartFight);
         AddListener(HOGEventNames.OnCharacterDied, KillCharacter);
     }
 
     private void OnDisable()
     {
-        RemoveListener(HOGEventNames.OnAttacksFinish, PlayCharacter);
+        RemoveListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
         RemoveListener(HOGEventNames.OnGameStart, StartFight);
         RemoveListener(HOGEventNames.OnCharacterDied, KillCharacter);
     }
@@ -49,15 +49,15 @@ public class HOGBattleManager : HOGMonoBehaviour
     {
         if(obj == null)
         {
-            PlayCharacter(2);
+            PlayOpponent(2);
             return;
         }
-        PlayCharacter((int)obj);
+        PlayOpponent((int)obj);
 
         
     }
 
-    public void PlayCharacter(object previousPlayedCharacter)
+    public void PlayOpponent(object previousPlayedCharacter)
     {
         
         if ((int)previousPlayedCharacter == 2)
