@@ -262,11 +262,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
@@ -396,6 +396,10 @@ MonoBehaviour:
   defenseAnim: {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   winAnim: {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
   moveAnim: {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
+  hitEffects:
+  - {fileID: 1040608886635896, guid: 4bb1303cb935ba849bce107507fdde1a, type: 3}
+  - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
+  - {fileID: 1247311384876784, guid: 7db950d3d2ba71b429335c018ba695ed, type: 3}
 --- !u!114 &397522464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,6 +419,7 @@ MonoBehaviour:
   currentHealth: 20
   maxHealth: 20
   healthBar: {fileID: 233501706}
+  megaHitTreshold: 1
 --- !u!114 &397522465 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2705681406973211174, guid: c04ac10917c182042b0312037fba1cd8, type: 3}
@@ -599,6 +604,7 @@ GameObject:
   - component: {fileID: 804241865}
   - component: {fileID: 804241864}
   - component: {fileID: 804241867}
+  - component: {fileID: 804241868}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -705,6 +711,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &804241868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804241863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50d39eba9ea4caa45a4e43ad42d8f3c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  megaHitTreshold: 3
 --- !u!1 &887696000
 GameObject:
   m_ObjectHideFlags: 0
@@ -737,6 +756,7 @@ MonoBehaviour:
   characters:
   - {fileID: 1916869671}
   - {fileID: 397522465}
+  screenManager: {fileID: 678264681}
 --- !u!4 &887696002
 Transform:
   m_ObjectHideFlags: 0
@@ -1199,7 +1219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1593547710
 Transform:
   m_ObjectHideFlags: 0
@@ -1472,6 +1492,10 @@ MonoBehaviour:
   defenseAnim: {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   winAnim: {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
   moveAnim: {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
+  hitEffects:
+  - {fileID: 100004, guid: 7f334f74595810145a1ef726541f6e05, type: 3}
+  - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
+  - {fileID: 1995403933065894, guid: 7c4f0b5e8a5be2e428f6efee08e344b8, type: 3}
 --- !u!114 &1916869669
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1491,6 +1515,7 @@ MonoBehaviour:
   currentHealth: 20
   maxHealth: 20
   healthBar: {fileID: 1234116811}
+  megaHitTreshold: 1
 --- !u!114 &1916869671 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2705681406973211174, guid: c04ac10917c182042b0312037fba1cd8, type: 3}
@@ -1687,11 +1712,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}

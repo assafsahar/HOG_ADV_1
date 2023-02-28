@@ -1,3 +1,4 @@
+using HOG.Anims;
 using HOG.Core;
 using HOG.Screens;
 using System;
@@ -16,11 +17,15 @@ namespace HOG.Character
         [SerializeField] int currentHealth;
         [SerializeField] int maxHealth;
         [SerializeField] HOGHealthBar healthBar;
+        [SerializeField] int megaHitTreshold = 3;
         private int characterNumber;
+        HOGCharacterAnims characterAnims;
+        
 
         private void Awake()
         {
             characterNumber = GetComponent<HOGCharacter>().characterNumber;
+            characterAnims = GetComponent<HOGCharacterAnims>();
         }
         private void OnEnable()
         {
@@ -38,6 +43,11 @@ namespace HOG.Character
                 if(tupleData.Item1 != characterNumber)
                 {
                     TakeDamage(tupleData.Item2);
+                    if(tupleData.Item2 >= megaHitTreshold)
+                    {
+                        characterAnims.PlayRandomEffect(transform);
+                    }
+                    
                 }
                 //Debug.Log(tupleData.Item1);
                 //Debug.Log(tupleData.Item2);
@@ -58,6 +68,7 @@ namespace HOG.Character
             {
                 Die();
             }
+
             healthBar.SetHealth(currentHealth);
         }
 

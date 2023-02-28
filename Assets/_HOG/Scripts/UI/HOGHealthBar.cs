@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 namespace HOG.Screens
 {
@@ -13,7 +14,9 @@ namespace HOG.Screens
 
         public void SetHealth(float healthPercentage)
         {
-            slider.value = healthPercentage;
+            //slider.value = healthPercentage;
+
+            DOTween.To(() => slider.value, x => slider.value = x, healthPercentage, 0.5f);
         }
     }
 }

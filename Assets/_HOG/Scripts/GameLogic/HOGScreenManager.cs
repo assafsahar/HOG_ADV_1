@@ -9,16 +9,19 @@ namespace HOG.GameLogic
 {
     public class HOGScreenManager:HOGMonoBehaviour
     {
-        [SerializeField] List<HOGScreenBase> Screens = new();
+        [SerializeField] List<HOGScreenBase> Screens;
 
         private void Awake()
         {
-            
+            foreach (var screen in Screens)
+            {
+                screen.Init();
+            }
         }
 
         private void Start()
         {
-            EnableScreen(HOGScreenNames.OpeningScreen);
+            StartCoroutine(EnableScreen(HOGScreenNames.OpeningScreen, 0.1f));
         }
 
         private void OnEnable()
@@ -32,7 +35,7 @@ namespace HOG.GameLogic
 
         private void StartGame(object obj)
         {
-            EnableScreen(HOGScreenNames.GameScreen);
+            StartCoroutine(EnableScreen(HOGScreenNames.GameScreen));
             //battleManager.Invoke("StartFight", 1f);
 
         }
@@ -48,8 +51,9 @@ namespace HOG.GameLogic
                 }
             }
         }
-        private void EnableScreen(HOGScreenNames screenName)
+        public IEnumerator EnableScreen(HOGScreenNames screenName, float delay=0)
         {
+            yield return new WaitForSeconds(delay);
             DisableAll();
             foreach (var screen in Screens)
             {

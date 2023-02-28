@@ -20,13 +20,17 @@ namespace HOG.Character
         SpriteRenderer spriteRenderer;
         HOGCharacterAnims characterAnims;
 
-        private void Awake()
+        public void Init()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             characterAnims = GetComponent<HOGCharacterAnims>();
             characterAnims.FillDictionary();
             Actions = new HOGCharacterActions();
             CreateActionSequence();
+        }
+        private void Awake()
+        {
+            
         }
         private void Start()
         {

@@ -10,9 +10,13 @@ namespace HOG.Screens
     {
         [SerializeField] Button startGameButton;
 
-        private void Awake()
+        public override void Init()
         {
             ScreenName = HOGScreenNames.OpeningScreen;
+        }
+        private void Awake()
+        {
+            
             if (startGameButton != null)
             {
                 startGameButton.onClick.AddListener(OnStartGameClicked);
@@ -22,8 +26,6 @@ namespace HOG.Screens
         private void OnStartGameClicked()
         {
             Manager.EventsManager.InvokeEvent(Core.HOGEventNames.OnGameStart, null);
-            //gameObject.SetActive(false);
-
         }
     }
 

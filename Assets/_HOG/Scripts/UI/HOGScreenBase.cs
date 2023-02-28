@@ -9,6 +9,10 @@ namespace HOG.Screens
     {
         public HOGScreenNames ScreenName { get; set; }
 
+        public virtual void Init()
+        {
+
+        }
         public void EnableScreen()
         {
             gameObject.SetActive(true);

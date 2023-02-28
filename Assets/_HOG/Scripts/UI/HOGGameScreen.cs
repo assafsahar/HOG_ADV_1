@@ -8,10 +8,13 @@ namespace HOG.Screens
 {
     public class HOGGameScreen : HOGScreenBase
     {
-
-        private void Awake()
+        public override void Init()
         {
             ScreenName = HOGScreenNames.GameScreen;
+        }
+        private void Awake()
+        {
+            
             
         }
 
