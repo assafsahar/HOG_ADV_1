@@ -26,16 +26,41 @@ namespace HOG.Character
         {
             characterNumber = GetComponent<HOGCharacter>().characterNumber;
             characterAnims = GetComponent<HOGCharacterAnims>();
+            
         }
         private void OnEnable()
         {
             AddListener(HOGEventNames.OnAttackFinish,OnTakeDamage);
+            AddListener(HOGEventNames.OnGameReset, ResetHealth);
         }
         private void OnDisable()
         {
             RemoveListener(HOGEventNames.OnAttackFinish, OnTakeDamage);
+            RemoveListener(HOGEventNames.OnGameReset, ResetHealth);
         }
 
+        public HOGCharacterHealth()
+        {
+            maxHealth = 20;
+            currentHealth = maxHealth;
+        }
+
+        public void TakeDamage(int amount)
+        {
+            currentHealth -= amount;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+
+            healthBar.SetHealth(currentHealth);
+        }
+
+        public void ResetHealth(object obj)
+        {
+            currentHealth = maxHealth;
+            healthBar.SetHealth(currentHealth);
+        }
         private void OnTakeDamage(object obj)
         {
             if(obj is Tuple<int,int> tupleData)
@@ -55,22 +80,6 @@ namespace HOG.Character
             }
         }
 
-        public HOGCharacterHealth()
-        {
-            maxHealth = 20;
-            currentHealth = maxHealth;
-        }
-
-        public void TakeDamage(int amount)
-        {
-            currentHealth -= amount;
-            if(currentHealth <= 0)
-            {
-                Die();
-            }
-
-            healthBar.SetHealth(currentHealth);
-        }
 
         private void Die()
         {

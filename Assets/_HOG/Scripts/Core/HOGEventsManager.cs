@@ -60,6 +60,7 @@ namespace HOG.Core
         OnAttacksFinish,
         OnAttackFinish,
         OnGetHit,
-        OnCharacterDied
+        OnCharacterDied,
+        OnGameReset
     }
 }

@@ -1,3 +1,4 @@
+using HOG.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,31 +7,30 @@ namespace HOG.Character
 {
     public class HOGCharacterActions
     {
+        [SerializeField] int requiredListLength = 3;
+        List<HOGCharacterActionBase> characterAttacks = new List<HOGCharacterActionBase>();
+        private int currentSlotNumber = 0;
 
-        List<HOGCharacterActionBase> characterAttacks = new();
-
+        public void ResetList()
+        {
+            ClearActions();
+            AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Move, 1));
+            AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Attack, 1));
+            AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Move, 1));
+            currentSlotNumber = 0;
+        }
         public void AddAction(HOGCharacterActionBase action)
         {
             characterAttacks.Add(action);
+            if(characterAttacks.Count > requiredListLength)
+            {
+                characterAttacks.RemoveAt(characterAttacks.Count - 1);
+            }
+            
         }
         public HOGCharacterActionBase GetAction()
         {
-            if (characterAttacks.Count == 0)
-            {
-                return null;
-            }
-            var tempAction = characterAttacks[characterAttacks.Count - 1];
-            RemoveAction(characterAttacks.Count - 1);
-            return tempAction;
-        }
-
-        public void RemoveAction(int actionIndex)
-        {
-            if (characterAttacks.Count == 0)
-            {
-                return;
-            }
-            characterAttacks.RemoveAt(actionIndex);
+            return characterAttacks[currentSlotNumber++];
         }
 
         public void ClearActions()
@@ -38,14 +38,10 @@ namespace HOG.Character
             characterAttacks.Clear();
         }
 
-        public int GetAttacksCount()
+        public bool CanContinue()
         {
-            return characterAttacks.Count;
+            return currentSlotNumber < characterAttacks.Count;
         }
 
-        public void ChangeAction(int actionIndex, HOGCharacterActionBase action)
-        {
-
-        }
     }
 }

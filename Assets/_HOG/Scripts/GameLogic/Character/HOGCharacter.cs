@@ -50,7 +50,7 @@ namespace HOG.Character
         }
         public IEnumerator PlayActionSequence()
         {
-            while(Actions.GetAttacksCount() > 0)
+            while(Actions.CanContinue())
             {
                 PlayAction(Actions.GetAction());
                 yield return new WaitForSeconds(1f);
@@ -61,17 +61,19 @@ namespace HOG.Character
 
         public void CreateActionSequence()
         {
-            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
-            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Attack, 3));
-            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Move, 1));
-            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Defense, 1));
+            Actions.ResetList();
             
+            /*Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Attack, 3));
+            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Move, 1));
+            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Defense, 1));*/
+
 
         }
 
         private void FinishAttackSequence()
         {
             CreateActionSequence();
+            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
             InvokeEvent(HOGEventNames.OnAttacksFinish, characterNumber);
         }
 

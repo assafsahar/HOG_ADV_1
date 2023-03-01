@@ -13,11 +13,11 @@ namespace HOG.Screens
         {
 
         }
-        public void EnableScreen()
+        public virtual void EnableScreen()
         {
             gameObject.SetActive(true);
         }
-        public void DisableScreen()
+        public virtual void DisableScreen()
         {
             gameObject.SetActive(false);
         }

@@ -1,3 +1,4 @@
+using HOG.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,11 +12,18 @@ namespace HOG.Screens
         public override void Init()
         {
             ScreenName = HOGScreenNames.GameScreen;
+            
         }
         private void Awake()
         {
             
             
+        }
+        public override void EnableScreen()
+        {
+            
+            base.EnableScreen();
+            InvokeEvent(Core.HOGEventNames.OnGameReset);
         }
 
     }

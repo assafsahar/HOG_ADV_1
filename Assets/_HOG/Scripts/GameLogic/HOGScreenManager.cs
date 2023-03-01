@@ -35,7 +35,9 @@ namespace HOG.GameLogic
 
         private void StartGame(object obj)
         {
+            
             StartCoroutine(EnableScreen(HOGScreenNames.GameScreen));
+            
             //battleManager.Invoke("StartFight", 1f);
 
         }
