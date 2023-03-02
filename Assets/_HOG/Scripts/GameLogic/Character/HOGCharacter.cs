@@ -4,6 +4,7 @@ using HOG.Screens;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI;
 using UnityEngine;
 
 namespace HOG.Character
@@ -25,12 +26,18 @@ namespace HOG.Character
             spriteRenderer = GetComponent<SpriteRenderer>();
             characterAnims = GetComponent<HOGCharacterAnims>();
             characterAnims.FillDictionary();
-            Actions = new HOGCharacterActions();
+            HOGAttacksUI component;
+            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
+            Actions = new HOGCharacterActions(component);
             CreateActionSequence();
         }
-        private void Awake()
+        private void OnEnable()
         {
-            
+            AddListener(HOGEventNames.OnTest, ChangeFirstAction);
+        }
+        private void OnDisable()
+        {
+            RemoveListener(HOGEventNames.OnTest, ChangeFirstAction);
         }
         private void Start()
         {
@@ -68,6 +75,15 @@ namespace HOG.Character
             Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Defense, 1));*/
 
 
+        }
+
+        public void ChangeFirstAction(object obj)
+        {
+            if(characterNumber == 1)
+            {
+                Actions.AddAction(HOGCharacterState.CharacterStates.Move, 4);
+            }
+            
         }
 
         private void FinishAttackSequence()

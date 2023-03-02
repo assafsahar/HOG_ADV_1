@@ -29,13 +29,29 @@ namespace HOG.Anims
             StatesAnims[HOGCharacterState.CharacterStates.Move] = moveAnim;
         }
 
-        public void PlayRandomEffect(Transform parent)
+        public void PlayRandomEffect(Transform parent, float effectScale)
         {
-            var rand = Random.Range(0, hitEffects.Count-1);
+            var rand = Random.Range(1, hitEffects.Count);
             var effect = hitEffects[rand];
-            if(effect != null)
+            InstantiateEffect(effect, parent, effectScale);
+        }
+
+        public void PlaySpecificEffect(int effectNumber, Transform parent, float effectScale)
+        {
+            if (hitEffects[effectNumber] == null)
             {
-                Instantiate(effect, parent);
+                return;
+            }
+            var effect = hitEffects[effectNumber];
+            InstantiateEffect(effect, parent, effectScale);
+        }
+
+        private void InstantiateEffect(GameObject effect, Transform parent, float effectScale)
+        {
+            if (effect != null)
+            {
+                var instance = Instantiate(effect, parent);
+                instance.transform.localScale = new Vector3(effectScale, effectScale, effectScale);
             }
         }
 

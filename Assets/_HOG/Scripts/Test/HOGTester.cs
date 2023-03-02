@@ -1,3 +1,4 @@
+using HOG.Character;
 using HOG.Core;
 using HOG.GameLogic;
 using System;
@@ -34,9 +35,9 @@ namespace HOG.Test
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
+                InvokeEvent(HOGEventNames.OnTest);
                 /*var bullet = Manager.PoolManager.GetPoolable("BulletsPool");
                 poolables.Enqueue(bullet);*/
-                HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(ScoreTags.MainScore, 50);
             }
             /*if (Input.GetKeyDown(KeyCode.A))
             {

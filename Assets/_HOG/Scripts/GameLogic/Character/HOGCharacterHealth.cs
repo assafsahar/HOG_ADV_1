@@ -17,7 +17,8 @@ namespace HOG.Character
         [SerializeField] int currentHealth;
         [SerializeField] int maxHealth;
         [SerializeField] HOGHealthBar healthBar;
-        [SerializeField] int megaHitTreshold = 3;
+        [SerializeField] int avarageHitTreshold = 2;
+        [SerializeField] int megaHitTreshold = 4;
         private int characterNumber;
         HOGCharacterAnims characterAnims;
         
@@ -70,7 +71,11 @@ namespace HOG.Character
                     TakeDamage(tupleData.Item2);
                     if(tupleData.Item2 >= megaHitTreshold)
                     {
-                        characterAnims.PlayRandomEffect(transform);
+                        characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2);
+                    }
+                    else if(tupleData.Item2 >= avarageHitTreshold)
+                    {
+                        characterAnims.PlayRandomEffect(transform, tupleData.Item2);
                     }
                     
                 }
