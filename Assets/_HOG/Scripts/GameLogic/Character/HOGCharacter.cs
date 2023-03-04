@@ -29,7 +29,7 @@ namespace HOG.Character
             HOGAttacksUI component;
             var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
             Actions = new HOGCharacterActions(component);
-            CreateActionSequence();
+            //CreateActionSequence();
         }
         private void OnEnable()
         {
@@ -68,6 +68,7 @@ namespace HOG.Character
 
         public void CreateActionSequence()
         {
+            StartIdle();
             Actions.ResetList();
             
             /*Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Attack, 3));
@@ -88,7 +89,7 @@ namespace HOG.Character
 
         private void FinishAttackSequence()
         {
-            CreateActionSequence();
+            //CreateActionSequence();
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
             InvokeEvent(HOGEventNames.OnAttacksFinish, characterNumber);
         }
@@ -96,6 +97,10 @@ namespace HOG.Character
         public void Die()
         {
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Die, 0));
+        }
+        public void StartIdle()
+        {
+            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
         }
 
         

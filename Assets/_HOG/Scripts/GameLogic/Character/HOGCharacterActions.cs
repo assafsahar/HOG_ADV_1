@@ -42,7 +42,12 @@ namespace HOG.Character
         }
         public bool CanContinue()
         {
-            return currentSlotNumber < characterAttacks.Count;
+            if(currentSlotNumber < characterAttacks.Count)
+            {
+                return true;
+            }
+            currentSlotNumber = 0;
+            return false;
         }
         public HOGCharacterActionBase GetAction()
         {

@@ -50,6 +50,8 @@ namespace HOG.GameLogic
 
         public void StartFight(object obj)
         {
+            character1.CreateActionSequence();
+            character2.CreateActionSequence();
             if (obj == null)
             {
                 PlayOpponent(2);
