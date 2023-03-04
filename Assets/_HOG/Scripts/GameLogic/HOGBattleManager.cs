@@ -1,6 +1,8 @@
 using HOG.Character;
 using HOG.Core;
 using HOG.Screens;
+using System;
+using System.Collections;
 using UnityEngine;
 
 namespace HOG.GameLogic
@@ -20,6 +22,20 @@ namespace HOG.GameLogic
             AddListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
             AddListener(HOGEventNames.OnGameStart, StartFight);
             AddListener(HOGEventNames.OnCharacterDied, KillCharacter);
+            AddListener(HOGEventNames.OnGetHit, PlayHit);
+        }
+
+        private void PlayHit(object obj)
+        {
+            int num = (int)obj;
+            characters[num - 1].PlayHit();
+            StartCoroutine(PlayIdle(obj, 0.5f));
+        }
+        IEnumerator PlayIdle(object obj, float timer)
+        {
+            yield return new WaitForSeconds(timer);
+            int num = (int)obj;
+            characters[num - 1].StartIdle();
         }
 
         private void OnDisable()
@@ -27,6 +43,7 @@ namespace HOG.GameLogic
             RemoveListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
             RemoveListener(HOGEventNames.OnGameStart, StartFight);
             RemoveListener(HOGEventNames.OnCharacterDied, KillCharacter);
+            RemoveListener(HOGEventNames.OnGetHit, PlayHit);
         }
         private void Awake()
         {

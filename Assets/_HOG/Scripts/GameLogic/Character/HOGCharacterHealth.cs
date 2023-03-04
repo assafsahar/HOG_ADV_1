@@ -72,6 +72,7 @@ namespace HOG.Character
                     if(tupleData.Item2 >= megaHitTreshold)
                     {
                         characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2);
+                        InvokeEvent(HOGEventNames.OnGetHit, characterNumber);
                     }
                     else if(tupleData.Item2 >= avarageHitTreshold)
                     {

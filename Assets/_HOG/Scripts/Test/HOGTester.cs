@@ -33,18 +33,28 @@ namespace HOG.Test
         // Update is called once per frame
         void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.D))
             {
-                InvokeEvent(HOGEventNames.OnTest);
+                InvokeEvent(HOGEventNames.OnTest, HOGCharacterState.CharacterStates.Defense);
                 /*var bullet = Manager.PoolManager.GetPoolable("BulletsPool");
                 poolables.Enqueue(bullet);*/
+            }
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                InvokeEvent(HOGEventNames.OnTest, HOGCharacterState.CharacterStates.Attack);
+
+            }
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                InvokeEvent(HOGEventNames.OnTest, HOGCharacterState.CharacterStates.Move);
+
             }
             /*if (Input.GetKeyDown(KeyCode.A))
             {
                 var bullet = poolsables.Dequeue();
                 Manager.PoolManager.ReturnPoolable(bullet);
             }*/
-            
+
         }
         
 

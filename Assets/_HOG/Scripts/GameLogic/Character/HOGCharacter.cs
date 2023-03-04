@@ -82,7 +82,7 @@ namespace HOG.Character
         {
             if(characterNumber == 1)
             {
-                Actions.AddAction(HOGCharacterState.CharacterStates.Move, 4);
+                Actions.AddAction((HOGCharacterState.CharacterStates)obj, 4);
             }
             
         }
@@ -103,6 +103,9 @@ namespace HOG.Character
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
         }
 
-        
+        public void PlayHit()
+        {
+            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Hurt, 0));
+        }
     }
 }
