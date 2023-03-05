@@ -25,8 +25,12 @@ namespace HOG.Character
 
         private void Awake()
         {
-            characterNumber = GetComponent<HOGCharacter>().characterNumber;
-            characterAnims = GetComponent<HOGCharacterAnims>();
+            HOGCharacter hcComponent;
+            var isHOGCharacter = TryGetComponent<HOGCharacter>(out hcComponent);
+            characterNumber = hcComponent.characterNumber;
+            HOGCharacterAnims hcAnimComponent;
+            var isHOGCharacterAnim = TryGetComponent<HOGCharacterAnims>(out hcAnimComponent);
+            characterAnims = hcAnimComponent;
             
         }
         private void OnEnable()

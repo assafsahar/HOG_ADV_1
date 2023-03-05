@@ -25,13 +25,16 @@ namespace HOG.Character
 
         public void Init()
         {
-            spriteRenderer = GetComponent<SpriteRenderer>();
-            characterAnims = GetComponent<HOGCharacterAnims>();
+            SpriteRenderer srComponent;
+            var isSpriteRenderer = TryGetComponent<SpriteRenderer>(out srComponent);
+            spriteRenderer = srComponent;
+            HOGCharacterAnims caComponent;
+            var isHOGCharacterAnims = TryGetComponent<HOGCharacterAnims>(out caComponent);
+            characterAnims = caComponent;
             characterAnims.FillDictionary(CharacterType);
             HOGAttacksUI component;
             var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
             Actions = new HOGCharacterActions(component);
-            //CreateActionSequence();
         }
         private void OnEnable()
         {
