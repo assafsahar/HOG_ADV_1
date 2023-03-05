@@ -62,7 +62,8 @@ namespace HOG.Core
         OnGetHit,
         OnCharacterDied,
         OnGameReset,
-        OnTest,
+        OnCharacterChange,
+        OnAbilityChange,
         OnBackToIdle
     }
 }

@@ -35,18 +35,28 @@ namespace HOG.Test
         {
             if (Input.GetKeyDown(KeyCode.D))
             {
-                InvokeEvent(HOGEventNames.OnTest, HOGCharacterState.CharacterStates.Defense);
+                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense,4));
                 /*var bullet = Manager.PoolManager.GetPoolable("BulletsPool");
                 poolables.Enqueue(bullet);*/
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
-                InvokeEvent(HOGEventNames.OnTest, HOGCharacterState.CharacterStates.Attack);
+                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack,3));
 
             }
             if (Input.GetKeyDown(KeyCode.M))
             {
-                InvokeEvent(HOGEventNames.OnTest, HOGCharacterState.CharacterStates.Move);
+                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Move,5));
+
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                InvokeEvent(HOGEventNames.OnCharacterChange, 0);
+
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                InvokeEvent(HOGEventNames.OnCharacterChange, 1);
 
             }
             /*if (Input.GetKeyDown(KeyCode.A))

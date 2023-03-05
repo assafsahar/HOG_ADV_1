@@ -25,9 +25,9 @@ namespace HOG.Character
         public void ResetList()
         {
             ClearActions();
-            AddAction(HOGCharacterState.CharacterStates.Attack, 1);
-            AddAction(HOGCharacterState.CharacterStates.Attack, 1);
-            AddAction(HOGCharacterState.CharacterStates.Attack, 1);
+            AddAction(HOGCharacterState.CharacterStates.Attack, 2);
+            AddAction(HOGCharacterState.CharacterStates.Attack, 2);
+            AddAction(HOGCharacterState.CharacterStates.Attack, 2);
             currentSlotNumber = 0;
             UpdateUI();
         }
@@ -51,6 +51,11 @@ namespace HOG.Character
         }
         public HOGCharacterActionBase GetAction()
         {
+            if(attacksUI != null)
+            {
+                attacksUI.ShowActiveSlot(currentSlotNumber + 1);
+            }
+            
             return characterAttacks[currentSlotNumber++];
         }
 

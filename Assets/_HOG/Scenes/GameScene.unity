@@ -258,15 +258,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Value
-      value: 20
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
+      propertyPath: m_MaxValue
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
@@ -389,13 +393,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1abdd4804e01e4fb2c23ab47468f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleAnim: {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
-  attackAnim: {fileID: 21300000, guid: b245e73d11ca3f04a9302e4160d901ea, type: 3}
-  hurtAnim: {fileID: 21300000, guid: 9522eb60824b36e4f82f3b0a63a9dd6b, type: 3}
-  dieAnim: {fileID: 21300000, guid: 0ce022f51eec6ba4fa3324d78890ded1, type: 3}
-  defenseAnim: {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
-  winAnim: {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
-  moveAnim: {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
+  idleAnim:
+  - {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
+  - {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
+  attackAnim:
+  - {fileID: 21300000, guid: b245e73d11ca3f04a9302e4160d901ea, type: 3}
+  - {fileID: 21300000, guid: b245e73d11ca3f04a9302e4160d901ea, type: 3}
+  hurtAnim:
+  - {fileID: 21300000, guid: 9522eb60824b36e4f82f3b0a63a9dd6b, type: 3}
+  - {fileID: 21300000, guid: 9522eb60824b36e4f82f3b0a63a9dd6b, type: 3}
+  dieAnim:
+  - {fileID: 21300000, guid: 0ce022f51eec6ba4fa3324d78890ded1, type: 3}
+  - {fileID: 21300000, guid: 0ce022f51eec6ba4fa3324d78890ded1, type: 3}
+  defenseAnim:
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
+  winAnim:
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
+  moveAnim:
+  - {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
+  - {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
   hitEffects:
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
   - {fileID: 1040608886635896, guid: 4bb1303cb935ba849bce107507fdde1a, type: 3}
@@ -416,8 +434,8 @@ MonoBehaviour:
   resistance: 1
   endurance: 1
   defenseRate: 1
-  currentHealth: 20
-  maxHealth: 20
+  currentHealth: 50
+  maxHealth: 50
   healthBar: {fileID: 233501706}
   avarageHitTreshold: 1
   megaHitTreshold: 4
@@ -467,7 +485,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1066, y: 186}
+  m_AnchoredPosition: {x: -1299, y: 504.651}
   m_SizeDelta: {x: 64.319, y: 63.3021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &449300790
@@ -943,7 +961,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1147.8406, y: 186}
+  m_AnchoredPosition: {x: -1380.8406, y: 504.651}
   m_SizeDelta: {x: 64.319, y: 63.3021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &988099623
@@ -1056,7 +1074,7 @@ GameObject:
   - component: {fileID: 1022727143}
   - component: {fileID: 1022727142}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: HelthBars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1256,7 +1274,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1147.8406, y: 126.349}
+  m_AnchoredPosition: {x: -1380.8406, y: 445}
   m_SizeDelta: {x: 64.319, y: 63.3021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1210243799
@@ -1407,7 +1425,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -993, y: 186}
+  m_AnchoredPosition: {x: -1226, y: 504.651}
   m_SizeDelta: {x: 64.319, y: 63.3021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1257846696
@@ -1642,7 +1660,7 @@ GameObject:
   - component: {fileID: 1542822891}
   - component: {fileID: 1542822890}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Visual Attack Slots
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1666,6 +1684,7 @@ RectTransform:
   - {fileID: 988099622}
   - {fileID: 449300789}
   - {fileID: 1257846695}
+  - {fileID: 1584137487}
   m_Father: {fileID: 1593547710}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1850,6 +1869,82 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startGameButton: {fileID: 1356010843}
+--- !u!1 &1584137486
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1584137487}
+  - component: {fileID: 1584137489}
+  - component: {fileID: 1584137488}
+  m_Layer: 5
+  m_Name: ActivePanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1584137487
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584137486}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 2.36, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1542822889}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 257, y: -241.849}
+  m_SizeDelta: {x: 64, y: 63}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1584137488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584137486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1584137489
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584137486}
+  m_CullTransparentMesh: 1
 --- !u!1 &1593547709
 GameObject:
   m_ObjectHideFlags: 0
@@ -1866,7 +1961,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1593547710
 Transform:
   m_ObjectHideFlags: 0
@@ -2069,7 +2164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1068, y: 126.349}
+  m_AnchoredPosition: {x: -1301, y: 445}
   m_SizeDelta: {x: 64.319, y: 63.3021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1812475915
@@ -2204,7 +2299,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -991, y: 126.349}
+  m_AnchoredPosition: {x: -1224, y: 445}
   m_SizeDelta: {x: 64.319, y: 63.3021}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1875865171
@@ -2315,6 +2410,10 @@ PrefabInstance:
       propertyPath: health
       value: 
       objectReference: {fileID: 1916869669}
+    - target: {fileID: 2705681406973211174, guid: c04ac10917c182042b0312037fba1cd8, type: 3}
+      propertyPath: CharacterType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3526103229779949064, guid: c04ac10917c182042b0312037fba1cd8, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2403,13 +2502,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf1abdd4804e01e4fb2c23ab47468f13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  idleAnim: {fileID: 21300000, guid: 55a456f564a9fa249acdb6164cddb87e, type: 3}
-  attackAnim: {fileID: 21300000, guid: e18ca6aea60575248b9e0b986ed71b76, type: 3}
-  hurtAnim: {fileID: 21300000, guid: e090f289240b7c14492e30b153f63581, type: 3}
-  dieAnim: {fileID: 21300000, guid: 7bd259922e77eab44b277be2c4cb3d67, type: 3}
-  defenseAnim: {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
-  winAnim: {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
-  moveAnim: {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
+  idleAnim:
+  - {fileID: 21300000, guid: 55a456f564a9fa249acdb6164cddb87e, type: 3}
+  - {fileID: 21300000, guid: 6db23724cb74ee74499b5d7ab1664ca4, type: 3}
+  attackAnim:
+  - {fileID: 21300000, guid: e18ca6aea60575248b9e0b986ed71b76, type: 3}
+  - {fileID: 21300000, guid: bbe45f817104de94e94235b5877c263c, type: 3}
+  hurtAnim:
+  - {fileID: 21300000, guid: e090f289240b7c14492e30b153f63581, type: 3}
+  - {fileID: 21300000, guid: 7f4f34af7aa19384580b4ed0e2cb6c96, type: 3}
+  dieAnim:
+  - {fileID: 21300000, guid: 7bd259922e77eab44b277be2c4cb3d67, type: 3}
+  - {fileID: 21300000, guid: b52fa0a1df39ad547acc3c3e5c10fe91, type: 3}
+  defenseAnim:
+  - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
+  - {fileID: 21300000, guid: 7f4735d374a09834cb8014854916020a, type: 3}
+  winAnim:
+  - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
+  - {fileID: 21300000, guid: 7f4735d374a09834cb8014854916020a, type: 3}
+  moveAnim:
+  - {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
+  - {fileID: 21300000, guid: dafdc74daa9905c41976120b3899d9b9, type: 3}
   hitEffects:
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
   - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
@@ -2430,8 +2543,8 @@ MonoBehaviour:
   resistance: 1
   endurance: 1
   defenseRate: 1
-  currentHealth: 20
-  maxHealth: 20
+  currentHealth: 50
+  maxHealth: 50
   healthBar: {fileID: 1234116811}
   avarageHitTreshold: 1
   megaHitTreshold: 4
@@ -2464,6 +2577,11 @@ MonoBehaviour:
   slot1TextStrength: {fileID: 988099623}
   slot2TextStrength: {fileID: 449300790}
   slot3TextStrength: {fileID: 1257846696}
+  ActivePanel: {fileID: 1584137487}
+  panelPositions:
+  - 95.99988
+  - 180
+  - 257
 --- !u!1 &2082934270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2689,15 +2807,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Value
-      value: 20
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
+      propertyPath: m_MaxValue
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7943907826897567379, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}

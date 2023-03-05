@@ -15,17 +15,19 @@ namespace HOG.Character
         [SerializeField] float attackRate = 10f;
 
         public int characterNumber = 1;
+        public int CharacterType = 1;
 
         HOGCharacterActions Actions;
         
         SpriteRenderer spriteRenderer;
         HOGCharacterAnims characterAnims;
+        public bool IsDead { get; private set; } = false;
 
         public void Init()
         {
             spriteRenderer = GetComponent<SpriteRenderer>();
             characterAnims = GetComponent<HOGCharacterAnims>();
-            characterAnims.FillDictionary();
+            characterAnims.FillDictionary(CharacterType);
             HOGAttacksUI component;
             var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
             Actions = new HOGCharacterActions(component);
@@ -33,24 +35,38 @@ namespace HOG.Character
         }
         private void OnEnable()
         {
-            AddListener(HOGEventNames.OnTest, ChangeFirstAction);
+            AddListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
+            AddListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
         }
+
+
         private void OnDisable()
         {
-            RemoveListener(HOGEventNames.OnTest, ChangeFirstAction);
+            RemoveListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
+            RemoveListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
         }
-        private void Start()
+
+        private void ChangeCharacter(object obj)
         {
-            
-            //PlayActionSequence();
+            if((int)obj == 0 || (int)obj == 1)
+            {
+                CharacterType = (int)obj;
+                characterAnims.FillDictionary(CharacterType);
+            }
         }
-       
+
+        public void PreFight()
+        {
+            IsDead = false;
+            CreateActionSequence();
+        }
         public void PlayAction(HOGCharacterActionBase action)
         {
             if(action == null)
             {
                 return;
             }
+            IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
             spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
             var actionData = Tuple.Create(characterNumber, action.ActionStrength);
             InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
@@ -71,25 +87,21 @@ namespace HOG.Character
             StartIdle();
             Actions.ResetList();
             
-            /*Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Attack, 3));
-            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Move, 1));
-            Actions.AddAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Defense, 1));*/
-
-
         }
 
         public void ChangeFirstAction(object obj)
         {
             if(characterNumber == 1)
             {
-                Actions.AddAction((HOGCharacterState.CharacterStates)obj, 4);
+                Tuple<HOGCharacterState.CharacterStates, int> tupleData = (Tuple<HOGCharacterState.CharacterStates, int>) obj;
+                Actions.AddAction((HOGCharacterState.CharacterStates)tupleData.Item1, tupleData.Item2);
+                
             }
             
         }
 
         private void FinishAttackSequence()
         {
-            //CreateActionSequence();
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
             InvokeEvent(HOGEventNames.OnAttacksFinish, characterNumber);
         }
@@ -100,11 +112,19 @@ namespace HOG.Character
         }
         public void StartIdle()
         {
+            if (IsDead)
+            {
+                return;
+            }
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
         }
 
         public void PlayHit()
         {
+            if (IsDead)
+            {
+                return;
+            }
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Hurt, 0));
         }
     }

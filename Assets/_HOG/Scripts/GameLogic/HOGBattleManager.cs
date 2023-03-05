@@ -29,7 +29,11 @@ namespace HOG.GameLogic
         {
             int num = (int)obj;
             characters[num - 1].PlayHit();
-            StartCoroutine(PlayIdle(obj, 0.5f));
+            if(!characters[num - 1].IsDead)
+            {
+                StartCoroutine(PlayIdle(obj, 0.5f));
+            }
+            
         }
         IEnumerator PlayIdle(object obj, float timer)
         {
@@ -67,8 +71,9 @@ namespace HOG.GameLogic
 
         public void StartFight(object obj)
         {
-            character1.CreateActionSequence();
-            character2.CreateActionSequence();
+
+            character1.PreFight();
+            character2.PreFight();
             if (obj == null)
             {
                 PlayOpponent(2);

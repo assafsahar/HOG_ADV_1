@@ -7,26 +7,26 @@ namespace HOG.Anims
 {
     public class HOGCharacterAnims: HOGMonoBehaviour
     {
-        [SerializeField] Sprite idleAnim;
-        [SerializeField] Sprite attackAnim;
-        [SerializeField] Sprite hurtAnim;
-        [SerializeField] Sprite dieAnim;
-        [SerializeField] Sprite defenseAnim;
-        [SerializeField] Sprite winAnim;
-        [SerializeField] Sprite moveAnim;
+        [SerializeField] Sprite[] idleAnim;
+        [SerializeField] Sprite[] attackAnim;
+        [SerializeField] Sprite[] hurtAnim;
+        [SerializeField] Sprite[] dieAnim;
+        [SerializeField] Sprite[] defenseAnim;
+        [SerializeField] Sprite[] winAnim;
+        [SerializeField] Sprite[] moveAnim;
         [SerializeField] List<GameObject> hitEffects;
 
         public Dictionary<HOGCharacterState.CharacterStates, Sprite> StatesAnims = new Dictionary<HOGCharacterState.CharacterStates, Sprite>();
 
-        public void FillDictionary()
+        public void FillDictionary(int characterType)
         {
-            StatesAnims[HOGCharacterState.CharacterStates.Idle] = idleAnim;
-            StatesAnims[HOGCharacterState.CharacterStates.Attack] = attackAnim;
-            StatesAnims[HOGCharacterState.CharacterStates.Hurt] = hurtAnim;
-            StatesAnims[HOGCharacterState.CharacterStates.Die] = dieAnim;
-            StatesAnims[HOGCharacterState.CharacterStates.Defense] = defenseAnim;
-            StatesAnims[HOGCharacterState.CharacterStates.Win] = winAnim;
-            StatesAnims[HOGCharacterState.CharacterStates.Move] = moveAnim;
+            StatesAnims[HOGCharacterState.CharacterStates.Idle] = idleAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.Attack] = attackAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.Hurt] = hurtAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.Die] = dieAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.Defense] = defenseAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.Win] = winAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.Move] = moveAnim[characterType];
         }
 
         public void PlayRandomEffect(Transform parent, float effectScale)
