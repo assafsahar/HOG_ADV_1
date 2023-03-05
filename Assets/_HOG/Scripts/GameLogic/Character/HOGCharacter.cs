@@ -1,5 +1,6 @@
 using HOG.Anims;
 using HOG.Core;
+using HOG.GameLogic;
 using HOG.Screens;
 using System;
 using System.Collections;
@@ -21,6 +22,7 @@ namespace HOG.Character
         
         SpriteRenderer spriteRenderer;
         HOGCharacterAnims characterAnims;
+        int turn = 0;
         public bool IsDead { get; private set; } = false;
 
         public void Init()
@@ -40,6 +42,7 @@ namespace HOG.Character
         {
             AddListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
             AddListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
+            AddListener(HOGEventNames.OnTurnChange, ChangeTurn);
         }
 
 
@@ -47,10 +50,20 @@ namespace HOG.Character
         {
             RemoveListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
             RemoveListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
+            RemoveListener(HOGEventNames.OnTurnChange, ChangeTurn);
+        }
+
+        private void ChangeTurn(object obj)
+        {
+            turn = (int)obj;
         }
 
         private void ChangeCharacter(object obj)
         {
+            if(turn == characterNumber)
+            {
+                return;
+            }
             if((int)obj == 0 || (int)obj == 1)
             {
                 CharacterType = (int)obj;
@@ -94,7 +107,11 @@ namespace HOG.Character
 
         public void ChangeFirstAction(object obj)
         {
-            if(characterNumber == 1)
+            if (turn == characterNumber)
+            {
+                return;
+            }
+            if (characterNumber == 1)
             {
                 Tuple<HOGCharacterState.CharacterStates, int> tupleData = (Tuple<HOGCharacterState.CharacterStates, int>) obj;
                 Actions.AddAction((HOGCharacterState.CharacterStates)tupleData.Item1, tupleData.Item2);

@@ -15,6 +15,7 @@ namespace HOG.GameLogic
         private HOGCharacter character2;
         private HOGCharacter chosenCharacter;
         private Coroutine fightCoroutine = null;
+        public int Turn { get; private set; }
         
 
     private void OnEnable()
@@ -86,15 +87,10 @@ namespace HOG.GameLogic
 
         public void PlayOpponent(object previousPlayedCharacter)
         {
-
-            if ((int)previousPlayedCharacter == 2)
-            {
-                chosenCharacter = character1;
-            }
-            else
-            {
-                chosenCharacter = character2;
-            }
+            Turn = (int)previousPlayedCharacter == 1 ? 2 : 1;
+            InvokeEvent(HOGEventNames.OnTurnChange,Turn);
+            chosenCharacter = (int)previousPlayedCharacter == 1 ? character2 : character1;
+            
             if (chosenCharacter != null)
             {
                 fightCoroutine = StartCoroutine(chosenCharacter.PlayActionSequence());

@@ -64,6 +64,7 @@ namespace HOG.Core
         OnGameReset,
         OnCharacterChange,
         OnAbilityChange,
-        OnBackToIdle
+        OnBackToIdle,
+        OnTurnChange
     }
 }
