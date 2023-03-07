@@ -26,16 +26,25 @@ namespace HOG.GameLogic
 
         private void OnEnable()
         {
-            AddListener(HOGEventNames.OnGameStart, StartGame);
+            //AddListener(HOGEventNames.OnGameStart, StartGame);
+            AddListener(HOGEventNames.OnPreFightReady, StartGame);
         }
+
+
         private void OnDisable()
         {
-            RemoveListener(HOGEventNames.OnGameStart, StartGame);
+            //RemoveListener(HOGEventNames.OnGameStart, StartGame);
+            RemoveListener(HOGEventNames.OnPreFightReady, StartGame);
+        }
+
+        private void StartReadyTextProcedure(object obj)
+        {
+            throw new NotImplementedException();
         }
 
         private void StartGame(object obj)
         {
-            
+
             StartCoroutine(EnableScreen(HOGScreenNames.GameScreen));
             
             //battleManager.Invoke("StartFight", 1f);
@@ -59,12 +68,13 @@ namespace HOG.GameLogic
             DisableAll();
             foreach (var screen in Screens)
             {
-                if(screen != null && screen.ScreenName == screenName)
+                if(screen != null && screen.ScreenName == screenName && !screen.IsActive())
                 {
                     screen.EnableScreen();
                 }
             }
         }
+
     }
 
     

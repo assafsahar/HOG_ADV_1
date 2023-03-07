@@ -1,6 +1,4 @@
 using HOG.Core;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -20,12 +18,6 @@ namespace UI
         [SerializeField] float[] panelPositions = new float[3] {0,0,0};
         public Dictionary<int, (char,string)> slots = new Dictionary<int, (char, string)>();
 
-        
-
-        private void Awake()
-        {
-            
-        }
 
         public void Init()
         {

@@ -21,6 +21,10 @@ namespace HOG.Screens
         {
             gameObject.SetActive(false);
         }
+        public bool IsActive()
+        {
+            return gameObject.activeInHierarchy;
+        }
     }
     public enum HOGScreenNames
     {

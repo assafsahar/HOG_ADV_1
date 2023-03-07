@@ -21,9 +21,18 @@ namespace HOG.GameLogic
     private void OnEnable()
         {
             AddListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
-            AddListener(HOGEventNames.OnGameStart, StartFight);
+            AddListener(HOGEventNames.OnGameStart, PreFight);
             AddListener(HOGEventNames.OnCharacterDied, KillCharacter);
             AddListener(HOGEventNames.OnGetHit, PlayHit);
+            AddListener(HOGEventNames.OnFightReady, StartFight);
+        }
+        private void OnDisable()
+        {
+            RemoveListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
+            RemoveListener(HOGEventNames.OnGameStart, PreFight);
+            RemoveListener(HOGEventNames.OnCharacterDied, KillCharacter);
+            RemoveListener(HOGEventNames.OnGetHit, PlayHit);
+            RemoveListener(HOGEventNames.OnFightReady, StartFight);
         }
 
         private void PlayHit(object obj)
@@ -43,13 +52,7 @@ namespace HOG.GameLogic
             characters[num - 1].StartIdle();
         }
 
-        private void OnDisable()
-        {
-            RemoveListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
-            RemoveListener(HOGEventNames.OnGameStart, StartFight);
-            RemoveListener(HOGEventNames.OnCharacterDied, KillCharacter);
-            RemoveListener(HOGEventNames.OnGetHit, PlayHit);
-        }
+       
         private void Awake()
         {
             if (characters[0] != null)
@@ -70,11 +73,15 @@ namespace HOG.GameLogic
             }
         }
 
-        public void StartFight(object obj)
+        public void PreFight(object obj)
         {
-
             character1.PreFight();
             character2.PreFight();
+            InvokeEvent(HOGEventNames.OnPreFightReady);
+        }
+
+        public void StartFight(object obj)
+        {
             if (obj == null)
             {
                 PlayOpponent(2);
