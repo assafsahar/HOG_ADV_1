@@ -111,7 +111,7 @@ namespace HOG.GameLogic
 
         private void KillCharacter(object obj)
         {
-            Debug.Log("Character died: " + obj.ToString());
+            HOGDebug.Log("Character died: " + obj.ToString());
             int num = (int)obj;
             characters[num - 1].Die();
             StopFight();

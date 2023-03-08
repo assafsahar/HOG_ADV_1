@@ -13,9 +13,9 @@ namespace HOG.Core
         public void Save(IHOGSaveData saveData)
         {
             var saveID = saveData.GetType().FullName;
-            Debug.Log(saveID);
+            HOGDebug.Log(saveID);
             var saveJson = JsonConvert.SerializeObject(saveData);
-            Debug.Log(saveJson);    
+            HOGDebug.Log(saveJson);    
 
             var path = $"{Application.persistentDataPath}/{saveID}.hogSave";
 
@@ -35,8 +35,8 @@ namespace HOG.Core
             var saveJson = File.ReadAllText(path);
             var saveData = JsonConvert.DeserializeObject<T>(saveJson);
 
-            Debug.Log(saveID);
-            Debug.Log(saveJson);
+            HOGDebug.Log(saveID);
+            HOGDebug.Log(saveJson);
 
             onComplete.Invoke(saveData);
         }

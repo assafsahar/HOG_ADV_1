@@ -84,8 +84,8 @@ namespace HOG.Character
                     }
                     
                 }
-                //Debug.Log(tupleData.Item1);
-                //Debug.Log(tupleData.Item2);
+                //HOGDebug.Log(tupleData.Item1);
+                //HOGDebug.Log(tupleData.Item2);
 
             }
         }
@@ -94,7 +94,7 @@ namespace HOG.Character
         private void Die()
         {
             InvokeEvent(HOGEventNames.OnCharacterDied, characterNumber);
-            Debug.Log("Character died");
+            HOGDebug.Log("Character died");
         }
     }
 }

@@ -20,7 +20,7 @@ namespace HOG.Test
         }
         private void OnEnable()
         {
-            Debug.Log("Tester enabled");
+            HOGDebug.Log("Tester enabled");
             //AddListener(HOGEventNames.ReturnBullet, ReturnPoolable);
         }
 

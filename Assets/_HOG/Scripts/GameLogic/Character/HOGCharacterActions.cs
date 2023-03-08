@@ -13,31 +13,26 @@ namespace HOG.Character
         private int currentSlotNumber = 0;
         private HOGAttacksUI attacksUI;
         private int characterType;
+        private HOGCharacterAttacksScriptable allAttackData;
         private List<HOGCharacterAction> attackData;
 
         public HOGCharacterActions(HOGAttacksUI AttacksUI, int CharacterType, HOGCharacterAttacksScriptable AttacksData)
         {
-            if(AttacksUI != null)
+            allAttackData = AttacksData;
+            if (AttacksUI != null)
             {
                 attacksUI = AttacksUI;
                 attacksUI.Init();
             }
             characterType = CharacterType;
-            foreach(var element in AttacksData.AttacksConfig)
-            {
-                if(element.characterType == CharacterType)
-                {
-                    attackData = element.characterActions;
-                    break;
-                }
-            }
+            UpdateAttacksData();
         }
         public void ResetList()
         {
             ClearActions();
-            AddAction(HOGCharacterState.CharacterStates.Attack, 2);
-            AddAction(HOGCharacterState.CharacterStates.Attack, 2);
-            AddAction(HOGCharacterState.CharacterStates.Attack, 2);
+            AddAction(attackData[2].ActionId, attackData[2].ActionStrength);
+            AddAction(attackData[1].ActionId, attackData[1].ActionStrength);
+            AddAction(attackData[0].ActionId, attackData[0].ActionStrength);
             currentSlotNumber = 0;
             UpdateUI();
         }
@@ -72,6 +67,7 @@ namespace HOG.Character
         public void UpdateCharacterType(int type)
         {
             characterType = type;
+            UpdateAttacksData();
             UpdateUI();
         }
 
@@ -80,7 +76,18 @@ namespace HOG.Character
             characterAttacks.Clear();
         }
 
-        
+        private void UpdateAttacksData()
+        {
+            foreach (var element in allAttackData.AttacksConfig)
+            {
+                if (element.characterType == characterType)
+                {
+                    attackData = element.characterActions;
+                    break;
+                }
+            }
+            ResetList();
+        }
 
         private void UpdateUI()
         {
