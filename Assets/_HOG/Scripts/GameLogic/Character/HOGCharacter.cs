@@ -11,16 +11,17 @@ namespace HOG.Character
     {
         [SerializeField] float attackStrength = 10f;
         [SerializeField] float attackRate = 10f;
+        [SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
 
         public int characterNumber = 1;
-        public int CharacterType = 1;
-
-        HOGCharacterActions Actions;
-        
-        SpriteRenderer spriteRenderer;
-        HOGCharacterAnims characterAnims;
-        int turn = 0;
         public bool IsDead { get; private set; } = false;
+
+        private int characterType = 1;
+        private HOGCharacterActions Actions;
+        private SpriteRenderer spriteRenderer;
+        private HOGCharacterAnims characterAnims;
+        private int turn = 0;
+        
 
         public void Init()
         {
@@ -30,10 +31,10 @@ namespace HOG.Character
             HOGCharacterAnims caComponent;
             var isHOGCharacterAnims = TryGetComponent<HOGCharacterAnims>(out caComponent);
             characterAnims = caComponent;
-            characterAnims.FillDictionary(CharacterType);
+            characterAnims.FillDictionary(characterType);
             HOGAttacksUI component;
-            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
-            Actions = new HOGCharacterActions(component);
+            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);           
+            Actions = new HOGCharacterActions(component, characterType, characterAttacksData);
         }
         private void OnEnable()
         {
@@ -63,9 +64,10 @@ namespace HOG.Character
             }
             if((int)obj == 0 || (int)obj == 1)
             {
-                CharacterType = (int)obj;
-                characterAnims.FillDictionary(CharacterType);
+                characterType = (int)obj;
+                characterAnims.FillDictionary(characterType);
             }
+            Actions.UpdateCharacterType(characterType);
         }
 
         public void PreFight()

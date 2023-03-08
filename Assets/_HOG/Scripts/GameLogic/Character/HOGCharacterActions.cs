@@ -9,18 +9,28 @@ namespace HOG.Character
     public class HOGCharacterActions
     {
         [SerializeField] int requiredListLength = 3;
-        List<HOGCharacterActionBase> characterAttacks = new List<HOGCharacterActionBase>();
+        private List<HOGCharacterActionBase> characterAttacks = new List<HOGCharacterActionBase>();
         private int currentSlotNumber = 0;
         private HOGAttacksUI attacksUI;
+        private int characterType;
+        private List<HOGCharacterAction> attackData;
 
-        public HOGCharacterActions(HOGAttacksUI AttacksUI)
+        public HOGCharacterActions(HOGAttacksUI AttacksUI, int CharacterType, HOGCharacterAttacksScriptable AttacksData)
         {
             if(AttacksUI != null)
             {
                 attacksUI = AttacksUI;
                 attacksUI.Init();
             }
-            
+            characterType = CharacterType;
+            foreach(var element in AttacksData.AttacksConfig)
+            {
+                if(element.characterType == CharacterType)
+                {
+                    attackData = element.characterActions;
+                    break;
+                }
+            }
         }
         public void ResetList()
         {
@@ -59,7 +69,11 @@ namespace HOG.Character
             return characterAttacks[currentSlotNumber++];
         }
 
-
+        public void UpdateCharacterType(int type)
+        {
+            characterType = type;
+            UpdateUI();
+        }
 
         private void ClearActions()
         {
@@ -77,9 +91,11 @@ namespace HOG.Character
                 if(attacksUI != null)
                 {
                     attacksUI.UpdateAttackText(i + 1, firstChar, strength);
+                    attacksUI.UpdateCharacterTypeText(characterType+1);
                 }
                 
             }
+            
         }
     }
 }

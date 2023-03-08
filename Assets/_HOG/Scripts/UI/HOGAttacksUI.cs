@@ -14,6 +14,7 @@ namespace UI
         [SerializeField] TextMeshProUGUI slot1TextStrength;
         [SerializeField] TextMeshProUGUI slot2TextStrength;
         [SerializeField] TextMeshProUGUI slot3TextStrength;
+        [SerializeField] TextMeshProUGUI characterTypeText;
         [SerializeField] RectTransform ActivePanel;
         [SerializeField] float[] panelPositions = new float[3] {0,0,0};
         public Dictionary<int, (char,string)> slots = new Dictionary<int, (char, string)>();
@@ -36,6 +37,10 @@ namespace UI
         {
             slots[slotNumber] = (attackText, attackStrength);
             ShowDictionary();
+        }
+        public void UpdateCharacterTypeText(int type)
+        {
+            characterTypeText.text = type.ToString();
         }
         public void ShowActiveSlot(int slotNumber)
         {
