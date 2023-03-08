@@ -92,6 +92,7 @@ namespace HOG.Character
             {
                 PlayAction(Actions.GetAction());
                 yield return new WaitForSeconds(1f);
+                Actions.RemoveTempAction();
             }
             FinishAttackSequence();
             yield break;
@@ -113,7 +114,7 @@ namespace HOG.Character
             if (characterNumber == 1)
             {
                 Tuple<HOGCharacterState.CharacterStates, int> tupleData = (Tuple<HOGCharacterState.CharacterStates, int>) obj;
-                Actions.AddAction((HOGCharacterState.CharacterStates)tupleData.Item1, tupleData.Item2);
+                Actions.ReplaceAction((HOGCharacterState.CharacterStates)tupleData.Item1, tupleData.Item2, true);
                 
             }
             

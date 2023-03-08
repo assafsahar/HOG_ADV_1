@@ -11,11 +11,12 @@ namespace HOG.Character
     {
         public HOGCharacterState.CharacterStates ActionId { get; private set; }
         public int ActionStrength { get; private set; }
-        public HOGCharacterActionBase(HOGCharacterState.CharacterStates actionId, int actionStrength)
+        public bool IsTemp { get; set; }
+        public HOGCharacterActionBase(HOGCharacterState.CharacterStates actionId, int actionStrength, bool isTemp=false)
         {
             ActionId = actionId;
             ActionStrength = actionStrength;
-
+            IsTemp = isTemp;
         }
 
     }

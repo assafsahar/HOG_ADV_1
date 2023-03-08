@@ -45,6 +45,20 @@ namespace HOG.Character
             }
             UpdateUI();
         }
+
+        public void ReplaceAction(HOGCharacterState.CharacterStates actionId, int actionStrength, bool isTemp)
+        {
+            if (isTemp)
+            {
+                characterAttacks[0] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
+            }
+            else
+            {
+                characterAttacks[0] = new HOGCharacterActionBase(attackData[0].ActionId, attackData[0].ActionStrength) ;
+            }
+            
+            UpdateUI();
+        }
         public bool CanContinue()
         {
             if(currentSlotNumber < characterAttacks.Count)
@@ -62,6 +76,14 @@ namespace HOG.Character
             }
             
             return characterAttacks[currentSlotNumber++];
+        }
+
+        public void RemoveTempAction()
+        {
+            if (characterAttacks[0].IsTemp)
+            {
+                ReplaceAction(0, 0, false);
+            }
         }
 
         public void UpdateCharacterType(int type)
