@@ -10,8 +10,8 @@ namespace HOG.Character
 {
     public class HOGCharacter : HOGMonoBehaviour
     {
-        [SerializeField] float attackStrength = 10f;
-        [SerializeField] float attackRate = 10f;
+        [SerializeField] int attackStrength = 10;
+        [SerializeField] int scoreMultiplier = 10;
         [SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
         [SerializeField] Transform scoreTransform;
 
@@ -92,23 +92,41 @@ namespace HOG.Character
             InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
             if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.Move)
             {
-                SetScore();
-                ShowScore();
+                SetScore(action.ActionStrength);
+                ShowScore(action.ActionStrength);
             }
         }
 
-        private void SetScore()
+        private void SetScore(int actionStrength)
         {
-            HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(ScoreTags.MainScore, (int)attackStrength);
+            ScoreTags scoreTag = GetScoreTagByCharacterNumber();
+
+            HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(scoreTag, actionStrength * scoreMultiplier);
         }
 
-        private void ShowScore()
+        private ScoreTags GetScoreTagByCharacterNumber()
         {
+            ScoreTags scoreTag = 0;
+            if (characterNumber == 1)
+            {
+                scoreTag = ScoreTags.Character1Score;
+            }
+            else if (characterNumber == 2)
+            {
+                scoreTag = ScoreTags.Character2Score;
+            }
+            return scoreTag;
+        }
+
+        private void ShowScore(int actionStrength)
+        {
+            ScoreTags scoreTag = GetScoreTagByCharacterNumber();
             var scoreText = (HOGTweenScoreComponent)Manager.PoolManager.GetPoolable(PoolNames.ScoreToast);
             scoreText.transform.position = scoreTransform.position;
-            int score = 0;
-            HOGGameLogicManager.Instance.ScoreManager.TryGetScoreByTag(ScoreTags.MainScore, ref score);
-            scoreText.Init((int)attackStrength);
+            var score = 0;
+            HOGGameLogicManager.Instance.ScoreManager.TryGetScoreByTag(scoreTag, ref score);
+            
+            scoreText.Init(actionStrength * scoreMultiplier);
             if(scoreComponent != null)
             {
                 scoreComponent.UpdateText(score.ToString());
