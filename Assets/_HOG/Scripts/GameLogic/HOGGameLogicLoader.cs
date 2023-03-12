@@ -17,7 +17,8 @@ namespace HOG.GameLogic
                 base.StartLoad(onComplete);
             });
             //Manager.PoolManager.InitPool(bulletComponent, 20, 100);
-           
+            
+
         }
     }
 

@@ -37,11 +37,6 @@ namespace HOG.GameLogic
             RemoveListener(HOGEventNames.OnPreFightReady, StartGame);
         }
 
-        private void StartReadyTextProcedure(object obj)
-        {
-            throw new NotImplementedException();
-        }
-
         private void StartGame(object obj)
         {
 

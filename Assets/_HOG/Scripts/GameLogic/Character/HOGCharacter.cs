@@ -1,5 +1,6 @@
 using HOG.Anims;
 using HOG.Core;
+using HOG.GameLogic;
 using System;
 using System.Collections;
 using UI;
@@ -12,6 +13,7 @@ namespace HOG.Character
         [SerializeField] float attackStrength = 10f;
         [SerializeField] float attackRate = 10f;
         [SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
+        [SerializeField] Transform scoreTransform;
 
         public int characterNumber = 1;
         public bool IsDead { get; private set; } = false;
@@ -21,7 +23,8 @@ namespace HOG.Character
         private SpriteRenderer spriteRenderer;
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
-        
+        HOGScoreUI scoreComponent;
+
 
         public void Init()
         {
@@ -35,6 +38,8 @@ namespace HOG.Character
             HOGAttacksUI component;
             var attacksUI = TryGetComponent<HOGAttacksUI>(out component);           
             Actions = new HOGCharacterActions(component, characterType, characterAttacksData);
+            
+            var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
         }
         private void OnEnable()
         {
@@ -85,7 +90,32 @@ namespace HOG.Character
             spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
             var actionData = Tuple.Create(characterNumber, action.ActionStrength);
             InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
+            if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.Move)
+            {
+                SetScore();
+                ShowScore();
+            }
         }
+
+        private void SetScore()
+        {
+            HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(ScoreTags.MainScore, (int)attackStrength);
+        }
+
+        private void ShowScore()
+        {
+            var scoreText = (HOGTweenScoreComponent)Manager.PoolManager.GetPoolable(PoolNames.ScoreToast);
+            scoreText.transform.position = scoreTransform.position;
+            int score = 0;
+            HOGGameLogicManager.Instance.ScoreManager.TryGetScoreByTag(ScoreTags.MainScore, ref score);
+            scoreText.Init((int)attackStrength);
+            if(scoreComponent != null)
+            {
+                scoreComponent.UpdateText(score.ToString());
+            }
+            
+        }
+
         public IEnumerator PlayActionSequence()
         {
             while(Actions.CanContinue())

@@ -7,7 +7,7 @@ namespace HOG.Core
 
     public class HOGPoolManager
     {
-        private Dictionary<string, HOGPool> Pools = new();
+        private Dictionary<PoolNames, HOGPool> Pools = new();
 
         private Transform rootPools;
 
@@ -17,6 +17,11 @@ namespace HOG.Core
             Object.DontDestroyOnLoad(rootPools);
         }
 
+        public void InitPool(string resourceName, int amount, int maxAmount = 100)
+        {
+            var original = Resources.Load<HOGPoolable>(resourceName);
+            InitPool(original, amount, maxAmount);
+        }
         public void InitPool(HOGPoolable original, int amount, int maxAmount)
         {
             HOGManager.Instance.FactoryManager.MultiCreateAsync(original, Vector3.zero, amount,
@@ -41,13 +46,13 @@ namespace HOG.Core
                 });
         }
 
-        public HOGPoolable GetPoolable(string PoolName)
+        public HOGPoolable GetPoolable(PoolNames poolName)
         {
-            if (Pools.TryGetValue(PoolName, out HOGPool pool))
+            if (Pools.TryGetValue(poolName, out HOGPool pool))
             {
                 if (pool.AvailablePoolables.TryDequeue(out HOGPoolable poolable))
                 {
-                    HOGDebug.Log($"GetPoolable - {PoolName}");
+                    HOGDebug.Log($"GetPoolable - {poolName}");
 
                     poolable.OnTakenFromPool();
 
@@ -57,12 +62,12 @@ namespace HOG.Core
                 }
 
                 //Create more
-                HOGDebug.Log($"pool - {PoolName} no enough poolables, used poolables {pool.UsedPoolables.Count}");
+                HOGDebug.Log($"pool - {poolName} no enough poolables, used poolables {pool.UsedPoolables.Count}");
 
                 return null;
             }
 
-            HOGDebug.Log($"pool - {PoolName} wasn't initialized");
+            HOGDebug.Log($"pool - {poolName} wasn't initialized");
             return null;
         }
 
@@ -78,7 +83,7 @@ namespace HOG.Core
         }
 
 
-        public void DestroyPool(string name)
+        public void DestroyPool(PoolNames name)
         {
             if (Pools.TryGetValue(name, out HOGPool pool))
             {
@@ -109,6 +114,12 @@ namespace HOG.Core
         public Queue<HOGPoolable> AvailablePoolables = new();
 
         public int MaxPoolables = 100;
+    }
+
+    public enum PoolNames
+    {
+        NA = -1,
+        ScoreToast = 0
     }
 
 }

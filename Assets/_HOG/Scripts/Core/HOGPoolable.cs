@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class HOGPoolable : HOGMonoBehaviour
 {
-    public string PoolName;
+    public PoolNames PoolName;
     
     virtual public void OnTakenFromPool()
     {

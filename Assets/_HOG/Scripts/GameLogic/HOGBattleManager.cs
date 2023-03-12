@@ -18,7 +18,7 @@ namespace HOG.GameLogic
         public int Turn { get; private set; }
         
 
-    private void OnEnable()
+        private void OnEnable()
         {
             AddListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
             AddListener(HOGEventNames.OnGameStart, PreFight);
@@ -55,6 +55,7 @@ namespace HOG.GameLogic
        
         private void Awake()
         {
+            Manager.PoolManager.InitPool("TextToast", 10);
             if (characters[0] != null)
             {
                 if (characters[0].TryGetComponent<HOGCharacter>(out HOGCharacter character))
@@ -72,6 +73,8 @@ namespace HOG.GameLogic
                 }
             }
         }
+
+
 
         public void PreFight(object obj)
         {
