@@ -14,11 +14,12 @@ namespace HOG.Character
         [SerializeField] int scoreMultiplier = 10;
         [SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
         [SerializeField] Transform scoreTransform;
+        [SerializeField] private int characterType = 1;
 
         public int characterNumber = 1;
         public bool IsDead { get; private set; } = false;
 
-        private int characterType = 1;
+        
         private HOGCharacterActions Actions;
         private SpriteRenderer spriteRenderer;
         private HOGCharacterAnims characterAnims;
@@ -67,12 +68,15 @@ namespace HOG.Character
             {
                 return;
             }
-            if((int)obj == 0 || (int)obj == 1)
+            if (characterNumber == 1)
             {
-                characterType = (int)obj;
-                characterAnims.FillDictionary(characterType);
+                if ((int)obj == 0 || (int)obj == 1)
+                {
+                    characterType = (int)obj;
+                    characterAnims.FillDictionary(characterType);
+                }
+                Actions.UpdateCharacterType(characterType);
             }
-            Actions.UpdateCharacterType(characterType);
         }
 
         public void PreFight()

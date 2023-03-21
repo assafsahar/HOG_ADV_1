@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id">
+  <string name="gcm_defaultSenderId" translatable="false">918715221179</string>
+  <string name="google_storage_bucket" translatable="false">hogadvgame.appspot.com</string>
+  <string name="project_id" translatable="false">hogadvgame</string>
+  <string name="google_api_key" translatable="false">AIzaSyCZ_MD5aTR0AY02sVPQgvUKb-n6Q7kn1jI</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCZ_MD5aTR0AY02sVPQgvUKb-n6Q7kn1jI</string>
+  <string name="google_app_id" translatable="false">1:918715221179:android:050833a4256c2eb16d159e</string>
+  <string name="default_web_client_id" translatable="false">918715221179-npjhheceh7fgaitjm9bnrm6f0a0ud9eb.apps.googleusercontent.com</string>
+</resources>

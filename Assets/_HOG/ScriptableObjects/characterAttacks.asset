@@ -37,3 +37,11 @@ MonoBehaviour:
       ActionStrength: 3
     - ActionId: 2
       ActionStrength: 2
+  - characterType: 3
+    characterActions:
+    - ActionId: 5
+      ActionStrength: 1
+    - ActionId: 1
+      ActionStrength: 2
+    - ActionId: 2
+      ActionStrength: 3
