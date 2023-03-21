@@ -59,11 +59,12 @@ namespace HOG.Test
                 InvokeEvent(HOGEventNames.OnCharacterChange, 1);
 
             }
-            /*if (Input.GetKeyDown(KeyCode.A))
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                var bullet = poolsables.Dequeue();
-                Manager.PoolManager.ReturnPoolable(bullet);
-            }*/
+                /*var bullet = poolsables.Dequeue();
+                Manager.PoolManager.ReturnPoolable(bullet);*/
+                //var attackConfigTest = HOGGameLogicManager.Instance.UpgradeManager.GetHogAttackConfig();
+            }
 
         }
         

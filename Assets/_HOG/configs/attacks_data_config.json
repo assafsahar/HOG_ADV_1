@@ -1,0 +1,72 @@
+{
+    "UpgradableAttacks": [
+        {
+            "CharacterType": 0,
+            "CharacterActions": [
+                {
+                    "ActionId": "Move",
+                    "ActionStrength": 2
+                },
+                {
+                    "ActionId": "Attack",
+                    "ActionStrength": 2
+                },
+                {
+                    "ActionId": "Move",
+                    "ActionStrength": 2
+                }
+            ]
+        },
+        {
+            "CharacterType": 1,
+            "CharacterActions": [
+                {
+                    "ActionId": "Attack",
+                    "ActionStrength": 3
+                },
+                {
+                    "ActionId": "Move",
+                    "ActionStrength": 1
+                },
+                {
+                    "ActionId": "Attack",
+                    "ActionStrength": 2
+                }
+            ]
+        },
+        {
+            "CharacterType": 2,
+            "CharacterActions": [
+                {
+                    "ActionId": "Hurt",
+                    "ActionStrength": 1
+                },
+                {
+                    "ActionId": "Move",
+                    "ActionStrength": 3
+                },
+                {
+                    "ActionId": "Attack",
+                    "ActionStrength": 2
+                }
+            ]
+        },
+        {
+            "CharacterType": 3,
+            "CharacterActions": [
+                {
+                    "ActionId": "Hurt",
+                    "ActionStrength": 1
+                },
+                {
+                    "ActionId": "Move",
+                    "ActionStrength": 2
+                },
+                {
+                    "ActionId": "Attack",
+                    "ActionStrength": 3
+                }
+            ]
+        }
+    ]
+}

@@ -1,4 +1,5 @@
 using HOG.Core;
+using HOG.GameLogic;
 using System.Collections;
 using System.Collections.Generic;
 using UI;
@@ -13,10 +14,10 @@ namespace HOG.Character
         private int currentSlotNumber = 0;
         private HOGAttacksUI attacksUI;
         private int characterType;
-        private HOGCharacterAttacksScriptable allAttackData;
+        private HOGUpgradableAttacksConfig allAttackData;
         private List<HOGCharacterAction> attackData;
 
-        public HOGCharacterActions(HOGAttacksUI AttacksUI, int CharacterType, HOGCharacterAttacksScriptable AttacksData)
+        public HOGCharacterActions(HOGAttacksUI AttacksUI, int CharacterType, HOGUpgradableAttacksConfig AttacksData)
         {
             allAttackData = AttacksData;
             if (AttacksUI != null)
@@ -100,11 +101,11 @@ namespace HOG.Character
 
         private void UpdateAttacksData()
         {
-            foreach (var element in allAttackData.AttacksConfig)
+            foreach (var element in allAttackData.UpgradableAttacks)
             {
-                if (element.characterType == characterType)
+                if (element.CharacterType == characterType)
                 {
-                    attackData = element.characterActions;
+                    attackData = element.CharacterActions;
                     break;
                 }
             }

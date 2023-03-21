@@ -30,7 +30,7 @@ namespace HOG.Core
                 return;
             }
             var saveID = typeof(T).FullName;
-            var path = $"{Application.persistentDataPath}/{saveID}.hogSave";
+                var path = $"{Application.persistentDataPath}/{saveID}.hogSave";
 
             var saveJson = File.ReadAllText(path);
             var saveData = JsonConvert.DeserializeObject<T>(saveJson);

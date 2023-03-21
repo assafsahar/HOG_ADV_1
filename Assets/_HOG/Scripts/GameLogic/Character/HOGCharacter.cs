@@ -12,7 +12,7 @@ namespace HOG.Character
     {
         [SerializeField] int attackStrength = 10;
         [SerializeField] int scoreMultiplier = 10;
-        [SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
+        //[SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
         [SerializeField] Transform scoreTransform;
         [SerializeField] private int characterType = 1;
 
@@ -36,9 +36,8 @@ namespace HOG.Character
             var isHOGCharacterAnims = TryGetComponent<HOGCharacterAnims>(out caComponent);
             characterAnims = caComponent;
             characterAnims.FillDictionary(characterType);
-            HOGAttacksUI component;
-            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);           
-            Actions = new HOGCharacterActions(component, characterType, characterAttacksData);
+                       
+            
             
             var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
         }
@@ -47,6 +46,7 @@ namespace HOG.Character
             AddListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
             AddListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             AddListener(HOGEventNames.OnTurnChange, ChangeTurn);
+            AddListener(HOGEventNames.OnGameReset, ResetScore);
         }
 
 
@@ -55,6 +55,11 @@ namespace HOG.Character
             RemoveListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
             RemoveListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             RemoveListener(HOGEventNames.OnTurnChange, ChangeTurn);
+            RemoveListener(HOGEventNames.OnGameReset, ResetScore);
+        }
+        private void ResetScore(object obj)
+        {
+            ShowScore(1);
         }
 
         private void ChangeTurn(object obj)
@@ -153,6 +158,10 @@ namespace HOG.Character
         public void CreateActionSequence()
         {
             StartIdle();
+            var characterAttacksData = HOGGameLogicManager.Instance.UpgradeManager.GetHogAttackConfig();
+            HOGAttacksUI component;
+            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
+            Actions = new HOGCharacterActions(component, characterType, characterAttacksData);
             Actions.ResetList();
             
         }

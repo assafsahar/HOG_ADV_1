@@ -16,19 +16,19 @@ MonoBehaviour:
   - characterType: 0
     characterActions:
     - ActionId: 1
-      ActionStrength: 2
+      ActionStrength: 1
     - ActionId: 2
-      ActionStrength: 2
+      ActionStrength: 1
     - ActionId: 1
-      ActionStrength: 2
+      ActionStrength: 1
   - characterType: 1
     characterActions:
     - ActionId: 2
-      ActionStrength: 3
+      ActionStrength: 1
     - ActionId: 1
       ActionStrength: 1
     - ActionId: 2
-      ActionStrength: 2
+      ActionStrength: 1
   - characterType: 2
     characterActions:
     - ActionId: 5

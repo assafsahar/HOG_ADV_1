@@ -10,7 +10,7 @@ namespace HOG.GameLogic
         public HOGPlayerScoreData PlayerScoreData = new();
         public HOGScoreManager()
         {
-            /*HOGManager.Instance.SaveManager.Load<HOGPlayerScoreData>(delegate (HOGPlayerScoreData data)
+            HOGManager.Instance.SaveManager.Load<HOGPlayerScoreData>(delegate (HOGPlayerScoreData data)
                 {
                     PlayerScoreData = data ?? new HOGPlayerScoreData();
                     //if (data == null)
@@ -21,7 +21,7 @@ namespace HOG.GameLogic
                     //{
                     //    PlayerScoreData = data;
                     //}
-                });*/
+                });
         }
 
         public bool TryGetScoreByTag(ScoreTags tag, ref int scoreOut)
@@ -40,7 +40,7 @@ namespace HOG.GameLogic
             HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnScoreSet, (tag, amount));
             PlayerScoreData.ScoreByTag[tag] = amount;
             HOGDebug.Log($" set score {amount}");
-            //HOGManager.Instance.SaveManager.Save(PlayerScoreData);
+            HOGManager.Instance.SaveManager.Save(PlayerScoreData);
         }
 
         public void ChangeScoreByTagByAmount(ScoreTags tag, int amount = 0)

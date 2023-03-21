@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using HOG.Character;
 using HOG.Core;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace HOG.GameLogic
     {
         public HOGPlayerUpgradeInventoryData PlayerUpgradeInventoryData; //Player Saved Data
         public HOGUpgradeManagerConfig UpgradeConfig = new HOGUpgradeManagerConfig(); //From cloud
+        public HOGUpgradableAttacksConfig UpgradeAttacksConfig = new HOGUpgradableAttacksConfig();
 
         //MockData
         //Load From Save Data On Device (Future)
@@ -19,6 +21,10 @@ namespace HOG.GameLogic
             HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradeManagerConfig>("upgrade_config", delegate (HOGUpgradeManagerConfig config)
             {
                 UpgradeConfig = config;
+            });
+            HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradableAttacksConfig>("attacks_data_config", delegate (HOGUpgradableAttacksConfig attacksConfig)
+            {
+                UpgradeAttacksConfig = attacksConfig;
             });
 
             HOGManager.Instance.SaveManager.Load(delegate (HOGPlayerUpgradeInventoryData data)
@@ -65,7 +71,13 @@ namespace HOG.GameLogic
             HOGUpgradeableConfig upgradeableConfig = UpgradeConfig.UpgradeableConfigs.FirstOrDefault(upgradable => upgradable.UpgradableTypeID == typeID);
             return upgradeableConfig;
         }
-
+        public HOGUpgradableAttacksConfig GetHogAttackConfig()
+        {
+            //HOGAttacksConfig attackConfig = UpgradeAttacksConfig.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID);
+            HOGUpgradableAttacksConfig attackConfig = UpgradeAttacksConfig;
+            return attackConfig;
+        }
+        //.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID)
         public int GetPowerByIDAndLevel(UpgradeablesTypeID typeID, int level)
         {
             var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
@@ -107,12 +119,21 @@ namespace HOG.GameLogic
         public UpgradeablesTypeID UpgradableTypeID;
         public List<HOGUpgradeableLevelData> UpgradableLevelData;
     }
+    public class HOGAttacksConfig
+    {
+        public int CharacterType;
+        public List<HOGCharacterAction> CharacterActions;
+    }
 
     //All config for upgradeable
     [Serializable]
     public class HOGUpgradeManagerConfig
     {
         public List<HOGUpgradeableConfig> UpgradeableConfigs;
+    }
+    public class HOGUpgradableAttacksConfig
+    {
+        public List<HOGAttacksConfig> UpgradableAttacks;
     }
 
     //All player saved data
@@ -129,6 +150,7 @@ namespace HOG.GameLogic
         ClickPowerUpgrade = 1
         
     }
+
 
     
 }
