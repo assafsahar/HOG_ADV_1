@@ -75,6 +75,10 @@ namespace HOG.Test
             Manager.PoolManager.ReturnPoolable(bullet);*/
         }
 
+        public void ChangeAttack(int amount)
+        {
+            InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Move, amount));
+        }
 
     }
 }

@@ -15,6 +15,7 @@ namespace HOG.Character
         //[SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
         [SerializeField] Transform scoreTransform;
         [SerializeField] private int characterType = 1;
+        [SerializeField] private float waitTimeBetweenAttacks = 1f;
 
         public int characterNumber = 1;
         public bool IsDead { get; private set; } = false;
@@ -148,7 +149,7 @@ namespace HOG.Character
             while(Actions.CanContinue())
             {
                 PlayAction(Actions.GetAction());
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(waitTimeBetweenAttacks);
                 Actions.RemoveTempAction();
             }
             FinishAttackSequence();
