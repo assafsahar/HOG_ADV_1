@@ -19,6 +19,7 @@ namespace HOG.Character
 
         public HOGCharacterActions(HOGAttacksUI AttacksUI, int CharacterType, HOGUpgradableAttacksConfig AttacksData)
         {
+            HOGDebug.Log("AttacksData=" + AttacksData);
             allAttackData = AttacksData;
             if (AttacksUI != null)
             {

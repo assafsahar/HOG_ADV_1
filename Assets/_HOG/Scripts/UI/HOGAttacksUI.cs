@@ -28,9 +28,12 @@ namespace UI
 
         private void FillDictionary()
         {
-            slots.Add(1, ('W', "1"));
-            slots.Add(2, ('A', "2"));
-            slots.Add(3, ('W', "1"));
+            if (slots.Count == 0)
+            {
+                slots.Add(1, ('W', "1"));
+                slots.Add(2, ('A', "2"));
+                slots.Add(3, ('W', "1"));
+            }
         }
 
         public void UpdateAttackText(int slotNumber, char attackText, string attackStrength)

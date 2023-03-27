@@ -22,7 +22,7 @@ namespace HOG.GameLogic
             {
                 UpgradeConfig = config;
             });
-            HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradableAttacksConfig>("attacks_data_config", delegate (HOGUpgradableAttacksConfig attacksConfig)
+            HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradableAttacksConfig>("UpgradableAttacks", delegate (HOGUpgradableAttacksConfig attacksConfig)
             {
                 UpgradeAttacksConfig = attacksConfig;
             });
@@ -75,6 +75,7 @@ namespace HOG.GameLogic
         {
             //HOGAttacksConfig attackConfig = UpgradeAttacksConfig.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID);
             HOGUpgradableAttacksConfig attackConfig = UpgradeAttacksConfig;
+            HOGDebug.Log($"GetHogAttackConfig {attackConfig.ToString()}");
             return attackConfig;
         }
         //.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID)
