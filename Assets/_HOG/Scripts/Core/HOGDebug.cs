@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace HOG.Core
 {
@@ -10,7 +12,13 @@ namespace HOG.Core
         [Conditional("LOGS_ENABLE")]
        public static void Log(object obj)
         {
-            UnityEngine.Debug.Log(obj.ToString());
+            Debug.Log(obj.ToString());
+        }
+
+        [Conditional("LOGS_ENABLE")]
+        public static void LogException(object obj)
+        {
+            Debug.LogException(new Exception(obj.ToString()));
         }
     }
 }
