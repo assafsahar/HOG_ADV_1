@@ -1932,6 +1932,7 @@ MonoBehaviour:
   - {fileID: 1916869671}
   - {fileID: 397522465}
   screenManager: {fileID: 678264681}
+  deckManager: {fileID: 1377031957}
 --- !u!4 &887696002
 Transform:
   m_ObjectHideFlags: 0
@@ -3645,6 +3646,7 @@ MonoBehaviour:
     CardId: 0
     CardEnabled: 0
     CardVisible: 0
+    CardType: 0
   deckUI: {fileID: 1377031959}
 --- !u!4 &1377031958
 Transform:
@@ -4908,18 +4910,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   score1: {fileID: 1962922563}
---- !u!114 &1916869674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1916869666}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f532e8787a0ad54bbba377e4dd256aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1962922561
 GameObject:
   m_ObjectHideFlags: 0

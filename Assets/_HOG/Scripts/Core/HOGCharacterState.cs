@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace HOG.Core
 {
+    
     public class HOGCharacterState
     {
         public enum CharacterStates

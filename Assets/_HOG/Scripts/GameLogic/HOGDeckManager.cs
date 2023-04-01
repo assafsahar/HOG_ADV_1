@@ -31,7 +31,29 @@ namespace HOG.GameLogic
             ShowCard(0, true, true);
         }
 
-        private void ShowCard(int cardId, bool toShow, bool toEnable)
+        public void DisableAllCards()
+        {
+            foreach (var card in configurableCards)
+            {
+                if (card != null)
+                {
+                    ShowCard(card.CardId, true, false);
+                }
+            }
+        }
+        public void EnableAllCards()
+        {
+            foreach(var card in configurableCards)
+            {
+                if(card != null)
+                {
+                    ShowCard(card.CardId, true, true);
+                }
+            }
+            
+        }
+
+        public void ShowCard(int cardId, bool toShow, bool toEnable)
         {
             if(configurableCards[0] == null)
             {
@@ -53,6 +75,7 @@ public class ConfigurableCard
     public int CardId = 1;
     public bool CardEnabled = true;
     public bool CardVisible = true;
+    public CardTypes CardType = CardTypes.Ability;
 }
 
 public enum CardTypes

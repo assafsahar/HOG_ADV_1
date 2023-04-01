@@ -11,6 +11,7 @@ namespace HOG.GameLogic
     {
         [SerializeField] HOGCharacter[] characters;
         [SerializeField] HOGScreenManager screenManager;
+        [SerializeField] HOGDeckManager deckManager;
         private HOGCharacter character1;
         private HOGCharacter character2;
         private HOGCharacter chosenCharacter;
@@ -97,13 +98,24 @@ namespace HOG.GameLogic
 
         public void PlayOpponent(object previousPlayedCharacter)
         {
-            Turn = (int)previousPlayedCharacter == 1 ? 2 : 1;
+            Turn = (int)previousPlayedCharacter == 1 ? 2 : 1;       
             InvokeEvent(HOGEventNames.OnTurnChange,Turn);
             chosenCharacter = (int)previousPlayedCharacter == 1 ? character2 : character1;
             
             if (chosenCharacter != null)
             {
                 fightCoroutine = StartCoroutine(chosenCharacter.PlayActionSequence());
+            }
+            if(Turn == 1)
+            {
+                if (deckManager != null)
+                {
+                    deckManager.DisableAllCards();
+                }
+            }
+            else
+            {
+                deckManager.EnableAllCards();
             }
         }
 
