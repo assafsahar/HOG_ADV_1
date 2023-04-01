@@ -77,9 +77,9 @@ namespace HOG.Test
 
         public void ChangeAttack(int amount)
         {
-            InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Move, amount));
+            InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));
         }
-
+    
     }
 }
 
