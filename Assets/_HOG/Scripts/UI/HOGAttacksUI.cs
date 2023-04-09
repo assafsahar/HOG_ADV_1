@@ -1,4 +1,5 @@
 using HOG.Core;
+using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -16,14 +17,22 @@ namespace UI
         [SerializeField] TextMeshProUGUI slot3TextStrength;
         [SerializeField] TextMeshProUGUI characterTypeText;
         [SerializeField] RectTransform ActivePanel;
-        [SerializeField] float[] panelPositions = new float[3] {0,0,0};
+        float[] panelPositions = new float[3] {0,0,0};
         public Dictionary<int, (char,string)> slots = new Dictionary<int, (char, string)>();
 
 
         public void Init()
         {
+            FillPanelPositions();
             FillDictionary();
             ShowDictionary();
+        }
+
+        private void FillPanelPositions()
+        {
+            panelPositions[0] = slot1Text.transform.position.x;
+            panelPositions[1] = slot2Text.transform.position.x;
+            panelPositions[2] = slot3Text.transform.position.x;
         }
 
         private void FillDictionary()
