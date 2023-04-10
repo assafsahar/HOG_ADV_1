@@ -59,7 +59,7 @@ namespace HOG.Character
                 characterAttacks[0] = new HOGCharacterActionBase(attackData[0].ActionId, attackData[0].ActionStrength) ;
             }
             
-            UpdateUI();
+            UpdateUI(1);
         }
         public bool CanContinue()
         {
@@ -113,9 +113,16 @@ namespace HOG.Character
             ResetList();
         }
 
-        private void UpdateUI()
+        private void UpdateUI(int slotNumber = -1)
         {
-            for(int i = 0; i<characterAttacks.Count; i++) 
+            var startNum = 0;
+            var endNum = characterAttacks.Count;
+            if(slotNumber != -1)
+            {
+                startNum = slotNumber - 1;
+                endNum = slotNumber;
+            }
+            for (int i = startNum; i< endNum; i++) 
             {
                 var firstChar = characterAttacks[i].ActionId.ToString()[0];
                 var strength = characterAttacks[i].ActionStrength.ToString();
