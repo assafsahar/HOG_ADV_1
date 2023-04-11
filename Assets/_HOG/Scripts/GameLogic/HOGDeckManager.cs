@@ -1,3 +1,4 @@
+using HOG.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -7,12 +8,24 @@ using UnityEngine.UI;
 
 namespace HOG.GameLogic
 {
-    public class HOGDeckManager : MonoBehaviour
+    public class HOGDeckManager : HOGMonoBehaviour
     {
         [SerializeField]
         List<ConfigurableCard> configurableCards = new List<ConfigurableCard>();
 
         [SerializeField] HOGDeckUI deckUI;
+
+        private void OnEnable()
+        {
+            AddListener(HOGEventNames.OnAbilityChange, DisableAllCards);
+            AddListener(HOGEventNames.OnCharacterChange, DisableAllCards);
+        }
+
+        private void OnDisable()
+        {
+            RemoveListener(HOGEventNames.OnAbilityChange, DisableAllCards);
+            RemoveListener(HOGEventNames.OnCharacterChange, DisableAllCards);
+        }
         private void Awake()
         {
             foreach (var card in configurableCards)
@@ -31,7 +44,7 @@ namespace HOG.GameLogic
             ShowCard(0, true, true);
         }
 
-        public void DisableAllCards()
+        public void DisableAllCards(object obj=null)
         {
             foreach (var card in configurableCards)
             {
@@ -42,7 +55,7 @@ namespace HOG.GameLogic
             }
         }
         public void EnableAllCards()
-        {
+            {
             foreach(var card in configurableCards)
             {
                 if(card != null)
@@ -63,6 +76,8 @@ namespace HOG.GameLogic
             configurableCards[0].CardVisible = toShow;
             configurableCards[0].CardEnabled = toEnable;
         }
+
+       
 
     }
 }

@@ -481,7 +481,7 @@ GameObject:
   - component: {fileID: 338268250}
   - component: {fileID: 338268249}
   - component: {fileID: 338268248}
-  - component: {fileID: 338268247}
+  - component: {fileID: 338268251}
   m_Layer: 5
   m_Name: ChangeCharacter2
   m_TagString: Untagged
@@ -510,18 +510,6 @@ RectTransform:
   m_AnchoredPosition: {x: 667.2611, y: 128}
   m_SizeDelta: {x: 186.5223, y: 166.25}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &338268247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338268245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed39b4118127c4d4c8e13f986c340016, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &338268248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -566,8 +554,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 338268247}
-        m_TargetAssemblyTypeName: HOG.Test.HOGTester, HOG.Test
+      - m_Target: {fileID: 338268251}
+        m_TargetAssemblyTypeName: HOGCardClicker, HOG.GameLogic
         m_MethodName: changeCharacter
         m_Mode: 3
         m_Arguments:
@@ -616,6 +604,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338268245}
   m_CullTransparentMesh: 1
+--- !u!114 &338268251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 338268245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3e9c0763d461aa49b6be2bc206b4972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &369874426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1883,7 +1883,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 710389199}
-        m_TargetAssemblyTypeName: HOG.Test.HOGTester, HOG.Test
+        m_TargetAssemblyTypeName: HOGCardClicker, HOG.GameLogic
         m_MethodName: ChangeAttack
         m_Mode: 3
         m_Arguments:
@@ -1941,7 +1941,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 710389193}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed39b4118127c4d4c8e13f986c340016, type: 3}
+  m_Script: {fileID: 11500000, guid: a3e9c0763d461aa49b6be2bc206b4972, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &804241863
@@ -5680,50 +5680,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115961626}
   m_CullTransparentMesh: 1
---- !u!1 &2140100774
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2140100776}
-  - component: {fileID: 2140100775}
-  m_Layer: 0
-  m_Name: HogTester
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2140100775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140100774}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed39b4118127c4d4c8e13f986c340016, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &2140100776
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140100774}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 408.65173, y: 658.674, z: 896.28217}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &7943907826765550770
 PrefabInstance:
   m_ObjectHideFlags: 0

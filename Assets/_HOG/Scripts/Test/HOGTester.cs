@@ -5,32 +5,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace HOG.Test
 {
     
     public class HOGTester : HOGMonoBehaviour
     {
-        //[SerializeField] float speed = 30f;
-        //private Queue<HOGPoolable> poolables = new();
-
-        private void Start()
-        {
-            //HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(GameLogic.ScoreTags.MainScore, 50);
-        }
-        private void OnEnable()
-        {
-            HOGDebug.Log("Tester enabled");
-            //AddListener(HOGEventNames.ReturnBullet, ReturnPoolable);
-        }
-
-        private void OnDisable()
-        {
-            //RemoveListener(HOGEventNames.ReturnBullet, ReturnPoolable);
-        }
-
-
-        // Update is called once per frame
+        
         void Update()
         {
             if (Input.GetKeyDown(KeyCode.D))
@@ -68,13 +48,7 @@ namespace HOG.Test
 
         }
         
-
-        void ReturnPoolable(object obj)
-        {
-            /*var bullet = poolables.Dequeue();
-            Manager.PoolManager.ReturnPoolable(bullet);*/
-        }
-
+        // the following methods are called from the UI buttons (editor)
         public void ChangeAttack(int amount)
         {
             InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));

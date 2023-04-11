@@ -21,26 +21,12 @@ namespace UI
             }
             card.interactable = toEnable;
             card.enabled = toShow;
-            /*foreach (ConfigurableCard crd in configurableCards)
-            {
-                if (crd.CardId == cardId)
-                {
-                    card = crd;
-                    break;
-                }
-            }*/
-
             // If the card was not found, throw an exception
             if (card == null)
             {
                 throw new ArgumentException("Card with ID " + cardId + " not found.");
             }
 
-            // Set the visibility and enabled state of the card
-            /*card.CardVisible = toShow;
-            card.CardEnabled = toEnable;
-            card.Card.interactable = toEnable;
-            card.Card.gameObject.SetActive(toShow);*/
         }
 
     }

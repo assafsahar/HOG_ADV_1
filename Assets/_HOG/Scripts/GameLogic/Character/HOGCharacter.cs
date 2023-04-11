@@ -25,7 +25,8 @@ namespace HOG.Character
         private SpriteRenderer spriteRenderer;
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
-        HOGScoreUI scoreComponent;
+        private HOGScoreUI scoreComponent;
+        private HOGDeckManager deckManager;
 
 
         public void Init()
