@@ -764,7 +764,7 @@ PrefabInstance:
       objectReference: {fileID: 397522464}
     - target: {fileID: 2705681406973211174, guid: c04ac10917c182042b0312037fba1cd8, type: 3}
       propertyPath: characterType
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2705681406973211174, guid: c04ac10917c182042b0312037fba1cd8, type: 3}
       propertyPath: scoreTransform
@@ -873,38 +873,52 @@ MonoBehaviour:
   idleAnim:
   - {fileID: 21300000, guid: 55a456f564a9fa249acdb6164cddb87e, type: 3}
   - {fileID: 21300000, guid: 6db23724cb74ee74499b5d7ab1664ca4, type: 3}
+  - {fileID: 21300000, guid: 55a456f564a9fa249acdb6164cddb87e, type: 3}
   - {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
   - {fileID: 21300000, guid: bcf6ef84087bf244da0d9a41ff373987, type: 3}
+  - {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
   attackAnim:
   - {fileID: 21300000, guid: e18ca6aea60575248b9e0b986ed71b76, type: 3}
   - {fileID: 21300000, guid: bbe45f817104de94e94235b5877c263c, type: 3}
+  - {fileID: 21300000, guid: e18ca6aea60575248b9e0b986ed71b76, type: 3}
   - {fileID: 21300000, guid: b245e73d11ca3f04a9302e4160d901ea, type: 3}
   - {fileID: 21300000, guid: f507b6451aa25c0489477d0bb17e4d42, type: 3}
+  - {fileID: 21300000, guid: b245e73d11ca3f04a9302e4160d901ea, type: 3}
   hurtAnim:
   - {fileID: 21300000, guid: e090f289240b7c14492e30b153f63581, type: 3}
   - {fileID: 21300000, guid: 7f4f34af7aa19384580b4ed0e2cb6c96, type: 3}
+  - {fileID: 21300000, guid: e090f289240b7c14492e30b153f63581, type: 3}
   - {fileID: 21300000, guid: 9522eb60824b36e4f82f3b0a63a9dd6b, type: 3}
   - {fileID: 21300000, guid: 4f56739bbb0a4f844ba3c3be7ac1d7b3, type: 3}
+  - {fileID: 21300000, guid: 9522eb60824b36e4f82f3b0a63a9dd6b, type: 3}
   dieAnim:
   - {fileID: 21300000, guid: 7bd259922e77eab44b277be2c4cb3d67, type: 3}
   - {fileID: 21300000, guid: b52fa0a1df39ad547acc3c3e5c10fe91, type: 3}
+  - {fileID: 21300000, guid: 7bd259922e77eab44b277be2c4cb3d67, type: 3}
   - {fileID: 21300000, guid: 0ce022f51eec6ba4fa3324d78890ded1, type: 3}
   - {fileID: 21300000, guid: 1406075d5ce8f8749b2aae85bf8b2b87, type: 3}
+  - {fileID: 21300000, guid: 0ce022f51eec6ba4fa3324d78890ded1, type: 3}
   defenseAnim:
   - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: 7f4735d374a09834cb8014854916020a, type: 3}
+  - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   - {fileID: 21300000, guid: 0b6e34bce2ae80d48a4989ca742d0de2, type: 3}
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   winAnim:
   - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: 7f4735d374a09834cb8014854916020a, type: 3}
+  - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   - {fileID: 21300000, guid: 0b6e34bce2ae80d48a4989ca742d0de2, type: 3}
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   moveAnim:
   - {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
   - {fileID: 21300000, guid: dafdc74daa9905c41976120b3899d9b9, type: 3}
+  - {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
   - {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
   - {fileID: 21300000, guid: 30a7ed7c2ea360543be18609aa4808ba, type: 3}
+  - {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
   hitEffects:
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
   - {fileID: 1040608886635896, guid: 4bb1303cb935ba849bce107507fdde1a, type: 3}
@@ -1167,7 +1181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Change \nCharacter\n2"
+  m_text: "Change \nCharacter\nBrown"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5091,37 +5105,51 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 55a456f564a9fa249acdb6164cddb87e, type: 3}
   - {fileID: 21300000, guid: 6db23724cb74ee74499b5d7ab1664ca4, type: 3}
   - {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
+  - {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
   - {fileID: 21300000, guid: bcf6ef84087bf244da0d9a41ff373987, type: 3}
+  - {fileID: 21300000, guid: e101c9efe253bf346a36477adcb9c8e4, type: 3}
   attackAnim:
   - {fileID: 21300000, guid: e18ca6aea60575248b9e0b986ed71b76, type: 3}
   - {fileID: 21300000, guid: bbe45f817104de94e94235b5877c263c, type: 3}
+  - {fileID: 21300000, guid: e18ca6aea60575248b9e0b986ed71b76, type: 3}
   - {fileID: 21300000, guid: b245e73d11ca3f04a9302e4160d901ea, type: 3}
   - {fileID: 21300000, guid: f507b6451aa25c0489477d0bb17e4d42, type: 3}
+  - {fileID: 21300000, guid: b245e73d11ca3f04a9302e4160d901ea, type: 3}
   hurtAnim:
   - {fileID: 21300000, guid: e090f289240b7c14492e30b153f63581, type: 3}
   - {fileID: 21300000, guid: 7f4f34af7aa19384580b4ed0e2cb6c96, type: 3}
+  - {fileID: 21300000, guid: e090f289240b7c14492e30b153f63581, type: 3}
   - {fileID: 21300000, guid: 9522eb60824b36e4f82f3b0a63a9dd6b, type: 3}
   - {fileID: 21300000, guid: 4f56739bbb0a4f844ba3c3be7ac1d7b3, type: 3}
+  - {fileID: 21300000, guid: 9522eb60824b36e4f82f3b0a63a9dd6b, type: 3}
   dieAnim:
   - {fileID: 21300000, guid: 7bd259922e77eab44b277be2c4cb3d67, type: 3}
   - {fileID: 21300000, guid: b52fa0a1df39ad547acc3c3e5c10fe91, type: 3}
+  - {fileID: 21300000, guid: 7bd259922e77eab44b277be2c4cb3d67, type: 3}
   - {fileID: 21300000, guid: 0ce022f51eec6ba4fa3324d78890ded1, type: 3}
   - {fileID: 21300000, guid: 1406075d5ce8f8749b2aae85bf8b2b87, type: 3}
+  - {fileID: 21300000, guid: 0ce022f51eec6ba4fa3324d78890ded1, type: 3}
   defenseAnim:
   - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: 7f4735d374a09834cb8014854916020a, type: 3}
+  - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   - {fileID: 21300000, guid: 0b6e34bce2ae80d48a4989ca742d0de2, type: 3}
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   winAnim:
   - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: 7f4735d374a09834cb8014854916020a, type: 3}
+  - {fileID: 21300000, guid: 014a85a8b63e7074fab835f06768941c, type: 3}
   - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   - {fileID: 21300000, guid: 0b6e34bce2ae80d48a4989ca742d0de2, type: 3}
+  - {fileID: 21300000, guid: bd4a52ed43ba689479289ed382500c2d, type: 3}
   moveAnim:
   - {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
   - {fileID: 21300000, guid: dafdc74daa9905c41976120b3899d9b9, type: 3}
+  - {fileID: 21300000, guid: 2922e5ab253d4d34c80a6265c219e780, type: 3}
   - {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
   - {fileID: 21300000, guid: 30a7ed7c2ea360543be18609aa4808ba, type: 3}
+  - {fileID: 21300000, guid: daa3fb7cc5359104d8663f87e5daced7, type: 3}
   hitEffects:
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
   - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
