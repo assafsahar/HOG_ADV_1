@@ -9,13 +9,13 @@ namespace HOG.Core
     {
         public enum CharacterStates
         {
-            Idle,
-            Move,
-            Attack,
-            Defense,
-            Die,
-            Hurt,
-            Win
+            Idle = 0,
+            Move = 1,
+            Attack = 2,
+            Defense = 3,
+            Die = 4,
+            Hurt = 5,
+            Win = 6
         }
     }
 }

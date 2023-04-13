@@ -52,21 +52,21 @@ namespace HOG.Core
 
     public enum HOGEventNames
     {
-        OnScoreSet,
-        OnGameStart,
-        OnUpgraded,
-        PlayerTaken,
-        ReturnBullet,
-        OnAttacksFinish,
-        OnAttackFinish,
-        OnGetHit,
-        OnCharacterDied,
-        OnGameReset,
-        OnCharacterChange,
-        OnAbilityChange,
-        OnBackToIdle,
-        OnTurnChange,
-        OnPreFightReady,
-        OnFightReady
+        OnScoreSet = 0,
+        OnGameStart = 1,
+        OnUpgraded = 2,
+        PlayerTaken = 3,
+        ReturnBullet = 4,
+        OnAttacksFinish = 5,
+        OnAttackFinish = 6,
+        OnGetHit = 7,
+        OnCharacterDied = 8,
+        OnGameReset = 9,
+        OnCharacterChange = 10,
+        OnAbilityChange = 11,
+        OnBackToIdle = 12,
+        OnTurnChange = 13,
+        OnPreFightReady = 14,
+        OnFightReady = 15
     }
 }

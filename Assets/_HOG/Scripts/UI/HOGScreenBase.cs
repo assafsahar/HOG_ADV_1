@@ -28,8 +28,8 @@ namespace HOG.Screens
     }
     public enum HOGScreenNames
     {
-        OpeningScreen,
-        GameScreen,
-        SummaryScreen
+        OpeningScreen = 0,
+        GameScreen = 1,
+        SummaryScreen = 2
     }
 }

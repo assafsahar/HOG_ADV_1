@@ -95,6 +95,6 @@ public class ConfigurableCard
 
 public enum CardTypes
 {
-    Ability,
-    Character
+    Ability = 0,
+    Character = 1
 }

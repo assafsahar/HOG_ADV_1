@@ -147,8 +147,11 @@ namespace HOG.GameLogic
     [Serializable]
     public enum UpgradeablesTypeID
     {
-        Cake = 0,
-        ClickPowerUpgrade = 1
+        ChangeAttack = 0,
+        ChangeCharacter = 1,
+        ChangePower = 2,
+        DoubleAttack = 3,
+        Combo = 4
         
     }
 
