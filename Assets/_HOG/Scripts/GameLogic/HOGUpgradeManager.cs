@@ -33,7 +33,7 @@ namespace HOG.GameLogic
                 {
                     Upgradeables = new List<HOGUpgradeableData>(){new HOGUpgradeableData
                         {
-                            upgradableTypeID = UpgradeablesTypeID.ClickPowerUpgrade,
+                            upgradableTypeID = UpgradeablesTypeID.ChangeAttack,
                             CurrentLevel = 0
                         }
                     }
@@ -109,7 +109,6 @@ namespace HOG.GameLogic
         public int Level;
         public int CoinsNeeded;
         public ScoreTags CurrencyTag;
-        public string ArtItem;
         public int Power;
     }
 

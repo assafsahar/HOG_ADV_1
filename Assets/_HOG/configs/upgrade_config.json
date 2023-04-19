@@ -1,9 +1,8 @@
 {
     "UpgradeableConfigs": [
         {
-            "UpgradableTypeID": "ClickPowerUpgrade",
+            "UpgradableTypeID": "AttackPowerUpgrade",
             "ArtItemName": "Cookie",
-            "RecipeName": "Nice Cookie",
             "UpgradableLevelData": [
                 {
                     "Level": 1,
@@ -13,28 +12,33 @@
                 },
                 {
                     "Level": 2,
-                    "CoinsNeeded": 50,
+                    "CoinsNeeded": 500,
                     "CurrencyTag": "MainScore",
-                    "Power": 15
+                    "Power": 2
                 },
                 {
                     "Level": 3,
-                    "CoinsNeeded": 1500,
+                    "CoinsNeeded": 2500,
                     "CurrencyTag": "MainScore",
-                    "Power": 40
+                    "Power": 3
                 },
                 {
                     "Level": 4,
-                    "CoinsNeeded": 8000,
+                    "CoinsNeeded": 12500,
                     "CurrencyTag": "MainScore",
-                    "Power": 100
+                    "Power": 4
+                },
+                {
+                    "Level": 5,
+                    "CoinsNeeded": 62500,
+                    "CurrencyTag": "MainScore",
+                    "Power": 5
                 }
             ]
         },
         {
-            "UpgradableTypeID": "Cake",
-            "ArtItemName": "CakePink",
-            "RecipeName": "Ugly Cake",
+            "UpgradableTypeID": "Character",
+            "ArtItemName": "",
             "UpgradableLevelData": [
                 {
                     "Level": 1,
