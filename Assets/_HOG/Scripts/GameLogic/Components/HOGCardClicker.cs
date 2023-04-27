@@ -1,4 +1,5 @@
 using HOG.Core;
+using HOG.GameLogic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,5 +16,11 @@ public class HOGCardClicker : HOGMonoBehaviour
     public void changeCharacter(int characterNumber)
     {
         InvokeEvent(HOGEventNames.OnCharacterChange, characterNumber - 1);
+    }
+
+    public void OnUpgradePress(int upgradeId)
+    {
+        UpgradeablesTypeID upgradable = (UpgradeablesTypeID)upgradeId;
+        HOGGameLogicManager.Instance.UpgradeManager.UpgradeItemByID(upgradable);
     }
 }

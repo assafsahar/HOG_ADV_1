@@ -1,70 +1,64 @@
 {
     "UpgradeableConfigs": [
-        {
-            "UpgradableTypeID": "AttackPowerUpgrade",
-            "ArtItemName": "Cookie",
-            "UpgradableLevelData": [
-                {
-                    "Level": 1,
-                    "CoinsNeeded": 0,
-                    "CurrencyTag": "MainScore",
-                    "Power": 1
-                },
-                {
-                    "Level": 2,
-                    "CoinsNeeded": 500,
-                    "CurrencyTag": "MainScore",
-                    "Power": 2
-                },
-                {
-                    "Level": 3,
-                    "CoinsNeeded": 2500,
-                    "CurrencyTag": "MainScore",
-                    "Power": 3
-                },
-                {
-                    "Level": 4,
-                    "CoinsNeeded": 12500,
-                    "CurrencyTag": "MainScore",
-                    "Power": 4
-                },
-                {
-                    "Level": 5,
-                    "CoinsNeeded": 62500,
-                    "CurrencyTag": "MainScore",
-                    "Power": 5
-                }
-            ]
-        },
-        {
-            "UpgradableTypeID": "Character",
-            "ArtItemName": "",
-            "UpgradableLevelData": [
-                {
-                    "Level": 1,
-                    "CoinsNeeded": 0,
-                    "CurrencyTag": "Chocolate",
-                    "Power": 1
-                },
-                {
-                    "Level": 2,
-                    "CoinsNeeded": 50,
-                    "CurrencyTag": "Chocolate",
-                    "Power": 15
-                },
-                {
-                    "Level": 3,
-                    "CoinsNeeded": 1500,
-                    "CurrencyTag": "Chocolate",
-                    "Power": 40
-                },
-                {
-                    "Level": 4,
-                    "CoinsNeeded": 8000,
-                    "CurrencyTag": "Chocolate",
-                    "Power": 100
-                }
-            ]
-        }
+      {
+        "UpgradableTypeID": "ChangePower",
+        "ArtItemName": "",
+        "UpgradableLevelData": [
+          {
+            "Level": 1,
+            "CoinsNeeded": 0,
+            "CurrencyTag": "MainScore",
+            "Power": 1
+          },
+          {
+            "Level": 2,
+            "CoinsNeeded": 500,
+            "CurrencyTag": "MainScore",
+            "Power": 2
+          },
+          {
+            "Level": 3,
+            "CoinsNeeded": 2500,
+            "CurrencyTag": "MainScore",
+            "Power": 3
+          },
+          {
+            "Level": 4,
+            "CoinsNeeded": 12500,
+            "CurrencyTag": "MainScore",
+            "Power": 4
+          },
+          {
+            "Level": 5,
+            "CoinsNeeded": 62500,
+            "CurrencyTag": "MainScore",
+            "Power": 5
+          }
+        ]
+      },
+      {
+        "UpgradableTypeID": "ChangeCharacter",
+        "ArtItemName": "",
+        "UpgradableLevelData": [
+          {
+            "Level": 1,
+            "CoinsNeeded": 0,
+            "CurrencyTag": "Blue",
+            "Power": 1
+          },
+          {
+            "Level": 2,
+            "CoinsNeeded": 50,
+            "CurrencyTag": "Brown",
+            "Power": 15
+          },
+          {
+            "Level": 3,
+            "CoinsNeeded": 1500,
+            "CurrencyTag": "Yellow",
+            "Power": 40
+          }
+        ]
+      }
     ]
 }

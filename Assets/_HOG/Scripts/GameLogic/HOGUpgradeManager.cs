@@ -18,7 +18,7 @@ namespace HOG.GameLogic
         //Load Config From Load
         public HOGUpgradeManager()
         {
-            HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradeManagerConfig>("upgrade_config", delegate (HOGUpgradeManagerConfig config)
+            HOGManager.Instance.ConfigManager.GetConfigAsync<HOGUpgradeManagerConfig>("UpgradableConfig", delegate (HOGUpgradeManagerConfig config)
             {
                 UpgradeConfig = config;
             });
@@ -33,8 +33,8 @@ namespace HOG.GameLogic
                 {
                     Upgradeables = new List<HOGUpgradeableData>(){new HOGUpgradeableData
                         {
-                            upgradableTypeID = UpgradeablesTypeID.ChangeAttack,
-                            CurrentLevel = 0
+                            upgradableTypeID = UpgradeablesTypeID.ChangePower,
+                            CurrentLevel = 1
                         }
                     }
                 };
@@ -52,22 +52,27 @@ namespace HOG.GameLogic
                 int amountToReduce = levelData.CoinsNeeded;
                 ScoreTags coinsType = levelData.CurrencyTag;
 
-                if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce))
+                //if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce))
                 {
                     upgradeable.CurrentLevel++;
                     HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, typeID);
 
-                    //HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
+                    HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
                 }
-                else
+                /*else
                 {
                     Debug.LogError($"UpgradeItemByID {typeID.ToString()} tried upgrade and there is no enough");
-                }
+                }*/
+            }
+            else
+            {
+                HOGDebug.Log("failed because upgradable was null");
             }
         }
 
         public HOGUpgradeableConfig GetHogUpgradeableConfigByID(UpgradeablesTypeID typeID)
         {
+            HOGUpgradeManagerConfig hOGUpgradeManagerConfig = UpgradeConfig;
             HOGUpgradeableConfig upgradeableConfig = UpgradeConfig.UpgradeableConfigs.FirstOrDefault(upgradable => upgradable.UpgradableTypeID == typeID);
             return upgradeableConfig;
         }

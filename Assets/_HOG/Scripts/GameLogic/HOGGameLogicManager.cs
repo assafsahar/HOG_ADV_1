@@ -28,7 +28,12 @@ namespace HOG.GameLogic
         public void LoadManager(Action onComplete)
         {
             ScoreManager = new HOGScoreManager();
-            UpgradeManager = new HOGUpgradeManager();
+            UpgradeManager = new HOGUpgradeManager(
+                /*() =>
+                {
+                    StoreManager = new HOGStoreManager();
+                }*/
+                );
             onComplete.Invoke();
         }
     }

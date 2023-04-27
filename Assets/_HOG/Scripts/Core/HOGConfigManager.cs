@@ -18,7 +18,7 @@ namespace HOG.Core
             onInit = onComplete;
             var defaults = new Dictionary<string, object>();
 
-            defaults.Add("attacks_data_config", "{}");
+            defaults.Add("UpgradableConfig", "{}");
 
             FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults).ContinueWithOnMainThread(OnDefaultValuesSet);
 
