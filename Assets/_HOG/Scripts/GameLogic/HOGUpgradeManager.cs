@@ -48,21 +48,25 @@ namespace HOG.GameLogic
             if (upgradeable != null)
             {
                 var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
-                HOGUpgradeableLevelData levelData = upgradeableConfig.UpgradableLevelData[upgradeable.CurrentLevel + 1];
+                if(upgradeableConfig.UpgradableLevelData.Count <= upgradeable.CurrentLevel)
+                {
+                    return;
+                }
+                HOGUpgradeableLevelData levelData = upgradeableConfig.UpgradableLevelData[upgradeable.CurrentLevel];
                 int amountToReduce = levelData.CoinsNeeded;
                 ScoreTags coinsType = levelData.CurrencyTag;
 
-                //if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce))
+                if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce))
                 {
                     upgradeable.CurrentLevel++;
                     HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, typeID);
 
                     HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
                 }
-                /*else
+                else
                 {
                     Debug.LogError($"UpgradeItemByID {typeID.ToString()} tried upgrade and there is no enough");
-                }*/
+                }
             }
             else
             {
@@ -70,6 +74,7 @@ namespace HOG.GameLogic
             }
         }
 
+        
         public HOGUpgradeableConfig GetHogUpgradeableConfigByID(UpgradeablesTypeID typeID)
         {
             HOGUpgradeManagerConfig hOGUpgradeManagerConfig = UpgradeConfig;

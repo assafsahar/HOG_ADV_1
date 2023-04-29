@@ -63,7 +63,7 @@ namespace HOG.GameLogic
 
             if (hasType)
             {
-                hasEnough = amountToReduce >= score;
+                hasEnough = amountToReduce <= score;
             }
 
             if (hasEnough)
