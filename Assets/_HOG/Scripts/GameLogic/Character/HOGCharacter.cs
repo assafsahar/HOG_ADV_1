@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using UI;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 namespace HOG.Character
 {
@@ -49,15 +50,17 @@ namespace HOG.Character
             AddListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             AddListener(HOGEventNames.OnTurnChange, ChangeTurn);
             AddListener(HOGEventNames.OnGameReset, ResetScore);
+            //AddListener(HOGEventNames.OnScoreSet, UpdateScore);
         }
 
-
+        
         private void OnDisable()
         {
             RemoveListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
             RemoveListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             RemoveListener(HOGEventNames.OnTurnChange, ChangeTurn);
             RemoveListener(HOGEventNames.OnGameReset, ResetScore);
+            //RemoveListener(HOGEventNames.OnScoreSet, UpdateScore);
         }
         private void ResetScore(object obj)
         {
@@ -134,15 +137,34 @@ namespace HOG.Character
             ScoreTags scoreTag = GetScoreTagByCharacterNumber();
             var scoreText = (HOGTweenScoreComponent)Manager.PoolManager.GetPoolable(PoolNames.ScoreToast);
             scoreText.transform.position = scoreTransform.position;
+            scoreText.Init(actionStrength * scoreMultiplier);
+            UpdateScoreText(scoreTag);
+
+        }
+
+        /*private void UpdateScore(object obj)
+        {
+            (ScoreTags tag, int amount) = ((ScoreTags, int))obj;
+            UpdateScoreText(tag, amount);
+        }*/
+
+        private void UpdateScoreText(ScoreTags scoreTag, int amount = 0)
+        {
+            if(amount != 0)
+            {
+                UpdateScoreComponentText(amount);
+            }
             var score = 0;
             HOGGameLogicManager.Instance.ScoreManager.TryGetScoreByTag(scoreTag, ref score);
-            
-            scoreText.Init(actionStrength * scoreMultiplier);
-            if(scoreComponent != null)
+            UpdateScoreComponentText(score);
+        }
+
+        private void UpdateScoreComponentText(int score)
+        {
+            if (scoreComponent != null)
             {
                 scoreComponent.UpdateText(score.ToString());
             }
-            
         }
 
         public IEnumerator PlayActionSequence()
