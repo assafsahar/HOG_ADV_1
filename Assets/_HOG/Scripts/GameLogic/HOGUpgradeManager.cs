@@ -59,7 +59,7 @@ namespace HOG.GameLogic
                 if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce))
                 {
                     upgradeable.CurrentLevel++;
-                    HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, typeID);
+                    HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, (coinsType, amountToReduce));
 
                     HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
                 }

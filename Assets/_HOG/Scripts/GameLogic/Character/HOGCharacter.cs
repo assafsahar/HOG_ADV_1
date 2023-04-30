@@ -50,7 +50,7 @@ namespace HOG.Character
             AddListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             AddListener(HOGEventNames.OnTurnChange, ChangeTurn);
             AddListener(HOGEventNames.OnGameReset, ResetScore);
-            //AddListener(HOGEventNames.OnScoreSet, UpdateScore);
+            AddListener(HOGEventNames.OnUpgraded, UpdateScore);
         }
 
         
@@ -60,7 +60,7 @@ namespace HOG.Character
             RemoveListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             RemoveListener(HOGEventNames.OnTurnChange, ChangeTurn);
             RemoveListener(HOGEventNames.OnGameReset, ResetScore);
-            //RemoveListener(HOGEventNames.OnScoreSet, UpdateScore);
+            RemoveListener(HOGEventNames.OnUpgraded, UpdateScore);
         }
         private void ResetScore(object obj)
         {
@@ -135,20 +135,22 @@ namespace HOG.Character
         private void ShowScore(int actionStrength)
         {
             ScoreTags scoreTag = GetScoreTagByCharacterNumber();
+            // update score toast
             var scoreText = (HOGTweenScoreComponent)Manager.PoolManager.GetPoolable(PoolNames.ScoreToast);
             scoreText.transform.position = scoreTransform.position;
             scoreText.Init(actionStrength * scoreMultiplier);
-            UpdateScoreText(scoreTag);
+            // update score label
+            UpdateScoreLabel(scoreTag);
 
         }
 
-        /*private void UpdateScore(object obj)
+        private void UpdateScore(object obj)
         {
             (ScoreTags tag, int amount) = ((ScoreTags, int))obj;
-            UpdateScoreText(tag, amount);
-        }*/
+            UpdateScoreLabel(tag, amount);
+        }
 
-        private void UpdateScoreText(ScoreTags scoreTag, int amount = 0)
+        private void UpdateScoreLabel(ScoreTags scoreTag, int amount = 0)
         {
             if(amount != 0)
             {
