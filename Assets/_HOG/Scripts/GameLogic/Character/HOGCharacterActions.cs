@@ -48,18 +48,38 @@ namespace HOG.Character
             UpdateUI();
         }
 
-        public void ReplaceAction(HOGCharacterState.CharacterStates actionId, int actionStrength, bool isTemp)
+        public void ReplaceAction(HOGCharacterState.CharacterStates actionId, int actionStrength, bool isTemp, int slotNumber=-1)
         {
             if (isTemp)
             {
-                characterAttacks[0] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
+                if (slotNumber == -1)
+                {
+                    for (int i = 0; i < characterAttacks.Count; i++)
+                    {
+                        characterAttacks[i] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
+                    }
+                }
+                else
+                {
+                    characterAttacks[slotNumber] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
+                }
             }
             else
             {
-                characterAttacks[0] = new HOGCharacterActionBase(attackData[0].ActionId, attackData[0].ActionStrength) ;
+                if (slotNumber == -1)
+                {
+                    for (int i = 0; i < characterAttacks.Count; i++)
+                    {
+                        characterAttacks[i] = new HOGCharacterActionBase(attackData[i].ActionId, attackData[i].ActionStrength);
+                    }
+                }
+                else
+                {
+                    characterAttacks[slotNumber] = new HOGCharacterActionBase(attackData[slotNumber].ActionId, attackData[slotNumber].ActionStrength);
+                }
             }
             
-            UpdateUI(1);
+            UpdateUI();
         }
         public bool CanContinue()
         {
@@ -82,9 +102,9 @@ namespace HOG.Character
 
         public void RemoveTempAction()
         {
-            if (characterAttacks[0].IsTemp)
+            if (characterAttacks[currentSlotNumber-1].IsTemp)
             {
-                ReplaceAction(0, 0, false);
+                ReplaceAction(0, 0, false, currentSlotNumber-1);
             }
         }
 

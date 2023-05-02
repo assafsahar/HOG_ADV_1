@@ -12,7 +12,6 @@ namespace HOG.GameLogic
     {
         [SerializeField]
         List<ConfigurableCard> configurableCards = new List<ConfigurableCard>();
-
         [SerializeField] HOGDeckUI deckUI;
 
         private void OnEnable()
@@ -36,12 +35,31 @@ namespace HOG.GameLogic
                     {
                         deckUI.Cards.Add(card.CardId, card.CardButton);
                     }
+                    if(card.UpgradeButton != null)
+                    {
+                        deckUI.UpgradeButtons.Add(card.CardId, card.UpgradeButton);
+                    }
                 }
             }
+            int changePowerLevel = 1;
+            var changePowerData = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangePower);
+            if (changePowerData != null)
+            {
+                changePowerLevel = changePowerData.CurrentLevel;
+            }
+            int changeCharacterLevel = 1;
+            var changeCharacterData = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangeCharacter);
+            if (changeCharacterData != null)
+            {
+                changeCharacterLevel = changeCharacterData.CurrentLevel;
+            }
+
+            UpdateCardLevel(2, changePowerLevel);
+            UpdateCardLevel(1, changeCharacterLevel);
         }
         void Start()
         {
-            ShowCard(0, true, true);
+            ShowCard(2, true, true);
         }
 
         public void DisableAllCards(object obj=null)
@@ -70,14 +88,28 @@ namespace HOG.GameLogic
         {
             if(configurableCards[0] == null)
             {
-                throw new ArgumentException("Card with ID " + cardId + " not found.");
+                HOGDebug.LogException("Card with ID " + cardId + " not found.");
             }
             deckUI.ShowCard(cardId, toShow, toEnable);
             configurableCards[0].CardVisible = toShow;
             configurableCards[0].CardEnabled = toEnable;
         }
 
-       
+        public void UpdateCardLevel(int cardId, int level)
+        {
+            deckUI.ChangeCardLevelValue(cardId, level.ToString());
+        }
+        public void ScoreChanged()
+        {
+            if (HOGGameLogicManager.Instance.UpgradeManager.CanMakeUpgrade(UpgradeablesTypeID.ChangePower))
+            {
+                deckUI.ShowUpgradeButton(2, true, true);
+            }
+            else
+            {
+                deckUI.ShowUpgradeButton(2, true, false);
+            }
+        }
 
     }
 }
@@ -91,6 +123,7 @@ public class ConfigurableCard
     public bool CardEnabled = true;
     public bool CardVisible = true;
     public CardTypes CardType = CardTypes.Ability;
+    public Button UpgradeButton;
 }
 
 public enum CardTypes

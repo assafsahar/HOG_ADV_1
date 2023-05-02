@@ -17,6 +17,7 @@ namespace HOG.Character
         [SerializeField] Transform scoreTransform;
         [SerializeField] private int characterType = 1;
         [SerializeField] private float waitTimeBetweenAttacks = 1f;
+        [SerializeField] HOGDeckManager deckManager;
 
         public int characterNumber = 1;
         public bool IsDead { get; private set; } = false;
@@ -27,7 +28,6 @@ namespace HOG.Character
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
         private HOGScoreUI scoreComponent;
-        private HOGDeckManager deckManager;
 
 
         public void Init()
@@ -46,21 +46,21 @@ namespace HOG.Character
         }
         private void OnEnable()
         {
-            AddListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
+            AddListener(HOGEventNames.OnAbilityChange, ChangeAction);
             AddListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             AddListener(HOGEventNames.OnTurnChange, ChangeTurn);
             AddListener(HOGEventNames.OnGameReset, ResetScore);
-            AddListener(HOGEventNames.OnUpgraded, UpdateScore);
+            AddListener(HOGEventNames.OnUpgraded, UpdateUpgradeData);
         }
 
         
         private void OnDisable()
         {
-            RemoveListener(HOGEventNames.OnAbilityChange, ChangeFirstAction);
+            RemoveListener(HOGEventNames.OnAbilityChange, ChangeAction);
             RemoveListener(HOGEventNames.OnCharacterChange, ChangeCharacter);
             RemoveListener(HOGEventNames.OnTurnChange, ChangeTurn);
             RemoveListener(HOGEventNames.OnGameReset, ResetScore);
-            RemoveListener(HOGEventNames.OnUpgraded, UpdateScore);
+            RemoveListener(HOGEventNames.OnUpgraded, UpdateUpgradeData);
         }
         private void ResetScore(object obj)
         {
@@ -108,6 +108,7 @@ namespace HOG.Character
             {
                 SetScore(action.ActionStrength);
                 ShowScore(action.ActionStrength);
+                NotifyDeckManagerOnScore();
             }
         }
 
@@ -144,10 +145,29 @@ namespace HOG.Character
 
         }
 
-        private void UpdateScore(object obj)
+        private void NotifyDeckManagerOnScore()
         {
-            (ScoreTags tag, int amount) = ((ScoreTags, int))obj;
+            if (deckManager != null)
+            {
+                deckManager.ScoreChanged();
+            }
+        }
+
+        
+
+        private void UpdateUpgradeData(object obj)
+        {
+            (ScoreTags tag, int amount, int level, int cardId) = ((ScoreTags, int, int, int))obj;
             UpdateScoreLabel(tag, amount);
+            UpdateUpgradeLevel(cardId, level);
+        }
+
+        private void UpdateUpgradeLevel(int cardId, int level)
+        {
+            if (deckManager != null)
+            {
+                deckManager.UpdateCardLevel(cardId, level);
+            }
         }
 
         private void UpdateScoreLabel(ScoreTags scoreTag, int amount = 0)
@@ -192,7 +212,7 @@ namespace HOG.Character
             
         }
 
-        public void ChangeFirstAction(object obj)
+        public void ChangeAction(object obj)
         {
             if (turn == characterNumber)
             {

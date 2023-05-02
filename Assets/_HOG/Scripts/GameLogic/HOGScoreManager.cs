@@ -55,7 +55,7 @@ namespace HOG.GameLogic
             }
         }
 
-        public bool TryUseScore(ScoreTags scoreTag, int amountToReduce)
+        public bool TryUseScore(ScoreTags scoreTag, int amountToReduce, bool makeTheReduction = true)
         {
             var score = 0;
             var hasType = TryGetScoreByTag(scoreTag, ref score);
@@ -66,7 +66,7 @@ namespace HOG.GameLogic
                 hasEnough = amountToReduce <= score;
             }
 
-            if (hasEnough)
+            if (hasEnough && makeTheReduction)
             {
                 ChangeScoreByTagByAmount(scoreTag, -amountToReduce);
             }

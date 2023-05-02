@@ -41,7 +41,11 @@ namespace HOG.GameLogic
             });
         }
 
-        public void UpgradeItemByID(UpgradeablesTypeID typeID)
+        public bool CanMakeUpgrade(UpgradeablesTypeID typeID)
+        {
+            return UpgradeItemByID(typeID, false);
+        }
+        public bool UpgradeItemByID(UpgradeablesTypeID typeID, bool makeTheUpgrade = true)
         {
             var upgradeable = GetUpgradeableByID(typeID);
 
@@ -50,27 +54,36 @@ namespace HOG.GameLogic
                 var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
                 if(upgradeableConfig.UpgradableLevelData.Count <= upgradeable.CurrentLevel)
                 {
-                    return;
+                    return false;
                 }
                 HOGUpgradeableLevelData levelData = upgradeableConfig.UpgradableLevelData[upgradeable.CurrentLevel];
                 int amountToReduce = levelData.CoinsNeeded;
                 ScoreTags coinsType = levelData.CurrencyTag;
+                int newLevel = levelData.Level;
 
-                if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce))
+                if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce, makeTheUpgrade))
                 {
-                    upgradeable.CurrentLevel++;
-                    HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, (coinsType, amountToReduce));
-
-                    HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
+                    if (makeTheUpgrade)
+                    {
+                        upgradeable.CurrentLevel++;
+                        HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, (coinsType, amountToReduce, newLevel, (int)typeID));
+                        HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
+                    }
+                    return true;
                 }
                 else
                 {
-                    Debug.LogError($"UpgradeItemByID {typeID.ToString()} tried upgrade and there is no enough");
+                    if (makeTheUpgrade)
+                    {
+                        Debug.LogError($"UpgradeItemByID {typeID.ToString()} tried upgrade and there is no enough");
+                    }
+                    return false;
                 }
             }
             else
             {
                 HOGDebug.Log("failed because upgradable was null");
+                return false;
             }
         }
 
