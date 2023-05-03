@@ -12,7 +12,7 @@ namespace HOG.Core
         [Conditional("LOGS_ENABLE")]
        public static void Log(object obj)
         {
-            //Debug.Log(obj.ToString());
+            Debug.Log(obj.ToString());
         }
 
         [Conditional("LOGS_ENABLE")]

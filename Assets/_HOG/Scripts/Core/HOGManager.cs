@@ -1,4 +1,5 @@
-﻿using Firebase.Extensions;
+﻿using Firebase.Crashlytics;
+using Firebase.Extensions;
 using System;
 
 namespace HOG.Core
@@ -7,11 +8,13 @@ namespace HOG.Core
     {
         public static HOGManager Instance;
 
+        public HOGCrashManager CrashManager;
         public HOGEventsManager EventsManager;
         public HOGFactoryManager FactoryManager;
         public HOGPoolManager PoolManager;
         public HOGSaveManager SaveManager;
         public HOGConfigManager ConfigManager;
+        
 
         public Action onInitAction;
 
@@ -37,6 +40,7 @@ namespace HOG.Core
         private void InitManagers()
         {
             HOGDebug.Log("InitManagers");
+            CrashManager = new HOGCrashManager();
             EventsManager = new HOGEventsManager();
             FactoryManager = new HOGFactoryManager();
             PoolManager = new HOGPoolManager();
@@ -58,13 +62,12 @@ namespace HOG.Core
                     var app = Firebase.FirebaseApp.DefaultInstance;
 
                     // Set a flag here to indicate whether Firebase is ready to use by your app.
-
+                    HOGDebug.Log($"Firebase initialized");
                     onComplete.Invoke();
                 }
                 else
                 {
-                    UnityEngine.Debug.LogError(System.String.Format(
-                      "Could not resolve all Firebase dependencies: {0}", dependencyStatus));
+                    HOGDebug.LogException($"Could not resolve all Firebase dependencies: {dependencyStatus}");
                     // Firebase Unity SDK is not safe to use here.
                 }
             });

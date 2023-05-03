@@ -35,8 +35,8 @@ namespace HOG.Core
             var saveJson = File.ReadAllText(path);
             var saveData = JsonConvert.DeserializeObject<T>(saveJson);
 
-            HOGDebug.Log(saveID);
-            HOGDebug.Log(saveJson);
+            HOGDebug.Log($"saveID={saveID}");
+            HOGDebug.Log($"saveJson={saveJson}");
 
             onComplete.Invoke(saveData);
         }

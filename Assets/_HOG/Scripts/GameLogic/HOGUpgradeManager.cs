@@ -83,6 +83,7 @@ namespace HOG.GameLogic
             else
             {
                 HOGDebug.Log("failed because upgradable was null");
+                HOGManager.Instance.CrashManager.LogExceptionHandling($"UpgradeItemByID {typeID.ToString()} failed because upgradable was null");
                 return false;
             }
         }

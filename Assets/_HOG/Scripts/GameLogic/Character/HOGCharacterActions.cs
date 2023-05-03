@@ -102,6 +102,11 @@ namespace HOG.Character
 
         public void RemoveTempAction()
         {
+            HOGDebug.Log($"removing number {currentSlotNumber - 1}");
+            if(currentSlotNumber <= 0)
+            {
+                return;
+            }
             if (characterAttacks[currentSlotNumber-1].IsTemp)
             {
                 ReplaceAction(0, 0, false, currentSlotNumber-1);

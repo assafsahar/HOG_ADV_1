@@ -19,30 +19,32 @@ namespace HOG.Core
             var defaults = new Dictionary<string, object>();
 
             defaults.Add("UpgradableConfig", "{}");
-
+            HOGDebug.Log("HOGConfigManager");
             FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults).ContinueWithOnMainThread(OnDefaultValuesSet);
 
          }
 
         private void OnDefaultValuesSet(Task task)
         {
+            //HOGDebug.Log("OnDefaultValuesSet");
             FirebaseRemoteConfig.DefaultInstance.FetchAsync(TimeSpan.Zero).ContinueWithOnMainThread(OnFetchComplete);
         }
 
         private void OnFetchComplete(Task obj)  
         {
+            //HOGDebug.Log("OnFetchComplete");
             FirebaseRemoteConfig.DefaultInstance.ActivateAsync().ContinueWithOnMainThread(task => OnActivateComplete(task));
         }
 
         private void OnActivateComplete(Task obj)
         {
-            HOGDebug.Log("OnActivateComplete");
+            //HOGDebug.Log("OnActivateComplete");
             onInit.Invoke();
         }
 
         public void GetConfigAsync<T>(string configID, Action<T> onComplete)
         {
-            HOGDebug.Log("GetConfigAsync");
+            //HOGDebug.Log("GetConfigAsync");
             var saveJson = FirebaseRemoteConfig.DefaultInstance.GetValue(configID).StringValue;
             var saveData = JsonConvert.DeserializeObject<T>(saveJson);
 
