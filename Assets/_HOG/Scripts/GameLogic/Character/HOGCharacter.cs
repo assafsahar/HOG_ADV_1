@@ -101,6 +101,10 @@ namespace HOG.Character
                 return;
             }
             IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
+            if(IsDead)
+            {
+                return;
+            }
             spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
             var actionData = Tuple.Create(characterNumber, action.ActionStrength);
             InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
@@ -197,6 +201,7 @@ namespace HOG.Character
                 yield return new WaitForSeconds(waitTimeBetweenAttacks);
                 Actions.RemoveTempAction();
             }
+            HOGDebug.Log($"{characterNumber} play action sequence");
             FinishAttackSequence();
             yield break;
         }

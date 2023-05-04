@@ -52,7 +52,7 @@ namespace HOG.Core
             {
                 if (pool.AvailablePoolables.TryDequeue(out HOGPoolable poolable))
                 {
-                    HOGDebug.Log($"GetPoolable - {poolName}");
+                    //HOGDebug.Log($"GetPoolable - {poolName}");
 
                     poolable.OnTakenFromPool();
 

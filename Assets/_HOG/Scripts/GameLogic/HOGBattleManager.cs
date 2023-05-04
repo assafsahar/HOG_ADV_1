@@ -15,7 +15,8 @@ namespace HOG.GameLogic
         private HOGCharacter character1;
         private HOGCharacter character2;
         private HOGCharacter chosenCharacter;
-        private Coroutine fightCoroutine = null;
+        private IEnumerator fightCoroutine = null;
+        private bool isFightLive = true;
         public int Turn { get; private set; }
         
 
@@ -86,6 +87,7 @@ namespace HOG.GameLogic
 
         public void StartFight(object obj)
         {
+            isFightLive = true;
             if (obj == null)
             {
                 PlayOpponent(2);
@@ -98,13 +100,18 @@ namespace HOG.GameLogic
 
         public void PlayOpponent(object previousPlayedCharacter)
         {
+            if (!isFightLive)
+            {
+                return;
+            }
             Turn = (int)previousPlayedCharacter == 1 ? 2 : 1;       
             InvokeEvent(HOGEventNames.OnTurnChange,Turn);
             chosenCharacter = (int)previousPlayedCharacter == 1 ? character2 : character1;
             
             if (chosenCharacter != null)
             {
-                fightCoroutine = StartCoroutine(chosenCharacter.PlayActionSequence());
+                fightCoroutine = chosenCharacter.PlayActionSequence();
+                StartCoroutine(fightCoroutine);
             }
             if(Turn == 1)
             {
@@ -121,7 +128,15 @@ namespace HOG.GameLogic
 
         public void StopFight()
         {
-            StopCoroutine(fightCoroutine);
+            isFightLive= false;
+            if (character1.PlayActionSequence() != null)
+            {
+                StopCoroutine(character1.PlayActionSequence());
+            }
+            if (character2.PlayActionSequence() != null)
+            {
+                StopCoroutine(character2.PlayActionSequence());
+            }
         }
 
         private void KillCharacter(object obj)
