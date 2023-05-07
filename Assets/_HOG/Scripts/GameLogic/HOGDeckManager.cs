@@ -109,6 +109,14 @@ namespace HOG.GameLogic
             {
                 deckUI.ShowUpgradeButton(2, true, false);
             }
+            if (HOGGameLogicManager.Instance.UpgradeManager.CanMakeUpgrade(UpgradeablesTypeID.ChangeCharacter))
+            {
+                deckUI.ShowUpgradeButton(1, true, true);
+            }
+            else
+            {
+                deckUI.ShowUpgradeButton(1, true, false);
+            }
         }
 
     }

@@ -35,6 +35,10 @@ namespace HOG.GameLogic
                         {
                             upgradableTypeID = UpgradeablesTypeID.ChangePower,
                             CurrentLevel = 1
+                        },
+                        new HOGUpgradeableData{
+                            upgradableTypeID = UpgradeablesTypeID.ChangeCharacter,
+                            CurrentLevel = 1
                         }
                     }
                 };
@@ -110,6 +114,13 @@ namespace HOG.GameLogic
             return power;
         }
 
+        public int GetCharacterByIDAndLevel(UpgradeablesTypeID typeID, int level)
+        {
+            var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
+            var CharacterId = upgradeableConfig.UpgradableLevelData[level].CharacterId;
+            return CharacterId;
+        }
+
         public HOGUpgradeableData GetUpgradeableByID(UpgradeablesTypeID typeID)
         {
             var upgradeable = PlayerUpgradeInventoryData.Upgradeables.FirstOrDefault(x => x.upgradableTypeID == typeID);
@@ -134,6 +145,7 @@ namespace HOG.GameLogic
         public int CoinsNeeded;
         public ScoreTags CurrencyTag;
         public int Power;
+        public int CharacterId;
     }
 
     //Per Item Config

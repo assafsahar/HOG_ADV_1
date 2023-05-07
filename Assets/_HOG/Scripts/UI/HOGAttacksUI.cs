@@ -22,7 +22,7 @@ namespace UI
         public Dictionary<int, (char,string)> slots = new Dictionary<int, (char, string)>();
         private Vector3 slot1TextOriginalScale;
         private TextMeshProUGUI[,] textArray;
-        public void Init()
+        public void Init(Action onComplete)
         {
             textArray = new TextMeshProUGUI[3,2];
             textArray[0,0] = slot1Text;
@@ -35,6 +35,7 @@ namespace UI
             FillPanelPositions();
             FillDictionary();
             ShowDictionary();
+            onComplete.Invoke();
         }
 
         private void FillPanelPositions()

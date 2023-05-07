@@ -11,7 +11,6 @@ namespace UI
     {
         public Dictionary<int, Button> Cards = new Dictionary<int, Button>();
         public Dictionary<int, Button> UpgradeButtons = new Dictionary<int, Button>();
-        [SerializeField] List<TextMeshProUGUI> cardLevelTexts;
 
         private void Start()
         {
@@ -58,7 +57,8 @@ namespace UI
             {
                 HOGDebug.LogException("Card with ID " + cardId + " not found.");
             }
-            Transform levelTextTransform = card.transform.Find("LevelText");
+            Transform cardTransform = card.transform;
+            Transform levelTextTransform = cardTransform.Find("LevelText");
             if (levelTextTransform != null)
             {
                 TextMeshProUGUI textField = levelTextTransform.GetComponentInChildren<TextMeshProUGUI>();

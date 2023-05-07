@@ -24,10 +24,12 @@ namespace HOG.Character
             if (AttacksUI != null)
             {
                 attacksUI = AttacksUI;
-                attacksUI.Init();
+                attacksUI.Init(delegate {
+                    characterType = CharacterType;
+                    UpdateAttacksData();
+                });
             }
-            characterType = CharacterType;
-            UpdateAttacksData();
+            
         }
         public void ResetList()
         {
