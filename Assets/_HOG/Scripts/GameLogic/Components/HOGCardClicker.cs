@@ -26,4 +26,5 @@ namespace HOG.Components
             HOGGameLogicManager.Instance.UpgradeManager.UpgradeItemByID(upgradable);
         }
     }
+
 }
