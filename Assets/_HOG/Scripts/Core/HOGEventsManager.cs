@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace HOG.Core
 {
@@ -41,7 +39,6 @@ namespace HOG.Core
         {
             if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
-                //TODO: Do For Loop
                 foreach (var action in listOfEvents)
                 {
                     action.Invoke(obj);

@@ -1,7 +1,5 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
@@ -9,7 +7,6 @@ namespace HOG.Core
 {
     public class HOGSaveManager
     {
-
         public void Save(IHOGSaveData saveData)
         {
             var saveID = saveData.GetType().FullName;
@@ -30,8 +27,7 @@ namespace HOG.Core
                 return;
             }
             var saveID = typeof(T).FullName;
-                var path = $"{Application.persistentDataPath}/{saveID}.hogSave";
-
+            var path = $"{Application.persistentDataPath}/{saveID}.hogSave";
             var saveJson = File.ReadAllText(path);
             var saveData = JsonConvert.DeserializeObject<T>(saveJson);
 

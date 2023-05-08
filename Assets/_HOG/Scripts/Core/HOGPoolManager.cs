@@ -1,13 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace HOG.Core
 {
-
     public class HOGPoolManager
     {
-        private Dictionary<PoolNames, HOGPool> Pools = new();
+        private Dictionary<PoolNames, HOGPool> pools = new();
 
         private Transform rootPools;
 
@@ -42,20 +40,19 @@ namespace HOG.Core
                         MaxPoolables = maxAmount
                     };
 
-                    Pools.Add(original.PoolName, pool);
+                    pools.Add(original.PoolName, pool);
                 });
         }
 
         public HOGPoolable GetPoolable(PoolNames poolName)
         {
-            if (Pools.TryGetValue(poolName, out HOGPool pool))
+            if (pools.TryGetValue(poolName, out HOGPool pool))
             {
                 if (pool.AvailablePoolables.TryDequeue(out HOGPoolable poolable))
                 {
                     //HOGDebug.Log($"GetPoolable - {poolName}");
 
                     poolable.OnTakenFromPool();
-
                     pool.UsedPoolables.Enqueue(poolable);
                     poolable.gameObject.SetActive(true);
                     return poolable;
@@ -71,10 +68,9 @@ namespace HOG.Core
             return null;
         }
 
-
         public void ReturnPoolable(HOGPoolable poolable)
         {
-            if (Pools.TryGetValue(poolable.PoolName, out HOGPool pool))
+            if (pools.TryGetValue(poolable.PoolName, out HOGPool pool))
             {
                 pool.AvailablePoolables.Enqueue(poolable);
                 poolable.OnReturnedToPool();
@@ -82,10 +78,9 @@ namespace HOG.Core
             }
         }
 
-
         public void DestroyPool(PoolNames name)
         {
-            if (Pools.TryGetValue(name, out HOGPool pool))
+            if (pools.TryGetValue(name, out HOGPool pool))
             {
                 foreach (var poolable in pool.AllPoolables)
                 {
@@ -102,7 +97,7 @@ namespace HOG.Core
                 pool.AvailablePoolables.Clear();
                 pool.UsedPoolables.Clear();
 
-                Pools.Remove(name);
+                pools.Remove(name);
             }
         }
     }
@@ -112,7 +107,6 @@ namespace HOG.Core
         public Queue<HOGPoolable> AllPoolables = new();
         public Queue<HOGPoolable> UsedPoolables = new();
         public Queue<HOGPoolable> AvailablePoolables = new();
-
         public int MaxPoolables = 100;
     }
 
@@ -121,6 +115,5 @@ namespace HOG.Core
         NA = -1,
         ScoreToast = 0
     }
-
 }
 

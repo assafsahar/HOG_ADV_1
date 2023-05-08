@@ -1,5 +1,4 @@
-﻿using Firebase.Crashlytics;
-using Firebase.Extensions;
+﻿using Firebase.Extensions;
 using System;
 
 namespace HOG.Core
@@ -14,7 +13,6 @@ namespace HOG.Core
         public HOGPoolManager PoolManager;
         public HOGSaveManager SaveManager;
         public HOGConfigManager ConfigManager;
-        
 
         public Action onInitAction;
 
@@ -26,20 +24,17 @@ namespace HOG.Core
             }
 
             Instance = this;
-
-           
         }
 
         public void LoadManager(Action onComplete)
         {
             onInitAction = onComplete;
             InitFirebase(delegate { InitManagers(); });
-
         }
 
         private void InitManagers()
         {
-            HOGDebug.Log("InitManagers");
+            //HOGDebug.Log("InitManagers");
             CrashManager = new HOGCrashManager();
             EventsManager = new HOGEventsManager();
             FactoryManager = new HOGFactoryManager();

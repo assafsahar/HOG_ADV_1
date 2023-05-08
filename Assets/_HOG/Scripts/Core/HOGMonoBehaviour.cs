@@ -34,6 +34,4 @@ namespace HOG.Core
             onComplete?.Invoke();
         }
     }
-    
-
 }

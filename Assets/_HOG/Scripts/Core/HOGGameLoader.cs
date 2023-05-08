@@ -9,7 +9,6 @@ namespace HOG.Core
         [SerializeField] private HOGLoadBarComponent loadbarComponent;
         private void Start()
         {
-            //Invoke("DelayStart", 0.1f);
             loadbarComponent.SetTargetAmount(20);
             WaitForSeconds(2, DelayStart);
         }
@@ -33,11 +32,7 @@ namespace HOG.Core
                         });
                     });
                 });
-                    
-                
-                
             });
-            
         }
     }
 }

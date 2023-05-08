@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using UI;
 using UnityEngine;
-using UnityEngine.SocialPlatforms.Impl;
 
 namespace HOG.Character
 {
@@ -101,11 +100,12 @@ namespace HOG.Character
                 return;
             }
             IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
-            if(IsDead)
+            spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
+            if (IsDead)
             {
                 return;
             }
-            spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
+            
             var actionData = Tuple.Create(characterNumber, action.ActionStrength);
             InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
             if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.Move)
