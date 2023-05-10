@@ -1,6 +1,5 @@
 using HOG.Core;
 using HOG.GameLogic;
-using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -10,6 +9,7 @@ namespace HOG.Character
     public class HOGCharacterActions
     {
         [SerializeField] int requiredListLength = 3;
+
         private List<HOGCharacterActionBase> characterAttacks = new List<HOGCharacterActionBase>();
         private int currentSlotNumber = 0;
         private HOGAttacksUI attacksUI;
@@ -149,7 +149,7 @@ namespace HOG.Character
                 startNum = slotNumber - 1;
                 endNum = slotNumber;
             }
-            for (int i = startNum; i< endNum; i++) 
+            for (int i = startNum; i < endNum; i++) 
             {
                 var firstChar = characterAttacks[i].ActionId.ToString()[0];
                 var strength = characterAttacks[i].ActionStrength.ToString();
@@ -158,9 +158,7 @@ namespace HOG.Character
                     attacksUI.UpdateAttackText(i + 1, firstChar, strength);
                     attacksUI.UpdateCharacterTypeText(characterType+1);
                 }
-                
             }
-            
         }
     }
 }

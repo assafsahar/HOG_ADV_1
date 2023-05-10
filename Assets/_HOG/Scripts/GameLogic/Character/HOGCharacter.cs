@@ -21,13 +21,11 @@ namespace HOG.Character
         public int characterNumber = 1;
         public bool IsDead { get; private set; } = false;
 
-        
         private HOGCharacterActions Actions;
         private SpriteRenderer spriteRenderer;
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
         private HOGScoreUI scoreComponent;
-
 
         public void Init()
         {
@@ -38,11 +36,9 @@ namespace HOG.Character
             var isHOGCharacterAnims = TryGetComponent<HOGCharacterAnims>(out caComponent);
             characterAnims = caComponent;
             characterAnims.FillDictionary(characterType);
-                       
-            
-            
             var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
         }
+
         private void OnEnable()
         {
             AddListener(HOGEventNames.OnAbilityChange, ChangeAction);
@@ -52,7 +48,6 @@ namespace HOG.Character
             AddListener(HOGEventNames.OnUpgraded, UpdateUpgradeData);
         }
 
-        
         private void OnDisable()
         {
             RemoveListener(HOGEventNames.OnAbilityChange, ChangeAction);
@@ -61,6 +56,7 @@ namespace HOG.Character
             RemoveListener(HOGEventNames.OnGameReset, ResetScore);
             RemoveListener(HOGEventNames.OnUpgraded, UpdateUpgradeData);
         }
+
         private void ResetScore(object obj)
         {
             ShowScore(1);
@@ -119,7 +115,6 @@ namespace HOG.Character
         private void SetScore(int actionStrength)
         {
             ScoreTags scoreTag = GetScoreTagByCharacterNumber();
-
             HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(scoreTag, actionStrength * scoreMultiplier);
         }
 
@@ -146,7 +141,6 @@ namespace HOG.Character
             scoreText.Init(actionStrength * scoreMultiplier);
             // update score label
             UpdateScoreLabel(scoreTag);
-
         }
 
         private void NotifyDeckManagerOnScore()
@@ -156,8 +150,6 @@ namespace HOG.Character
                 deckManager.ScoreChanged();
             }
         }
-
-        
 
         private void UpdateUpgradeData(object obj)
         {
@@ -214,7 +206,6 @@ namespace HOG.Character
             var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
             Actions = new HOGCharacterActions(component, characterType, characterAttacksData);
             Actions.ResetList();
-            
         }
 
         public void ChangeAction(object obj)
@@ -226,10 +217,8 @@ namespace HOG.Character
             if (characterNumber == 1)
             {
                 Tuple<HOGCharacterState.CharacterStates, int> tupleData = (Tuple<HOGCharacterState.CharacterStates, int>) obj;
-                Actions.ReplaceAction((HOGCharacterState.CharacterStates)tupleData.Item1, tupleData.Item2, true);
-                
+                Actions.ReplaceAction(tupleData.Item1, tupleData.Item2, true);
             }
-            
         }
 
         private void FinishAttackSequence()

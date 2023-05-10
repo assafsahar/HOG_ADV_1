@@ -2,8 +2,6 @@ using HOG.Anims;
 using HOG.Core;
 using HOG.Screens;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace HOG.Character
@@ -19,10 +17,10 @@ namespace HOG.Character
         [SerializeField] HOGHealthBar healthBar;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
-        private int characterNumber;
-        HOGCharacterAnims characterAnims;
-        
 
+        private int characterNumber;
+        private HOGCharacterAnims characterAnims;
+        
         private void Awake()
         {
             HOGCharacter hcComponent;
@@ -31,7 +29,6 @@ namespace HOG.Character
             HOGCharacterAnims hcAnimComponent;
             var isHOGCharacterAnim = TryGetComponent<HOGCharacterAnims>(out hcAnimComponent);
             characterAnims = hcAnimComponent;
-            
         }
         private void OnEnable()
         {
@@ -82,14 +79,9 @@ namespace HOG.Character
                     {
                         characterAnims.PlayRandomEffect(transform, tupleData.Item2);
                     }
-                    
                 }
-                //HOGDebug.Log(tupleData.Item1);
-                //HOGDebug.Log(tupleData.Item2);
-
             }
         }
-
 
         private void Die()
         {
