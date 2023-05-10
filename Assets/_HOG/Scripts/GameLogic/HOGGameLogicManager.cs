@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using HOG.Core;
 using System;
 
@@ -12,7 +9,6 @@ namespace HOG.GameLogic
         public HOGScoreManager ScoreManager;
         public HOGUpgradeManager UpgradeManager;
 
-
         public HOGGameLogicManager()
         {
             if (Instance != null)
@@ -21,8 +17,6 @@ namespace HOG.GameLogic
             }
 
             Instance = this;
-
-            
         }
 
         public void LoadManager(Action onComplete)

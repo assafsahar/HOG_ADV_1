@@ -1,6 +1,5 @@
 using HOG.Core;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -73,7 +72,7 @@ namespace HOG.GameLogic
             }
         }
         public void EnableAllCards()
-            {
+        {
             foreach(var card in configurableCards)
             {
                 if(card != null)
@@ -81,7 +80,6 @@ namespace HOG.GameLogic
                     ShowCard(card.CardId, true, true);
                 }
             }
-            
         }
 
         public void ShowCard(int cardId, bool toShow, bool toEnable)
@@ -118,7 +116,6 @@ namespace HOG.GameLogic
                 deckUI.ShowUpgradeButton(1, true, false);
             }
         }
-
     }
 }
 

@@ -691,7 +691,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 338268251}
         m_TargetAssemblyTypeName: HOG.Components.HOGCardClicker, HOG.GameLogic
-        m_MethodName: changeCharacter
+        m_MethodName: ChangeCharacter
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
