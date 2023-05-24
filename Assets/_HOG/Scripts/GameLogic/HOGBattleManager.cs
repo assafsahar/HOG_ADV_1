@@ -1,6 +1,7 @@
 using HOG.Character;
 using HOG.Core;
 using HOG.Screens;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ namespace HOG.GameLogic
         private bool isFightLive = true;
         public int Turn { get; private set; }
         
+
         private void OnEnable()
         {
             AddListener(HOGEventNames.OnAttacksFinish, PlayOpponent);
@@ -43,6 +45,7 @@ namespace HOG.GameLogic
             {
                 StartCoroutine(PlayIdle(obj, 0.5f));
             }
+            
         }
         IEnumerator PlayIdle(object obj, float timer)
         {
@@ -50,6 +53,7 @@ namespace HOG.GameLogic
             int num = (int)obj;
             characters[num - 1].StartIdle();
         }
+
        
         private void Awake()
         {
@@ -72,6 +76,8 @@ namespace HOG.GameLogic
             }
         }
 
+
+
         public void PreFight(object obj)
         {
             character1.PreFight();
@@ -88,6 +94,8 @@ namespace HOG.GameLogic
                 return;
             }
             PlayOpponent((int)obj);
+
+
         }
 
         public void PlayOpponent(object previousPlayedCharacter)
@@ -139,6 +147,7 @@ namespace HOG.GameLogic
             StopFight();
             StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 2f));
         }
+
     }
 }
 

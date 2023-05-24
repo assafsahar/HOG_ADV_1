@@ -1,5 +1,7 @@
 using HOG.Core;
+using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace HOG.GameLogic
 {
@@ -11,6 +13,14 @@ namespace HOG.GameLogic
             HOGManager.Instance.SaveManager.Load<HOGPlayerScoreData>(delegate (HOGPlayerScoreData data)
                 {
                     PlayerScoreData = data ?? new HOGPlayerScoreData();
+                    //if (data == null)
+                    //{
+                    //    PlayerScoreData = new HOGPlayerScoreData();
+                    //}
+                    //else
+                    //{
+                    //    PlayerScoreData = data;
+                    //}
                 });
         }
 
@@ -79,4 +89,5 @@ namespace HOG.GameLogic
         Character1Score = 4,
         Character2Score = 5
     }
+
 }

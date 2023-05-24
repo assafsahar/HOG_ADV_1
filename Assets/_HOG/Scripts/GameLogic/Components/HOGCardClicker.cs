@@ -13,7 +13,7 @@ namespace HOG.Components
             InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));
         }
 
-        public void ChangeCharacter()
+        public void changeCharacter()
         {
             var num = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangeCharacter).CurrentLevel;
             var character = HOGGameLogicManager.Instance.UpgradeManager.GetCharacterByIDAndLevel(UpgradeablesTypeID.ChangeCharacter, num-1);
@@ -26,4 +26,5 @@ namespace HOG.Components
             HOGGameLogicManager.Instance.UpgradeManager.UpgradeItemByID(upgradable);
         }
     }
+
 }

@@ -28,6 +28,7 @@ namespace HOG.GameLogic
                 {
                     ShakeCamera(tupleData.Item2 * 10);
                 }
+                
             }
         }
 

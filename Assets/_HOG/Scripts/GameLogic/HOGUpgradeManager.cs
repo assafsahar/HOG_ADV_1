@@ -91,6 +91,7 @@ namespace HOG.GameLogic
                 return false;
             }
         }
+
         
         public HOGUpgradeableConfig GetHogUpgradeableConfigByID(UpgradeablesTypeID typeID)
         {
@@ -100,11 +101,12 @@ namespace HOG.GameLogic
         }
         public HOGUpgradableAttacksConfig GetHogAttackConfig()
         {
+            //HOGAttacksConfig attackConfig = UpgradeAttacksConfig.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID);
             HOGUpgradableAttacksConfig attackConfig = UpgradeAttacksConfig;
             HOGDebug.Log($"GetHogAttackConfig {attackConfig.ToString()}");
             return attackConfig;
         }
-
+        //.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID)
         public int GetPowerByIDAndLevel(UpgradeablesTypeID typeID, int level)
         {
             var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
@@ -153,7 +155,6 @@ namespace HOG.GameLogic
         public UpgradeablesTypeID UpgradableTypeID;
         public List<HOGUpgradeableLevelData> UpgradableLevelData;
     }
-
     public class HOGAttacksConfig
     {
         public int CharacterType;
@@ -186,5 +187,9 @@ namespace HOG.GameLogic
         ChangePower = 2,
         DoubleAttack = 3,
         Combo = 4
+        
     }
+
+
+    
 }

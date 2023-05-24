@@ -56,7 +56,7 @@ namespace HOG.Core
                 float t = Mathf.Clamp01(elapsedTime / animationDuration);
                 currentAmount = Mathf.RoundToInt(Mathf.Lerp(startAmount, targetAmount, t));
                 loaderNumber.text = currentAmount.ToString("N0") + "%"; ;
-                //HOGDebug.Log($"from while loop, currentAmount={currentAmount}");
+                HOGDebug.Log($"from while loop, currentAmount={currentAmount}");
                 yield return null;
             }
 

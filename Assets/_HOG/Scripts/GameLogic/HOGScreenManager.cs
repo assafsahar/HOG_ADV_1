@@ -1,5 +1,6 @@
 using HOG.Core;
 using HOG.Screens;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,19 +26,26 @@ namespace HOG.GameLogic
 
         private void OnEnable()
         {
+            //AddListener(HOGEventNames.OnGameStart, StartGame);
             AddListener(HOGEventNames.OnPreFightReady, StartGame);
         }
 
 
         private void OnDisable()
         {
+            //RemoveListener(HOGEventNames.OnGameStart, StartGame);
             RemoveListener(HOGEventNames.OnPreFightReady, StartGame);
         }
 
         private void StartGame(object obj)
         {
+
             StartCoroutine(EnableScreen(HOGScreenNames.GameScreen));
+            
+            //battleManager.Invoke("StartFight", 1f);
+
         }
+
         
         private void DisableAll()
         {
@@ -49,7 +57,6 @@ namespace HOG.GameLogic
                 }
             }
         }
-
         public IEnumerator EnableScreen(HOGScreenNames screenName, float delay=0)
         {
             yield return new WaitForSeconds(delay);
@@ -62,6 +69,9 @@ namespace HOG.GameLogic
                 }
             }
         }
+
     }
+
+    
 }
 

@@ -731,7 +731,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   webGLPowerPreference: 2
   scriptingDefineSymbols:
-    Android: LOGS_ENABLE
+    Android: LOGS_ENABLE1
     Standalone: LOGS_ENABLE
   additionalCompilerArguments: {}
   platformArchitecture: {}
