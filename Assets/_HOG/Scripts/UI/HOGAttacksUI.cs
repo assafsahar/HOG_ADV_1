@@ -5,11 +5,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-
 namespace UI
 {
     public class HOGAttacksUI : HOGMonoBehaviour
     {
+        public Dictionary<int, (char, string)> Slots = new Dictionary<int, (char, string)>();
+
         [SerializeField] TextMeshProUGUI slot1Text;
         [SerializeField] TextMeshProUGUI slot2Text;
         [SerializeField] TextMeshProUGUI slot3Text;
@@ -18,10 +19,11 @@ namespace UI
         [SerializeField] TextMeshProUGUI slot3TextStrength;
         [SerializeField] TextMeshProUGUI characterTypeText;
         [SerializeField] RectTransform ActivePanel;
-        float[] panelPositions = new float[3] {0,0,0};
-        public Dictionary<int, (char,string)> slots = new Dictionary<int, (char, string)>();
+        
+        private float[] panelPositions = new float[3] {0,0,0};
         private Vector3 slot1TextOriginalScale;
         private TextMeshProUGUI[,] textArray;
+
         public void Init(Action onComplete)
         {
             textArray = new TextMeshProUGUI[3,2];
@@ -37,27 +39,9 @@ namespace UI
             ShowDictionary();
             onComplete.Invoke();
         }
-
-        private void FillPanelPositions()
-        {
-            panelPositions[0] = slot1Text.transform.position.x;
-            panelPositions[1] = slot2Text.transform.position.x;
-            panelPositions[2] = slot3Text.transform.position.x;
-        }
-
-        private void FillDictionary()
-        {
-            if (slots.Count == 0)
-            {
-                slots.Add(1, ('W', "1"));
-                slots.Add(2, ('A', "2"));
-                slots.Add(3, ('W', "1"));
-            }
-        }
-
         public void UpdateAttackText(int slotNumber, char attackText, string attackStrength)
         {
-            slots[slotNumber] = (attackText, attackStrength);
+            Slots[slotNumber] = (attackText, attackStrength);
             ShowDictionary(slotNumber);
         }
         public void UpdateCharacterTypeText(int type)
@@ -69,18 +53,36 @@ namespace UI
             ActivePanel.position = new Vector3(panelPositions[slotNumber - 1], ActivePanel.position.y, ActivePanel.position.z);
         }
 
+
+        private void FillPanelPositions()
+        {
+            panelPositions[0] = slot1Text.transform.position.x;
+            panelPositions[1] = slot2Text.transform.position.x;
+            panelPositions[2] = slot3Text.transform.position.x;
+        }
+
+        private void FillDictionary()
+        {
+            if (Slots.Count == 0)
+            {
+                Slots.Add(1, ('W', "1"));
+                Slots.Add(2, ('A', "2"));
+                Slots.Add(3, ('W', "1"));
+            }
+        }
+
         private void ShowDictionary(int slotNumber = -1)
         {
             if(slot1Text == null)
             {
                 return;
             }
-            slot1Text.text = "" + slots[1].Item1;
-            slot1TextStrength.text = slots[1].Item2;
-            slot2Text.text = "" + slots[2].Item1;
-            slot2TextStrength.text= slots[2].Item2;
-            slot3Text.text = "" + slots[3].Item1;
-            slot3TextStrength.text= slots[3].Item2;
+            slot1Text.text = "" + Slots[1].Item1;
+            slot1TextStrength.text = Slots[1].Item2;
+            slot2Text.text = "" + Slots[2].Item1;
+            slot2TextStrength.text= Slots[2].Item2;
+            slot3Text.text = "" + Slots[3].Item1;
+            slot3TextStrength.text= Slots[3].Item2;
 
             if(slotNumber != -1)
             {
@@ -89,12 +91,11 @@ namespace UI
                 return;
             }
             ScaleText(slot1Text, slot1TextOriginalScale);
-                ScaleText(slot1TextStrength, slot1TextOriginalScale);
-                ScaleText(slot2Text, slot1TextOriginalScale);
-                ScaleText(slot2TextStrength, slot1TextOriginalScale);
-                ScaleText(slot3Text, slot1TextOriginalScale);
-                ScaleText(slot3TextStrength, slot1TextOriginalScale);
-            
+            ScaleText(slot1TextStrength, slot1TextOriginalScale);
+            ScaleText(slot2Text, slot1TextOriginalScale);
+            ScaleText(slot2TextStrength, slot1TextOriginalScale);
+            ScaleText(slot3Text, slot1TextOriginalScale);
+            ScaleText(slot3TextStrength, slot1TextOriginalScale);
         }
 
         private void ScaleText(TextMeshProUGUI text, Vector3 originalScale)
