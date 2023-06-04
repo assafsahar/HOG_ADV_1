@@ -1,5 +1,4 @@
 using HOG.Core;
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,11 +10,6 @@ namespace UI
     {
         public Dictionary<int, Button> Cards = new Dictionary<int, Button>();
         public Dictionary<int, Button> UpgradeButtons = new Dictionary<int, Button>();
-
-        private void Start()
-        {
-            
-        }
 
         public void ShowCard(int cardId, bool toShow, bool toEnable)
         {

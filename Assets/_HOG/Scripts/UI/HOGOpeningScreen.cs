@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,17 +7,17 @@ namespace HOG.Screens
     {
         [SerializeField] Button startGameButton;
 
-        public override void Init()
-        {
-            ScreenName = HOGScreenNames.OpeningScreen;
-        }
         private void Awake()
         {
-            
             if (startGameButton != null)
             {
                 startGameButton.onClick.AddListener(OnStartGameClicked);
             }
+        }
+
+        public override void Init()
+        {
+            ScreenName = HOGScreenNames.OpeningScreen;
         }
 
         private void OnStartGameClicked()
@@ -28,5 +25,4 @@ namespace HOG.Screens
             Manager.EventsManager.InvokeEvent(Core.HOGEventNames.OnGameStart, null);
         }
     }
-
 }

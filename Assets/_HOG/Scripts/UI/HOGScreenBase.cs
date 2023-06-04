@@ -1,18 +1,21 @@
 using HOG.Core;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 namespace HOG.Screens
 {
     public class HOGScreenBase : HOGMonoBehaviour
     {
-        public HOGScreenNames ScreenName { get; set; }
+        private HOGScreenNames screenName;
+        public HOGScreenNames ScreenName {
+            get { return screenName; }
+            set { screenName = value; }
+        }
 
+        // ready for override
         public virtual void Init()
         {
 
         }
+
         public virtual void EnableScreen()
         {
             gameObject.SetActive(true);

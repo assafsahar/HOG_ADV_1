@@ -1,11 +1,8 @@
 using DG.Tweening;
 using HOG.Core;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace HOG.Screens
 {
@@ -15,11 +12,6 @@ namespace HOG.Screens
         [SerializeField] TextMeshProUGUI readyText;
         private RectTransform readyTextRectTransform;
         private Vector3 readyTextOriginalScale;
-        public override void Init()
-        {
-            ScreenName = HOGScreenNames.GameScreen;
-            
-        }
 
         private void Awake()
         {
@@ -29,16 +21,19 @@ namespace HOG.Screens
             readyTextOriginalScale = readyTextRectTransform.localScale;
             //readyTextRectTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
         }
+        public override void Init()
+        {
+            ScreenName = HOGScreenNames.GameScreen;
+        }
 
         public override void EnableScreen()
         {
-            
             base.EnableScreen();
             InvokeEvent(Core.HOGEventNames.OnGameReset);
             StartCoroutine(EnableReadyText(true));
         }
 
-        IEnumerator EnableReadyText(bool toEnable)
+        private IEnumerator EnableReadyText(bool toEnable)
         {
             if (toEnable)
             {
@@ -55,8 +50,5 @@ namespace HOG.Screens
             InvokeEvent(HOGEventNames.OnFightReady);
             yield break;
         }
-     
-
     }
-
 }

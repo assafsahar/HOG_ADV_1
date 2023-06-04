@@ -1,5 +1,4 @@
 using HOG.Core;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +6,8 @@ namespace HOG.Anims
 {
     public class HOGCharacterAnims: HOGMonoBehaviour
     {
+        public Dictionary<HOGCharacterState.CharacterStates, Sprite> StatesAnims = new Dictionary<HOGCharacterState.CharacterStates, Sprite>();
+
         [SerializeField] Sprite[] idleAnim;
         [SerializeField] Sprite[] attackAnim;
         [SerializeField] Sprite[] hurtAnim;
@@ -15,8 +16,6 @@ namespace HOG.Anims
         [SerializeField] Sprite[] winAnim;
         [SerializeField] Sprite[] moveAnim;
         [SerializeField] List<GameObject> hitEffects;
-
-        public Dictionary<HOGCharacterState.CharacterStates, Sprite> StatesAnims = new Dictionary<HOGCharacterState.CharacterStates, Sprite>();
 
         public void FillDictionary(int characterType)
         {
@@ -54,7 +53,5 @@ namespace HOG.Anims
                 instance.transform.localScale = new Vector3(effectScale, effectScale, effectScale);
             }
         }
-
     }
 }
-

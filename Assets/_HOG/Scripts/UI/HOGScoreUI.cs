@@ -16,7 +16,5 @@ namespace UI
         {
             score1.text = scoreText;
         }
-
     }
 }
-

@@ -19,7 +19,6 @@ namespace UI
         [SerializeField] TextMeshProUGUI slot3TextStrength;
         [SerializeField] TextMeshProUGUI characterTypeText;
         [SerializeField] RectTransform ActivePanel;
-        
         private float[] panelPositions = new float[3] {0,0,0};
         private Vector3 slot1TextOriginalScale;
         private TextMeshProUGUI[,] textArray;
@@ -52,7 +51,6 @@ namespace UI
         {
             ActivePanel.position = new Vector3(panelPositions[slotNumber - 1], ActivePanel.position.y, ActivePanel.position.z);
         }
-
 
         private void FillPanelPositions()
         {

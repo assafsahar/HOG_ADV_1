@@ -1,5 +1,4 @@
 using DG.Tweening;
-using HOG.Core;
 using TMPro;
 using UnityEngine;
 
@@ -8,14 +7,11 @@ namespace HOG.GameLogic
     public class HOGTweenScoreComponent : HOGPoolable
     {
         [SerializeField] private TMP_Text scoreTMP;
-
         [SerializeField] private float tweenTime = 1f;
         [SerializeField] private Vector3 moveAmount = Vector3.up;
         [SerializeField] private float fadeTarget = 0f;
-
         [SerializeField] private float scaleStart = 0f;
         [SerializeField] private float scaleEnd = 1f;
-
         [SerializeField] private Ease easeTypeMove = Ease.OutCubic;
         [SerializeField] private AnimationCurve fadeEase;
 
