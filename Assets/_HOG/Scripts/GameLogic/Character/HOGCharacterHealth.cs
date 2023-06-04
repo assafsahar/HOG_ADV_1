@@ -17,10 +17,15 @@ namespace HOG.Character
         [SerializeField] HOGHealthBar healthBar;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
-
         private int characterNumber;
         private HOGCharacterAnims characterAnims;
-        
+
+        public HOGCharacterHealth()
+        {
+            maxHealth = 20;
+            currentHealth = maxHealth;
+        }
+
         private void Awake()
         {
             HOGCharacter hcComponent;
@@ -41,12 +46,6 @@ namespace HOG.Character
             RemoveListener(HOGEventNames.OnGameReset, ResetHealth);
         }
 
-        public HOGCharacterHealth()
-        {
-            maxHealth = 20;
-            currentHealth = maxHealth;
-        }
-
         public void TakeDamage(int amount)
         {
             currentHealth -= amount;
@@ -54,7 +53,6 @@ namespace HOG.Character
             {
                 Die();
             }
-
             healthBar.SetHealth(currentHealth);
         }
 
@@ -63,6 +61,7 @@ namespace HOG.Character
             currentHealth = maxHealth;
             healthBar.SetHealth(currentHealth);
         }
+
         private void OnTakeDamage(object obj)
         {
             if(obj is Tuple<int,int> tupleData)
@@ -70,16 +69,21 @@ namespace HOG.Character
                 if(tupleData.Item1 != characterNumber)
                 {
                     TakeDamage(tupleData.Item2);
-                    if(tupleData.Item2 >= megaHitTreshold)
-                    {
-                        characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2);
-                        InvokeEvent(HOGEventNames.OnGetHit, characterNumber);
-                    }
-                    else if(tupleData.Item2 >= avarageHitTreshold)
-                    {
-                        characterAnims.PlayRandomEffect(transform, tupleData.Item2);
-                    }
+                    ShowEffectPerStrength(tupleData);
                 }
+            }
+        }
+
+        private void ShowEffectPerStrength(Tuple<int, int> tupleData)
+        {
+            if (tupleData.Item2 >= megaHitTreshold)
+            {
+                characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2);
+                InvokeEvent(HOGEventNames.OnGetHit, characterNumber);
+            }
+            else if (tupleData.Item2 >= avarageHitTreshold)
+            {
+                characterAnims.PlayRandomEffect(transform, tupleData.Item2);
             }
         }
 

@@ -55,34 +55,7 @@ namespace HOG.GameLogic
 
             if (upgradeable != null)
             {
-                var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
-                if(upgradeableConfig.UpgradableLevelData.Count <= upgradeable.CurrentLevel)
-                {
-                    return false;
-                }
-                HOGUpgradeableLevelData levelData = upgradeableConfig.UpgradableLevelData[upgradeable.CurrentLevel];
-                int amountToReduce = levelData.CoinsNeeded;
-                ScoreTags coinsType = levelData.CurrencyTag;
-                int newLevel = levelData.Level;
-
-                if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce, makeTheUpgrade))
-                {
-                    if (makeTheUpgrade)
-                    {
-                        upgradeable.CurrentLevel++;
-                        HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, (coinsType, amountToReduce, newLevel, (int)typeID));
-                        HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
-                    }
-                    return true;
-                }
-                else
-                {
-                    if (makeTheUpgrade)
-                    {
-                        Debug.LogError($"UpgradeItemByID {typeID.ToString()} tried upgrade and there is no enough");
-                    }
-                    return false;
-                }
+                return TryTheUpgrade(typeID, makeTheUpgrade, upgradeable);
             }
             else
             {
@@ -92,7 +65,6 @@ namespace HOG.GameLogic
             }
         }
 
-        
         public HOGUpgradeableConfig GetHogUpgradeableConfigByID(UpgradeablesTypeID typeID)
         {
             HOGUpgradeManagerConfig hOGUpgradeManagerConfig = UpgradeConfig;
@@ -106,7 +78,6 @@ namespace HOG.GameLogic
             HOGDebug.Log($"GetHogAttackConfig {attackConfig.ToString()}");
             return attackConfig;
         }
-        //.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID)
         public int GetPowerByIDAndLevel(UpgradeablesTypeID typeID, int level)
         {
             var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
@@ -125,6 +96,38 @@ namespace HOG.GameLogic
         {
             var upgradeable = PlayerUpgradeInventoryData.Upgradeables.FirstOrDefault(x => x.upgradableTypeID == typeID);
             return upgradeable;
+        }
+
+        private bool TryTheUpgrade(UpgradeablesTypeID typeID, bool makeTheUpgrade, HOGUpgradeableData upgradeable)
+        {
+            var upgradeableConfig = GetHogUpgradeableConfigByID(typeID);
+            if (upgradeableConfig.UpgradableLevelData.Count <= upgradeable.CurrentLevel)
+            {
+                return false;
+            }
+            HOGUpgradeableLevelData levelData = upgradeableConfig.UpgradableLevelData[upgradeable.CurrentLevel];
+            int amountToReduce = levelData.CoinsNeeded;
+            ScoreTags coinsType = levelData.CurrencyTag;
+            int newLevel = levelData.Level;
+
+            if (HOGGameLogicManager.Instance.ScoreManager.TryUseScore(coinsType, amountToReduce, makeTheUpgrade))
+            {
+                if (makeTheUpgrade)
+                {
+                    upgradeable.CurrentLevel++;
+                    HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnUpgraded, (coinsType, amountToReduce, newLevel, (int)typeID));
+                    HOGManager.Instance.SaveManager.Save(PlayerUpgradeInventoryData);
+                }
+                return true;
+            }
+            else
+            {
+                if (makeTheUpgrade)
+                {
+                    Debug.LogError($"UpgradeItemByID {typeID.ToString()} tried upgrade and there is no enough");
+                }
+                return false;
+            }
         }
     }
 
@@ -187,9 +190,5 @@ namespace HOG.GameLogic
         ChangePower = 2,
         DoubleAttack = 3,
         Combo = 4
-        
-    }
-
-
-    
+    }    
 }

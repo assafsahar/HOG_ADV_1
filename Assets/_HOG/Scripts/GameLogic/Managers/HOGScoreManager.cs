@@ -1,7 +1,5 @@
 using HOG.Core;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 namespace HOG.GameLogic
 {
@@ -83,9 +81,7 @@ namespace HOG.GameLogic
     public enum ScoreTags
     {
         MainScore = 0,
-        KillsScore = 1,
-        ShaharScore = 2,
-        Chocolate = 3,
+        
         Character1Score = 4,
         Character2Score = 5
     }

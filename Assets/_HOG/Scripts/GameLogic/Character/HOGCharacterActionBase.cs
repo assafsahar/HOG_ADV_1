@@ -4,9 +4,23 @@ namespace HOG.Character
 {
     public class HOGCharacterActionBase
     {
-        public HOGCharacterState.CharacterStates ActionId { get; private set; }
-        public int ActionStrength { get; private set; }
-        public bool IsTemp { get; set; }
+        private HOGCharacterState.CharacterStates actionId;
+        private int actionStrength;
+        private bool isTemp;
+
+        public HOGCharacterState.CharacterStates ActionId {
+            get { return actionId; } 
+            private set { actionId = value; }
+        }
+        public int ActionStrength {
+            get { return actionStrength; }
+            private set { actionStrength = value; }
+        }
+        public bool IsTemp {
+            get { return isTemp; }
+            set { isTemp = value; }
+        }
+
         public HOGCharacterActionBase(HOGCharacterState.CharacterStates actionId, int actionStrength, bool isTemp=false)
         {
             ActionId = actionId;

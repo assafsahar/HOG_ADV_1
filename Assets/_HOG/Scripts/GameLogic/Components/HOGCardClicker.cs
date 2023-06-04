@@ -7,13 +7,13 @@ namespace HOG.Components
     public class HOGCardClicker : HOGMonoBehaviour
     {
     // the following methods are called from the UI buttons (editor)
-    public void ChangeAttack()
+        public void ChangeAttack()
         {
             var amount = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangePower).CurrentLevel;
             InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));
         }
 
-        public void changeCharacter()
+        public void CharacterNumber()
         {
             var num = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangeCharacter).CurrentLevel;
             var character = HOGGameLogicManager.Instance.UpgradeManager.GetCharacterByIDAndLevel(UpgradeablesTypeID.ChangeCharacter, num-1);
@@ -26,5 +26,4 @@ namespace HOG.Components
             HOGGameLogicManager.Instance.UpgradeManager.UpgradeItemByID(upgradable);
         }
     }
-
 }

@@ -1,7 +1,6 @@
 using HOG.Character;
 using HOG.Core;
 using HOG.Screens;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,6 +8,9 @@ namespace HOG.GameLogic
 {
     public class HOGBattleManager : HOGMonoBehaviour
     {
+        private int turn;
+        
+
         [SerializeField] HOGCharacter[] characters;
         [SerializeField] HOGScreenManager screenManager;
         [SerializeField] HOGDeckManager deckManager;
@@ -17,8 +19,10 @@ namespace HOG.GameLogic
         private HOGCharacter chosenCharacter;
         private IEnumerator fightCoroutine = null;
         private bool isFightLive = true;
-        public int Turn { get; private set; }
-        
+        public int Turn {
+             get {return turn; }
+            private set { turn = value; }
+        }
 
         private void OnEnable()
         {
@@ -37,46 +41,18 @@ namespace HOG.GameLogic
             RemoveListener(HOGEventNames.OnFightReady, StartFight);
         }
 
-        private void PlayHit(object obj)
-        {
-            int num = (int)obj;
-            characters[num - 1].PlayHit();
-            if(!characters[num - 1].IsDead)
-            {
-                StartCoroutine(PlayIdle(obj, 0.5f));
-            }
-            
-        }
-        IEnumerator PlayIdle(object obj, float timer)
-        {
-            yield return new WaitForSeconds(timer);
-            int num = (int)obj;
-            characters[num - 1].StartIdle();
-        }
-
-       
         private void Awake()
         {
             Manager.PoolManager.InitPool("TextToast", 10);
             if (characters[0] != null)
             {
-                if (characters[0].TryGetComponent<HOGCharacter>(out HOGCharacter character))
-                {
-                    character1 = character;
-                    character1.Init();
-                }
+                InitCharacter1();
             }
             if (characters[1] != null)
             {
-                if (characters[1].TryGetComponent<HOGCharacter>(out HOGCharacter character))
-                {
-                    character2 = character;
-                    character2.Init();
-                }
+                InitCharacter2();
             }
         }
-
-
 
         public void PreFight(object obj)
         {
@@ -94,8 +70,6 @@ namespace HOG.GameLogic
                 return;
             }
             PlayOpponent((int)obj);
-
-
         }
 
         public void PlayOpponent(object previousPlayedCharacter)
@@ -104,16 +78,16 @@ namespace HOG.GameLogic
             {
                 return;
             }
-            Turn = (int)previousPlayedCharacter == 1 ? 2 : 1;       
-            InvokeEvent(HOGEventNames.OnTurnChange,Turn);
+            Turn = (int)previousPlayedCharacter == 1 ? 2 : 1;
+            InvokeEvent(HOGEventNames.OnTurnChange, Turn);
             chosenCharacter = (int)previousPlayedCharacter == 1 ? character2 : character1;
-            
+
             if (chosenCharacter != null)
             {
                 fightCoroutine = chosenCharacter.PlayActionSequence();
                 StartCoroutine(fightCoroutine);
             }
-            if(Turn == 1)
+            if (Turn == 1)
             {
                 if (deckManager != null)
                 {
@@ -128,7 +102,7 @@ namespace HOG.GameLogic
 
         public void StopFight()
         {
-            isFightLive= false;
+            isFightLive = false;
             if (character1.PlayActionSequence() != null)
             {
                 StopCoroutine(character1.PlayActionSequence());
@@ -139,6 +113,40 @@ namespace HOG.GameLogic
             }
         }
 
+        private void InitCharacter1()
+        {
+            if (characters[0].TryGetComponent<HOGCharacter>(out HOGCharacter character))
+            {
+                character1 = character;
+                character1.Init();
+            }
+        }
+
+        private void InitCharacter2()
+        {
+            if (characters[1].TryGetComponent<HOGCharacter>(out HOGCharacter character))
+            {
+                character2 = character;
+                character2.Init();
+            }
+        }
+
+        private void PlayHit(object obj)
+        {
+            int num = (int)obj;
+            characters[num - 1].PlayHit();
+            if(!characters[num - 1].IsDead)
+            {
+                StartCoroutine(PlayIdle(obj, 0.5f));
+            }
+        }
+        private IEnumerator PlayIdle(object obj, float timer)
+        {
+            yield return new WaitForSeconds(timer);
+            int num = (int)obj;
+            characters[num - 1].StartIdle();
+        }
+
         private void KillCharacter(object obj)
         {
             HOGDebug.Log("Character died: " + obj.ToString());
@@ -147,7 +155,6 @@ namespace HOG.GameLogic
             StopFight();
             StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 2f));
         }
-
     }
 }
 

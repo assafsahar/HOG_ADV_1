@@ -9,7 +9,6 @@ namespace HOG.Character
     public class HOGCharacterActions
     {
         [SerializeField] int requiredListLength = 3;
-
         private List<HOGCharacterActionBase> characterAttacks = new List<HOGCharacterActionBase>();
         private int currentSlotNumber = 0;
         private HOGAttacksUI attacksUI;
@@ -54,35 +53,46 @@ namespace HOG.Character
         {
             if (isTemp)
             {
-                if (slotNumber == -1)
+                ReplaceActionTemp(actionId, actionStrength, isTemp, slotNumber);
+            }
+            else
+            {
+                ReplaceActionPermanent(slotNumber);
+            }
+
+            UpdateUI();
+        }
+
+        private void ReplaceActionPermanent(int slotNumber)
+        {
+            if (slotNumber == -1)
+            {
+                for (int i = 0; i < characterAttacks.Count; i++)
                 {
-                    for (int i = 0; i < characterAttacks.Count; i++)
-                    {
-                        characterAttacks[i] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
-                    }
-                }
-                else
-                {
-                    characterAttacks[slotNumber] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
+                    characterAttacks[i] = new HOGCharacterActionBase(attackData[i].ActionId, attackData[i].ActionStrength);
                 }
             }
             else
             {
-                if (slotNumber == -1)
+                characterAttacks[slotNumber] = new HOGCharacterActionBase(attackData[slotNumber].ActionId, attackData[slotNumber].ActionStrength);
+            }
+        }
+
+        private void ReplaceActionTemp(HOGCharacterState.CharacterStates actionId, int actionStrength, bool isTemp, int slotNumber)
+        {
+            if (slotNumber == -1)
+            {
+                for (int i = 0; i < characterAttacks.Count; i++)
                 {
-                    for (int i = 0; i < characterAttacks.Count; i++)
-                    {
-                        characterAttacks[i] = new HOGCharacterActionBase(attackData[i].ActionId, attackData[i].ActionStrength);
-                    }
-                }
-                else
-                {
-                    characterAttacks[slotNumber] = new HOGCharacterActionBase(attackData[slotNumber].ActionId, attackData[slotNumber].ActionStrength);
+                    characterAttacks[i] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
                 }
             }
-            
-            UpdateUI();
+            else
+            {
+                characterAttacks[slotNumber] = new HOGCharacterActionBase(actionId, actionStrength, isTemp);
+            }
         }
+
         public bool CanContinue()
         {
             if(currentSlotNumber < characterAttacks.Count)

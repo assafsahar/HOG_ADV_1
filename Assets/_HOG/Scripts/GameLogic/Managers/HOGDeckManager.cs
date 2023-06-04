@@ -1,6 +1,5 @@
 using HOG.Core;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UI;
 using UnityEngine;
@@ -27,42 +26,16 @@ namespace HOG.GameLogic
         }
         private void Awake()
         {
-            foreach (var card in configurableCards)
-            {
-                if (card != null)
-                {
-                    if (card.CardButton != null)
-                    {
-                        deckUI.Cards.Add(card.CardId, card.CardButton);
-                    }
-                    if(card.UpgradeButton != null)
-                    {
-                        deckUI.UpgradeButtons.Add(card.CardId, card.UpgradeButton);
-                    }
-                }
-            }
-            int changePowerLevel = 1;
-            var changePowerData = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangePower);
-            if (changePowerData != null)
-            {
-                changePowerLevel = changePowerData.CurrentLevel;
-            }
-            int changeCharacterLevel = 1;
-            var changeCharacterData = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangeCharacter);
-            if (changeCharacterData != null)
-            {
-                changeCharacterLevel = changeCharacterData.CurrentLevel;
-            }
-
-            UpdateCardLevel(2, changePowerLevel);
-            UpdateCardLevel(1, changeCharacterLevel);
+            AddCardsToDeckUI();
+            ShowCardLevel();
         }
+
         void Start()
         {
             ShowCard(2, true, true);
         }
 
-        public void DisableAllCards(object obj=null)
+        public void DisableAllCards(object obj = null)
         {
             foreach (var card in configurableCards)
             {
@@ -73,20 +46,20 @@ namespace HOG.GameLogic
             }
         }
         public void EnableAllCards()
+        {
+            foreach (var card in configurableCards)
             {
-            foreach(var card in configurableCards)
-            {
-                if(card != null)
+                if (card != null)
                 {
                     ShowCard(card.CardId, true, true);
                 }
             }
-            
+
         }
 
         public void ShowCard(int cardId, bool toShow, bool toEnable)
         {
-            if(configurableCards[0] == null)
+            if (configurableCards[0] == null)
             {
                 HOGDebug.LogException("Card with ID " + cardId + " not found.");
             }
@@ -119,6 +92,42 @@ namespace HOG.GameLogic
             }
         }
 
+        private void ShowCardLevel()
+        {
+            int changePowerLevel = 1;
+            var changePowerData = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangePower);
+            if (changePowerData != null)
+            {
+                changePowerLevel = changePowerData.CurrentLevel;
+            }
+            int changeCharacterLevel = 1;
+            var changeCharacterData = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangeCharacter);
+            if (changeCharacterData != null)
+            {
+                changeCharacterLevel = changeCharacterData.CurrentLevel;
+            }
+
+            UpdateCardLevel(2, changePowerLevel);
+            UpdateCardLevel(1, changeCharacterLevel);
+        }
+
+        private void AddCardsToDeckUI()
+        {
+            foreach (var card in configurableCards)
+            {
+                if (card != null)
+                {
+                    if (card.CardButton != null)
+                    {
+                        deckUI.Cards.Add(card.CardId, card.CardButton);
+                    }
+                    if (card.UpgradeButton != null)
+                    {
+                        deckUI.UpgradeButtons.Add(card.CardId, card.UpgradeButton);
+                    }
+                }
+            }
+        }
     }
 }
 

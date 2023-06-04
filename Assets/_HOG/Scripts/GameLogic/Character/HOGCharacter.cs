@@ -10,6 +10,9 @@ namespace HOG.Character
 {
     public class HOGCharacter : HOGMonoBehaviour
     {
+        public int characterNumber = 1;
+        private bool isDead = false;
+
         [SerializeField] int attackStrength = 10;
         [SerializeField] int scoreMultiplier = 10;
         //[SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
@@ -17,26 +20,15 @@ namespace HOG.Character
         [SerializeField] private int characterType = 1;
         [SerializeField] private float waitTimeBetweenAttacks = 1f;
         [SerializeField] HOGDeckManager deckManager;
-
-        public int characterNumber = 1;
-        public bool IsDead { get; private set; } = false;
-
-        private HOGCharacterActions Actions;
+        private HOGCharacterActions actions;
         private SpriteRenderer spriteRenderer;
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
         private HOGScoreUI scoreComponent;
-
-        public void Init()
+        public bool IsDead
         {
-            SpriteRenderer srComponent;
-            var isSpriteRenderer = TryGetComponent<SpriteRenderer>(out srComponent);
-            spriteRenderer = srComponent;
-            HOGCharacterAnims caComponent;
-            var isHOGCharacterAnims = TryGetComponent<HOGCharacterAnims>(out caComponent);
-            characterAnims = caComponent;
-            characterAnims.FillDictionary(characterType);
-            var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
+            get { return isDead; }
+            set { isDead = value; }
         }
 
         private void OnEnable()
@@ -56,6 +48,106 @@ namespace HOG.Character
             RemoveListener(HOGEventNames.OnGameReset, ResetScore);
             RemoveListener(HOGEventNames.OnUpgraded, UpdateUpgradeData);
         }
+
+        public void Init()
+        {
+            SpriteRenderer srComponent;
+            var isSpriteRenderer = TryGetComponent<SpriteRenderer>(out srComponent);
+            spriteRenderer = srComponent;
+            HOGCharacterAnims caComponent;
+            var isHOGCharacterAnims = TryGetComponent<HOGCharacterAnims>(out caComponent);
+            characterAnims = caComponent;
+            characterAnims.FillDictionary(characterType);
+            var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
+        }
+
+        public void PreFight()
+        {
+            IsDead = false;
+            CreateActionSequence();
+        }
+        public void PlayAction(HOGCharacterActionBase action)
+        {
+            if (action == null)
+            {
+                return;
+            }
+            IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
+            spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
+            if (IsDead)
+            {
+                return;
+            }
+
+            var actionData = Tuple.Create(characterNumber, action.ActionStrength);
+            InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
+            if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.Move)
+            {
+                SetScore(action.ActionStrength);
+                ShowScore(action.ActionStrength);
+                NotifyDeckManagerOnScore();
+            }
+        }
+
+        public IEnumerator PlayActionSequence()
+        {
+            while (actions.CanContinue())
+            {
+                PlayAction(actions.GetAction());
+                yield return new WaitForSeconds(waitTimeBetweenAttacks);
+                actions.RemoveTempAction();
+            }
+            HOGDebug.Log($"{characterNumber} play action sequence");
+            FinishAttackSequence();
+            yield break;
+        }
+
+        public void CreateActionSequence()
+        {
+            StartIdle();
+            var characterAttacksData = HOGGameLogicManager.Instance.UpgradeManager.GetHogAttackConfig();
+            HOGAttacksUI component;
+            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
+            actions = new HOGCharacterActions(component, characterType, characterAttacksData);
+            actions.ResetList();
+        }
+
+        public void ChangeAction(object obj)
+        {
+            if (turn == characterNumber)
+            {
+                return;
+            }
+            if (characterNumber == 1)
+            {
+                Tuple<HOGCharacterState.CharacterStates, int> tupleData = (Tuple<HOGCharacterState.CharacterStates, int>)obj;
+                actions.ReplaceAction(tupleData.Item1, tupleData.Item2, true);
+            }
+        }
+
+        public void Die()
+        {
+            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Die, 0));
+        }
+
+        public void StartIdle()
+        {
+            if (IsDead)
+            {
+                return;
+            }
+            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
+        }
+
+        public void PlayHit()
+        {
+            if (IsDead)
+            {
+                return;
+            }
+            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Hurt, 0));
+        }
+
 
         private void ResetScore(object obj)
         {
@@ -80,35 +172,7 @@ namespace HOG.Character
                     characterType = (int)obj;
                     characterAnims.FillDictionary(characterType);
                 }
-                Actions.UpdateCharacterType(characterType);
-            }
-        }
-
-        public void PreFight()
-        {
-            IsDead = false;
-            CreateActionSequence();
-        }
-        public void PlayAction(HOGCharacterActionBase action)
-        {
-            if(action == null)
-            {
-                return;
-            }
-            IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
-            spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
-            if (IsDead)
-            {
-                return;
-            }
-            
-            var actionData = Tuple.Create(characterNumber, action.ActionStrength);
-            InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
-            if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.Move)
-            {
-                SetScore(action.ActionStrength);
-                ShowScore(action.ActionStrength);
-                NotifyDeckManagerOnScore();
+                actions.UpdateCharacterType(characterType);
             }
         }
 
@@ -185,68 +249,10 @@ namespace HOG.Character
             }
         }
 
-        public IEnumerator PlayActionSequence()
-        {
-            while(Actions.CanContinue())
-            {
-                PlayAction(Actions.GetAction());
-                yield return new WaitForSeconds(waitTimeBetweenAttacks);
-                Actions.RemoveTempAction();
-            }
-            HOGDebug.Log($"{characterNumber} play action sequence");
-            FinishAttackSequence();
-            yield break;
-        }
-
-        public void CreateActionSequence()
-        {
-            StartIdle();
-            var characterAttacksData = HOGGameLogicManager.Instance.UpgradeManager.GetHogAttackConfig();
-            HOGAttacksUI component;
-            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
-            Actions = new HOGCharacterActions(component, characterType, characterAttacksData);
-            Actions.ResetList();
-        }
-
-        public void ChangeAction(object obj)
-        {
-            if (turn == characterNumber)
-            {
-                return;
-            }
-            if (characterNumber == 1)
-            {
-                Tuple<HOGCharacterState.CharacterStates, int> tupleData = (Tuple<HOGCharacterState.CharacterStates, int>) obj;
-                Actions.ReplaceAction(tupleData.Item1, tupleData.Item2, true);
-            }
-        }
-
         private void FinishAttackSequence()
         {
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
             InvokeEvent(HOGEventNames.OnAttacksFinish, characterNumber);
-        }
-
-        public void Die()
-        {
-            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Die, 0));
-        }
-        public void StartIdle()
-        {
-            if (IsDead)
-            {
-                return;
-            }
-            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
-        }
-
-        public void PlayHit()
-        {
-            if (IsDead)
-            {
-                return;
-            }
-            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Hurt, 0));
         }
     }
 }

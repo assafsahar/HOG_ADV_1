@@ -1,6 +1,5 @@
 using HOG.Core;
 using System;
-using System.Collections.Generic;
 
 namespace HOG.Character
 {
