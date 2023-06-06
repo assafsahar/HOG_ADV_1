@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-namespace UI
+namespace HOG.UI
 {
     public class HOGAttacksUI : HOGMonoBehaviour
     {

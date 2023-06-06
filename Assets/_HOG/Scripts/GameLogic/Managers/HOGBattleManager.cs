@@ -87,12 +87,14 @@ namespace HOG.GameLogic
                 fightCoroutine = chosenCharacter.PlayActionSequence();
                 StartCoroutine(fightCoroutine);
             }
+            if(deckManager == null)
+            {
+                return;
+            }
+            deckManager.Turn = turn;
             if (Turn == 1)
             {
-                if (deckManager != null)
-                {
-                    deckManager.DisableAllCards();
-                }
+                deckManager.DisableAllCards();
             }
             else
             {

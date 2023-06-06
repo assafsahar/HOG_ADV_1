@@ -1,17 +1,26 @@
 using HOG.Core;
 using System;
 using System.Collections.Generic;
-using UI;
+using HOG.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 namespace HOG.GameLogic
 {
     public class HOGDeckManager : HOGMonoBehaviour
     {
-        [SerializeField]
-        List<ConfigurableCard> configurableCards = new List<ConfigurableCard>();
-        [SerializeField] HOGDeckUI deckUI;
+        
+        [SerializeField] private HOGDeckUI deckUI;
+        [SerializeField] private int maxEnergy = 10;
+        [SerializeField] private HOGEnergyBarUI energyBar;
+        public List<ConfigurableCard> configurableCards = new List<ConfigurableCard>();
+        public int CurrentEnergy { get; private set; }
+        public float EnergyFillRate = 0.2f; // Energy increase per second
+        public int Turn = 0;
+
+        private Coroutine energyFillCoroutine;
+
 
         private void OnEnable()
         {
@@ -26,13 +35,25 @@ namespace HOG.GameLogic
         }
         private void Awake()
         {
+            CurrentEnergy = maxEnergy;
+            energyBar.maxValue = maxEnergy;
+            //energyBar.SetEnergy(CurrentEnergy);
             AddCardsToDeckUI();
             ShowCardLevel();
+            UpdateCardButtonInteractivity();
         }
 
         void Start()
         {
             ShowCard(2, true, true);
+            StartEnergyFillCoroutine();
+        }
+        public void UpdateEnergy(int amount)
+        {
+            CurrentEnergy += amount;
+            CurrentEnergy = Mathf.Clamp(CurrentEnergy, 0, maxEnergy);
+            energyBar.SetEnergy(CurrentEnergy);
+            UpdateCardButtonInteractivity();
         }
 
         public void DisableAllCards(object obj = null)
@@ -41,7 +62,8 @@ namespace HOG.GameLogic
             {
                 if (card != null)
                 {
-                    ShowCard(card.CardId, true, false);
+                    card.CardButton.interactable = false;
+                    //ShowCard(card.CardId, true, false);
                 }
             }
         }
@@ -51,10 +73,28 @@ namespace HOG.GameLogic
             {
                 if (card != null)
                 {
-                    ShowCard(card.CardId, true, true);
+                    card.CardButton.interactable = true;
+                    //ShowCard(card.CardId, true, true);
                 }
             }
+            UpdateCardButtonInteractivity();
+        }
 
+        public void StartEnergyFillCoroutine()
+        {
+            if (energyFillCoroutine == null)
+            {
+                energyFillCoroutine = StartCoroutine(FillEnergyBarCoroutine());
+            }
+        }
+
+        public void StopEnergyFillCoroutine()
+        {
+            if (energyFillCoroutine != null)
+            {
+                StopCoroutine(energyFillCoroutine);
+                energyFillCoroutine = null;
+            }
         }
 
         public void ShowCard(int cardId, bool toShow, bool toEnable)
@@ -63,7 +103,7 @@ namespace HOG.GameLogic
             {
                 HOGDebug.LogException("Card with ID " + cardId + " not found.");
             }
-            deckUI.ShowCard(cardId, toShow, toEnable);
+            deckUI.ShowCard(cardId, toShow, toEnable,4); // Todo change 4 to be dynamic
             configurableCards[0].CardVisible = toShow;
             configurableCards[0].CardEnabled = toEnable;
         }
@@ -72,6 +112,7 @@ namespace HOG.GameLogic
         {
             deckUI.ChangeCardLevelValue(cardId, level.ToString());
         }
+
         public void ScoreChanged()
         {
             if (HOGGameLogicManager.Instance.UpgradeManager.CanMakeUpgrade(UpgradeablesTypeID.ChangePower))
@@ -89,6 +130,35 @@ namespace HOG.GameLogic
             else
             {
                 deckUI.ShowUpgradeButton(1, true, false);
+            }
+        }
+
+        private IEnumerator FillEnergyBarCoroutine()
+        {
+            while (true)
+            {
+                while (CurrentEnergy < maxEnergy)
+                {
+                    UpdateEnergy(1);
+                    yield return new WaitForSeconds(1f / EnergyFillRate);
+                }
+
+                yield return new WaitUntil(() => CurrentEnergy < maxEnergy);
+            }
+        }
+
+        private void UpdateCardButtonInteractivity()
+        {
+            foreach (var card in configurableCards)
+            {
+                if (card != null)
+                {
+                    bool isCardEnabled = CurrentEnergy >= card.CardCost; 
+                    if(Turn != 1)
+                    {
+                        card.CardButton.interactable = isCardEnabled;
+                    }
+                }
             }
         }
 
@@ -140,6 +210,8 @@ public class ConfigurableCard
     public bool CardEnabled = true;
     public bool CardVisible = true;
     public CardTypes CardType = CardTypes.Ability;
+    public int CardValue = 0;
+    public int CardCost = 1;
     public Button UpgradeButton;
 }
 

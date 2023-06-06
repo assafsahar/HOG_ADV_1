@@ -85,5 +85,4 @@ namespace HOG.GameLogic
         Character1Score = 4,
         Character2Score = 5
     }
-
 }

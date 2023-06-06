@@ -2,7 +2,6 @@ using Firebase.Extensions;
 using Firebase.RemoteConfig;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -20,9 +19,16 @@ namespace HOG.Core
             defaults.Add("UpgradableConfig", "{}");
             HOGDebug.Log("HOGConfigManager");
             FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults).ContinueWithOnMainThread(OnDefaultValuesSet);
-
          }
 
+        public void GetConfigAsync<T>(string configID, Action<T> onComplete)
+        {
+            //HOGDebug.Log("GetConfigAsync");
+            var saveJson = FirebaseRemoteConfig.DefaultInstance.GetValue(configID).StringValue;
+            var saveData = JsonConvert.DeserializeObject<T>(saveJson);
+
+            onComplete.Invoke(saveData);
+        }
         private void OnDefaultValuesSet(Task task)
         {
             //HOGDebug.Log("OnDefaultValuesSet");
@@ -40,22 +46,12 @@ namespace HOG.Core
             //HOGDebug.Log("OnActivateComplete");
             onInit.Invoke();
         }
-
-        public void GetConfigAsync<T>(string configID, Action<T> onComplete)
-        {
-            //HOGDebug.Log("GetConfigAsync");
-            var saveJson = FirebaseRemoteConfig.DefaultInstance.GetValue(configID).StringValue;
-            var saveData = JsonConvert.DeserializeObject<T>(saveJson);
-
-            onComplete.Invoke(saveData);
-        }
     }
     public class HOGConfigOfflineManager
     {
         public void GetConfigAsync<T>(string configID, Action<T> onComplete)
         {
             var path = $"Assets/_HOG/Configs/{configID}.json";
-
             var saveJson = File.ReadAllText(path);
             var saveData = JsonConvert.DeserializeObject<T>(saveJson);
 

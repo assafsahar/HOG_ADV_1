@@ -4,20 +4,22 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace UI
+namespace HOG.UI
 {
     public class HOGDeckUI : HOGMonoBehaviour
     {
         public Dictionary<int, Button> Cards = new Dictionary<int, Button>();
         public Dictionary<int, Button> UpgradeButtons = new Dictionary<int, Button>();
 
-        public void ShowCard(int cardId, bool toShow, bool toEnable)
+
+        public void ShowCard(int cardId, bool toShow, bool toEnable, int cardValue)
         {
             // Find the card with the specified ID
             Button card;
             if(!Cards.TryGetValue(cardId, out card))
             {
                 HOGDebug.LogException("Card with ID " + cardId + " not found.");
+                return;
             }
             card.interactable = toEnable;
             card.enabled = toShow;
@@ -50,6 +52,7 @@ namespace UI
             if (!Cards.TryGetValue(cardId, out card))
             {
                 HOGDebug.LogException("Card with ID " + cardId + " not found.");
+                return;
             }
             Transform cardTransform = card.transform;
             Transform levelTextTransform = cardTransform.Find("LevelText");
@@ -59,6 +62,7 @@ namespace UI
                 if (textField == null)
                 {
                     HOGDebug.LogException("There's no text field in card " + cardId);
+                    return;
                 }
                 textField.text = newValue;
             }

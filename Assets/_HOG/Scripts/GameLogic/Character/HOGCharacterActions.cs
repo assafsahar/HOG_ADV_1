@@ -1,7 +1,7 @@
 using HOG.Core;
 using HOG.GameLogic;
 using System.Collections.Generic;
-using UI;
+using HOG.UI;
 using UnityEngine;
 
 namespace HOG.Character

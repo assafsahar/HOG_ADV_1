@@ -64,6 +64,7 @@ namespace HOG.Core
         OnBackToIdle = 12,
         OnTurnChange = 13,
         OnPreFightReady = 14,
-        OnFightReady = 15
+        OnFightReady = 15,
+        OnEnergyUpdate = 17
     }
 }
