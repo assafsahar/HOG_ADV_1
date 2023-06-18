@@ -143,11 +143,53 @@ namespace HOG.Character
             {
                 if (element.CharacterType == characterType)
                 {
-                    attackData = element.CharacterActions;
-                    break;
+                    
+                    if(characterType == 3) // enemy random
+                    {
+                        attackData = CreateRandomCharacterActions();
+                    }
+                    else // player config
+                    {
+                        attackData = element.CharacterActions;
+                    }
                 }
             }
             ResetList();
+        }
+
+        private List<HOGCharacterAction> CreateRandomCharacterActions()
+        {
+            var characterActions = new List<HOGCharacterAction>();
+            HOGCharacterAction action;
+            while(characterActions.Count < 3) {
+                action = new HOGCharacterAction();
+                action.ActionId = GetRandomActionId();
+                action.ActionStrength = GetRandomActionStrength();
+                characterActions.Add(action);
+            }
+
+            return characterActions;
+        }
+
+        private int GetRandomActionStrength()
+        {
+            return Random.Range(1, 5);
+        }
+
+        private HOGCharacterState.CharacterStates GetRandomActionId()
+        {
+            int randomIndex = Random.Range(1, 4);
+            switch (randomIndex)
+            {
+                case 1:
+                    return HOGCharacterState.CharacterStates.Defense;
+                case 2:
+                    return HOGCharacterState.CharacterStates.Attack;
+                case 3:
+                    return HOGCharacterState.CharacterStates.Move;
+                default:
+                    return HOGCharacterState.CharacterStates.Defense;
+            }
         }
 
         private void UpdateUI(int slotNumber = -1)

@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using HOG.UI;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace HOG.Character
 {
@@ -105,12 +106,14 @@ namespace HOG.Character
         public void CreateActionSequence()
         {
             StartIdle();
+            HOGDebug.Log(characterNumber);
             var characterAttacksData = HOGGameLogicManager.Instance.UpgradeManager.GetHogAttackConfig();
             HOGAttacksUI component;
             var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
             actions = new HOGCharacterActions(component, characterType, characterAttacksData);
             actions.ResetList();
         }
+
 
         public void ChangeAction(object obj)
         {
