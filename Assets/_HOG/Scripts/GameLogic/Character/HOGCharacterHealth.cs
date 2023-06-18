@@ -8,13 +8,18 @@ namespace HOG.Character
 {
     public class HOGCharacterHealth: HOGMonoBehaviour
     {
-        [SerializeField] float recoveryRate = 1f;
-        [SerializeField] float resistance = 1f;
         [SerializeField] float endurance = 1f;
         [SerializeField] float defenseRate = 1f;
-        [SerializeField] int currentHealth;
+        [SerializeField] int currentHealth = 1;
         [SerializeField] int maxHealth;
+        [SerializeField] int currentRecoveryRate = 1;
+        [SerializeField] int maxRecoveryRate;
+        [SerializeField] int currentResistance = 1;
+        [SerializeField] int maxResistance;
+
         [SerializeField] HOGHealthBar healthBar;
+        [SerializeField] HOGHealthBar recoveryRateBar;
+        [SerializeField] HOGHealthBar resistanceBar;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
         private int characterNumber;
@@ -24,6 +29,10 @@ namespace HOG.Character
         {
             maxHealth = 20;
             currentHealth = maxHealth;
+            maxRecoveryRate = 20;
+            currentRecoveryRate = maxRecoveryRate;
+            maxResistance = 20;
+            currentResistance = maxResistance;
         }
 
         private void Awake()
@@ -46,44 +55,84 @@ namespace HOG.Character
             RemoveListener(HOGEventNames.OnGameReset, ResetHealth);
         }
 
-        public void TakeDamage(int amount)
+        public void TakeDamage(int amount, barTypes barObj)
         {
-            currentHealth -= amount;
-            if (currentHealth <= 0)
+            HOGDebug.Log($"TakeDamage, amount={amount}");
+            switch (barObj)
             {
-                Die();
+                case barTypes.health:
+                    currentHealth -= amount;
+                    if (currentHealth <= 0)
+                    {
+                        Die();
+                    }
+                    healthBar.SetHealth(currentHealth);
+                    break;
+                case barTypes.recoveryRate:
+                    currentRecoveryRate -= amount;
+                    if (currentRecoveryRate <= 0)
+                    {
+                        Die();
+                    }
+                    recoveryRateBar.SetHealth(currentRecoveryRate);
+                    break;
+                case barTypes.resistance:
+                    currentResistance -= amount;
+                    if (currentResistance <= 0)
+                    {
+                        Die();
+                    }
+                    resistanceBar.SetHealth(currentResistance);
+                    break;
             }
-            healthBar.SetHealth(currentHealth);
+            
         }
 
         public void ResetHealth(object obj)
         {
             currentHealth = maxHealth;
             healthBar.SetHealth(currentHealth);
+            currentRecoveryRate = maxRecoveryRate;
+            recoveryRateBar.SetHealth(currentRecoveryRate);
+            currentResistance = maxResistance;
+            resistanceBar.SetHealth(currentResistance);
         }
 
         private void OnTakeDamage(object obj)
         {
-            if(obj is Tuple<int,int> tupleData)
+            if(obj is Tuple<int, HOGCharacterActionBase> tupleData)
             {
                 if(tupleData.Item1 != characterNumber)
                 {
-                    TakeDamage(tupleData.Item2);
+                    HOGDebug.Log($"ActionID={tupleData.Item2.ActionId}");
+                    switch (tupleData.Item2.ActionId)
+                    {
+                        case HOGCharacterState.CharacterStates.Attack:
+                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.health);
+                            break;
+                        case HOGCharacterState.CharacterStates.Defense:
+                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.recoveryRate);
+                            break;
+                        case HOGCharacterState.CharacterStates.Move:
+                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.resistance);
+                            break;
+                    }
+                    
                     ShowEffectPerStrength(tupleData);
                 }
             }
         }
 
-        private void ShowEffectPerStrength(Tuple<int, int> tupleData)
+        private void ShowEffectPerStrength(Tuple<int, HOGCharacterActionBase> tupleData)
         {
-            if (tupleData.Item2 >= megaHitTreshold)
+            if (tupleData.Item2.ActionStrength >= megaHitTreshold)
             {
-                characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2);
+                characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2.ActionStrength);
                 InvokeEvent(HOGEventNames.OnGetHit, characterNumber);
             }
-            else if (tupleData.Item2 >= avarageHitTreshold)
+            else if (tupleData.Item2.ActionStrength >= avarageHitTreshold)
             {
-                characterAnims.PlayRandomEffect(transform, tupleData.Item2);
+                characterAnims.PlayRandomEffect(transform, tupleData.Item2.ActionStrength);
             }
         }
 
@@ -93,4 +142,11 @@ namespace HOG.Character
             HOGDebug.Log("Character died");
         }
     }
+}
+
+public enum barTypes
+{
+    health = 0,
+    recoveryRate = 1,
+    resistance = 2
 }

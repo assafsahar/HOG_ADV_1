@@ -79,7 +79,7 @@ namespace HOG.Character
                 return;
             }
 
-            var actionData = Tuple.Create(characterNumber, action.ActionStrength);
+            var actionData = Tuple.Create(characterNumber, action);
             InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
             if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.Move)
             {
