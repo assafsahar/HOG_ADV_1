@@ -10,7 +10,7 @@ namespace HOG.UI
     public class HOGAttacksUI : HOGMonoBehaviour
     {
         public Dictionary<int, (char, string)> Slots = new Dictionary<int, (char, string)>();
-
+        //
         [SerializeField] TextMeshProUGUI slot1Text;
         [SerializeField] TextMeshProUGUI slot2Text;
         [SerializeField] TextMeshProUGUI slot3Text;
