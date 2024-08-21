@@ -159,4 +159,3 @@ namespace HOG.GameLogic
         }
     }
 }
-

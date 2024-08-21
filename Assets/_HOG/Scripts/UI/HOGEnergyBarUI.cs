@@ -1,9 +1,7 @@
 using HOG.Core;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using System;
 
 namespace HOG.UI
 {

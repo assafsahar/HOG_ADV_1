@@ -191,4 +191,5 @@ namespace HOG.GameLogic
         DoubleAttack = 3,
         Combo = 4
     }    
+
 }

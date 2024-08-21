@@ -5,7 +5,6 @@ using System;
 using System.Collections;
 using HOG.UI;
 using UnityEngine;
-using System.Collections.Generic;
 
 namespace HOG.Character
 {

@@ -25,7 +25,6 @@ namespace HOG.GameLogic
         {
             transform.localScale = scaleStart * Vector3.one;
             DOTween.To(() => scoreTMP.alpha, x => scoreTMP.alpha = x, fadeTarget, tweenTime);
-            //scoreTMP.DOFade(fadeTarget, tweenTime).SetEase(fadeEase);
             transform.DOLocalMove(transform.localPosition + moveAmount, tweenTime).SetEase(easeTypeMove);
             transform.DOScale(scaleEnd * Vector3.one, tweenTime).OnComplete(() =>
             {
