@@ -1,34 +1,9 @@
 fileFormatVersion: 2
-guid: d1e62c7b8c0415242934bbc46ee8788c
+guid: 219afe5f9cd9cb4469bde5a9080ecec6
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Ch14_Body
-    second: {fileID: 2100000, guid: 105203aa76c72ca42bd6699996484fa3, type: 2}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch14_1001_Diffuse
-    second: {fileID: 2800000, guid: a2f98705512a5de40a35dc1109887327, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch14_1001_Glossiness
-    second: {fileID: 2800000, guid: 23807f564b33ffe4089bd27097dcc72a, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch14_1001_Normal
-    second: {fileID: 2800000, guid: f73f373b7b8ce004e8649068eb92b478, type: 3}
-  - first:
-      type: UnityEngine:Texture2D
-      assembly: UnityEngine.CoreModule
-      name: Ch14_1001_Specular
-    second: {fileID: 2800000, guid: e64b2a5dc784c2a4ebc5667300c93145, type: 3}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -39,7 +14,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    removeConstantScaleCurves: 0
+    removeConstantScaleCurves: 1
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
