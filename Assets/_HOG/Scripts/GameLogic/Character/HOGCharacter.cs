@@ -21,10 +21,10 @@ namespace HOG.Character
         [SerializeField] private float waitTimeBetweenAttacks = 1f;
         [SerializeField] HOGDeckManager deckManager;
         private HOGCharacterActions actions;
-        private SpriteRenderer spriteRenderer;
+        //private SpriteRenderer spriteRenderer;
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
-        private HOGScoreUI scoreComponent;
+        //private HOGScoreUI scoreComponent;
         public bool IsDead
         {
             get { return isDead; }
@@ -51,14 +51,14 @@ namespace HOG.Character
 
         public void Init()
         {
-            SpriteRenderer srComponent;
+            /*priteRenderer srComponent;
             var isSpriteRenderer = TryGetComponent<SpriteRenderer>(out srComponent);
-            spriteRenderer = srComponent;
+            spriteRenderer = srComponent;*/
             HOGCharacterAnims caComponent;
             var isHOGCharacterAnims = TryGetComponent<HOGCharacterAnims>(out caComponent);
             characterAnims = caComponent;
             characterAnims.FillDictionary(characterType);
-            var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
+            //var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
         }
 
         public void PreFight()
@@ -73,7 +73,7 @@ namespace HOG.Character
                 return;
             }
             IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
-            spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
+            //spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
             if (IsDead)
             {
                 return;
@@ -202,11 +202,11 @@ namespace HOG.Character
         {
             ScoreTags scoreTag = GetScoreTagByCharacterNumber();
             // update score toast
-            var scoreText = (HOGTweenScoreComponent)Manager.PoolManager.GetPoolable(PoolNames.ScoreToast);
+            /*var scoreText = (HOGTweenScoreComponent)Manager.PoolManager.GetPoolable(PoolNames.ScoreToast);
             scoreText.transform.position = scoreTransform.position;
-            scoreText.Init(actionStrength * scoreMultiplier);
+            scoreText.Init(actionStrength * scoreMultiplier);*/
             // update score label
-            UpdateScoreLabel(scoreTag);
+            //UpdateScoreLabel(scoreTag);
         }
 
         private void NotifyDeckManagerOnScore()
@@ -220,7 +220,7 @@ namespace HOG.Character
         private void UpdateUpgradeData(object obj)
         {
             (ScoreTags tag, int amount, int level, int cardId) = ((ScoreTags, int, int, int))obj;
-            UpdateScoreLabel(tag, amount);
+            //UpdateScoreLabel(tag, amount);
             UpdateUpgradeLevel(cardId, level);
         }
 
@@ -245,10 +245,10 @@ namespace HOG.Character
 
         private void UpdateScoreComponentText(int score)
         {
-            if (scoreComponent != null)
+            /*if (scoreComponent != null)
             {
                 scoreComponent.UpdateText(score.ToString());
-            }
+            }*/
         }
 
         private void FinishAttackSequence()
