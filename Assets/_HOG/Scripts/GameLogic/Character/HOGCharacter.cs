@@ -22,6 +22,7 @@ namespace HOG.Character
         [SerializeField] HOGDeckManager deckManager;
         private HOGCharacterActions actions;
         //private SpriteRenderer spriteRenderer;
+        private Animator animator;
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
         //private HOGScoreUI scoreComponent;
@@ -59,6 +60,11 @@ namespace HOG.Character
             characterAnims = caComponent;
             characterAnims.FillDictionary(characterType);
             //var scoreUI = TryGetComponent<HOGScoreUI>(out scoreComponent);
+            Animator aComponent;
+            if(TryGetComponent<Animator>(out aComponent))
+            {
+                animator = aComponent;
+            }
         }
 
         public void PreFight()
@@ -74,6 +80,7 @@ namespace HOG.Character
             }
             IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
             //spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
+            animator.SetTrigger(characterAnims.StatesAnims[action.ActionId]);
             if (IsDead)
             {
                 return;
@@ -107,9 +114,7 @@ namespace HOG.Character
             StartIdle();
             HOGDebug.Log(characterNumber);
             var characterAttacksData = HOGGameLogicManager.Instance.UpgradeManager.GetHogAttackConfig();
-            HOGAttacksUI component;
-            var attacksUI = TryGetComponent<HOGAttacksUI>(out component);
-            actions = new HOGCharacterActions(component, characterType, characterAttacksData);
+            actions = new HOGCharacterActions(characterType, characterAttacksData);
             actions.ResetList();
         }
 

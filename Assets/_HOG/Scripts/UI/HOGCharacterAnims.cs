@@ -6,15 +6,15 @@ namespace HOG.Anims
 {
     public class HOGCharacterAnims: HOGMonoBehaviour
     {
-        public Dictionary<HOGCharacterState.CharacterStates, Sprite> StatesAnims = new Dictionary<HOGCharacterState.CharacterStates, Sprite>();
+        public Dictionary<HOGCharacterState.CharacterStates, string> StatesAnims = new Dictionary<HOGCharacterState.CharacterStates, string>();
 
-        [SerializeField] Sprite[] idleAnim;
-        [SerializeField] Sprite[] attackAnim;
-        [SerializeField] Sprite[] hurtAnim;
-        [SerializeField] Sprite[] dieAnim;
-        [SerializeField] Sprite[] defenseAnim;
-        [SerializeField] Sprite[] winAnim;
-        [SerializeField] Sprite[] moveAnim;
+        [SerializeField] string[] idleAnim;
+        [SerializeField] string[] attackAnim;
+        [SerializeField] string[] hurtAnim;
+        [SerializeField] string[] dieAnim;
+        [SerializeField] string[] defenseAnim;
+        [SerializeField] string[] winAnim;
+        [SerializeField] string[] attackBackAnim;
         [SerializeField] List<GameObject> hitEffects;
 
         public void FillDictionary(int characterType)
@@ -25,7 +25,7 @@ namespace HOG.Anims
             StatesAnims[HOGCharacterState.CharacterStates.Die] = dieAnim[characterType];
             StatesAnims[HOGCharacterState.CharacterStates.Defense] = defenseAnim[characterType];
             StatesAnims[HOGCharacterState.CharacterStates.Win] = winAnim[characterType];
-            StatesAnims[HOGCharacterState.CharacterStates.AttackBack] = moveAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.AttackBack] = attackBackAnim[characterType];
         }
 
         public void PlayRandomEffect(Transform parent, float effectScale)

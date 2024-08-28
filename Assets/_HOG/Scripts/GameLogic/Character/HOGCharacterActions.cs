@@ -1,7 +1,6 @@
 using HOG.Core;
 using HOG.GameLogic;
 using System.Collections.Generic;
-using HOG.UI;
 using UnityEngine;
 
 namespace HOG.Character
@@ -11,24 +10,15 @@ namespace HOG.Character
         [SerializeField] int requiredListLength = 3;
         private List<HOGCharacterActionBase> characterAttacks = new List<HOGCharacterActionBase>();
         private int currentSlotNumber = 0;
-        private HOGAttacksUI attacksUI;
         private int characterType;
         private HOGUpgradableAttacksConfig allAttackData;
         private List<HOGCharacterAction> attackData;
 
-        public HOGCharacterActions(HOGAttacksUI AttacksUI, int CharacterType, HOGUpgradableAttacksConfig AttacksData)
+        public HOGCharacterActions(int CharacterType, HOGUpgradableAttacksConfig AttacksData)
         {
             HOGDebug.Log("AttacksData=" + AttacksData);
             allAttackData = AttacksData;
-            if (AttacksUI != null)
-            {
-                attacksUI = AttacksUI;
-                attacksUI.Init(delegate {
-                    characterType = CharacterType;
-                    UpdateAttacksData();
-                });
-            }
-            
+            UpdateAttacksData();
         }
         public void ResetList()
         {
@@ -37,7 +27,6 @@ namespace HOG.Character
             AddAction(attackData[1].ActionId, attackData[1].ActionStrength);
             AddAction(attackData[0].ActionId, attackData[0].ActionStrength);
             currentSlotNumber = 0;
-            UpdateUI();
         }
         public void AddAction(HOGCharacterState.CharacterStates actionId, int actionStrength)
         {
@@ -46,7 +35,6 @@ namespace HOG.Character
             {
                 characterAttacks.RemoveAt(characterAttacks.Count-1);
             }
-            UpdateUI();
         }
 
         public void ReplaceAction(HOGCharacterState.CharacterStates actionId, int actionStrength, bool isTemp, int slotNumber=-1)
@@ -60,7 +48,6 @@ namespace HOG.Character
                 ReplaceActionPermanent(slotNumber);
             }
 
-            UpdateUI();
         }
 
         private void ReplaceActionPermanent(int slotNumber)
@@ -103,12 +90,7 @@ namespace HOG.Character
             return false;
         }
         public HOGCharacterActionBase GetAction()
-        {
-            if(attacksUI != null)
-            {
-                attacksUI.ShowActiveSlot(currentSlotNumber + 1);
-            }
-            
+        {            
             return characterAttacks[currentSlotNumber++];
         }
 
@@ -129,7 +111,6 @@ namespace HOG.Character
         {
             characterType = type;
             UpdateAttacksData();
-            UpdateUI();
         }
 
         private void ClearActions()
@@ -192,25 +173,5 @@ namespace HOG.Character
             }
         }
 
-        private void UpdateUI(int slotNumber = -1)
-        {
-            var startNum = 0;
-            var endNum = characterAttacks.Count;
-            if(slotNumber != -1)
-            {
-                startNum = slotNumber - 1;
-                endNum = slotNumber;
-            }
-            for (int i = startNum; i < endNum; i++) 
-            {
-                var firstChar = characterAttacks[i].ActionId.ToString()[0];
-                var strength = characterAttacks[i].ActionStrength.ToString();
-                if(attacksUI != null)
-                {
-                    attacksUI.UpdateAttackText(i + 1, firstChar, strength);
-                    attacksUI.UpdateCharacterTypeText(characterType+1);
-                }
-            }
-        }
     }
 }
