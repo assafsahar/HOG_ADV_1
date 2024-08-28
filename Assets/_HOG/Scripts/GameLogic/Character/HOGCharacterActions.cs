@@ -186,7 +186,7 @@ namespace HOG.Character
                 case 2:
                     return HOGCharacterState.CharacterStates.Attack;
                 case 3:
-                    return HOGCharacterState.CharacterStates.Move;
+                    return HOGCharacterState.CharacterStates.AttackBack;
                 default:
                     return HOGCharacterState.CharacterStates.Defense;
             }

@@ -81,7 +81,7 @@ namespace HOG.Character
 
             var actionData = Tuple.Create(characterNumber, action);
             InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
-            if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.Move)
+            if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.AttackBack)
             {
                 SetScore(action.ActionStrength);
                 ShowScore(action.ActionStrength);

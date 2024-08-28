@@ -25,7 +25,7 @@ namespace HOG.Anims
             StatesAnims[HOGCharacterState.CharacterStates.Die] = dieAnim[characterType];
             StatesAnims[HOGCharacterState.CharacterStates.Defense] = defenseAnim[characterType];
             StatesAnims[HOGCharacterState.CharacterStates.Win] = winAnim[characterType];
-            StatesAnims[HOGCharacterState.CharacterStates.Move] = moveAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.AttackBack] = moveAnim[characterType];
         }
 
         public void PlayRandomEffect(Transform parent, float effectScale)

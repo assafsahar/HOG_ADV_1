@@ -5,7 +5,7 @@ namespace HOG.Core
         public enum CharacterStates
         {
             Idle = 0,
-            Move = 1,
+            AttackBack = 1,
             Attack = 2,
             Defense = 3,
             Die = 4,

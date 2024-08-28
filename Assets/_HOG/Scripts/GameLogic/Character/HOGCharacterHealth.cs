@@ -113,7 +113,7 @@ namespace HOG.Character
                         case HOGCharacterState.CharacterStates.Defense:
                             TakeDamage(tupleData.Item2.ActionStrength, barTypes.recoveryRate);
                             break;
-                        case HOGCharacterState.CharacterStates.Move:
+                        case HOGCharacterState.CharacterStates.AttackBack:
                             TakeDamage(tupleData.Item2.ActionStrength, barTypes.resistance);
                             break;
                     }

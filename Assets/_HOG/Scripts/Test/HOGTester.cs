@@ -26,7 +26,7 @@ namespace HOG.Test
             }
             if (Input.GetKeyDown(KeyCode.M))
             {
-                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Move,5));
+                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.AttackBack,5));
 
             }
             if (Input.GetKeyDown(KeyCode.Alpha1))

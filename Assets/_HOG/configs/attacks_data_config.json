@@ -4,7 +4,7 @@
             "CharacterType": 0,
             "CharacterActions": [
                 {
-                    "ActionId": "Move",
+                    "ActionId": "AttackBack",
                     "ActionStrength": 2
                 },
                 {
@@ -12,7 +12,7 @@
                     "ActionStrength": 2
                 },
                 {
-                    "ActionId": "Move",
+                    "ActionId": "AttackBack",
                     "ActionStrength": 2
                 }
             ]
@@ -25,7 +25,7 @@
                     "ActionStrength": 3
                 },
                 {
-                    "ActionId": "Move",
+                    "ActionId": "AttackBack",
                     "ActionStrength": 1
                 },
                 {
@@ -42,7 +42,7 @@
                     "ActionStrength": 1
                 },
                 {
-                    "ActionId": "Move",
+                    "ActionId": "AttackBack",
                     "ActionStrength": 3
                 },
                 {
@@ -59,7 +59,7 @@
                     "ActionStrength": 1
                 },
                 {
-                    "ActionId": "Move",
+                    "ActionId": "AttackBack",
                     "ActionStrength": 2
                 },
                 {
