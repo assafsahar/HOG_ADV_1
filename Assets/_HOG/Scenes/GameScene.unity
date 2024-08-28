@@ -4647,10 +4647,10 @@ MonoBehaviour:
   - attack
   - attack
   hurtAnim:
-  - attack
-  - attack
-  - attack
-  - attack
+  - hit
+  - hit
+  - hit
+  - hit
   dieAnim:
   - die
   - die
@@ -5786,10 +5786,10 @@ MonoBehaviour:
   - attack
   - attack
   hurtAnim:
-  - attack
-  - attack
-  - attack
-  - attack
+  - hit
+  - hit
+  - hit
+  - hit
   dieAnim:
   - die
   - die
