@@ -118,7 +118,8 @@ namespace HOG.Character
                             break;
                     }
                     
-                    ShowEffectPerStrength(tupleData);
+                    // TODO: particle effects
+                    //ShowEffectPerStrength(tupleData);
                 }
             }
         }
