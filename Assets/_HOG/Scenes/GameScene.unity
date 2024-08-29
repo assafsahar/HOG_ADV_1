@@ -2201,6 +2201,8 @@ GameObject:
   m_Component:
   - component: {fileID: 825536221}
   - component: {fileID: 825536222}
+  - component: {fileID: 825536224}
+  - component: {fileID: 825536223}
   m_Layer: 0
   m_Name: background
   m_TagString: Untagged
@@ -2275,6 +2277,35 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &825536223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825536220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cb65ee178567c447b86fa747985a973, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeedType: {fileID: 11400000, guid: dbb40cfff31aa1e41949b1c39239fb57, type: 2}
+  speed: 1
+--- !u!114 &825536224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 825536220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81b885e8e4e57594b86ba1a74ef35f19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolSize: 5
+  spriteRepositionIndex: 2
+  spriteRepositionCorrection: 0.03
 --- !u!1 &850986151
 GameObject:
   m_ObjectHideFlags: 0
