@@ -237,25 +237,6 @@ namespace HOG.Character
             }
         }
 
-        private void UpdateScoreLabel(ScoreTags scoreTag, int amount = 0)
-        {
-            if(amount != 0)
-            {
-                UpdateScoreComponentText(amount);
-            }
-            var score = 0;
-            HOGGameLogicManager.Instance.ScoreManager.TryGetScoreByTag(scoreTag, ref score);
-            UpdateScoreComponentText(score);
-        }
-
-        private void UpdateScoreComponentText(int score)
-        {
-            /*if (scoreComponent != null)
-            {
-                scoreComponent.UpdateText(score.ToString());
-            }*/
-        }
-
         private void FinishAttackSequence()
         {
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));

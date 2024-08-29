@@ -17,9 +17,9 @@ namespace HOG.Character
         [SerializeField] int currentResistance = 1;
         [SerializeField] int maxResistance;
 
-        [SerializeField] HOGHealthBar healthBar;
-        [SerializeField] HOGHealthBar recoveryRateBar;
-        [SerializeField] HOGHealthBar resistanceBar;
+        //[SerializeField] HOGHealthBar healthBar;
+        //[SerializeField] HOGHealthBar recoveryRateBar;
+        //[SerializeField] HOGHealthBar resistanceBar;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
         private int characterNumber;
@@ -66,7 +66,7 @@ namespace HOG.Character
                     {
                         Die();
                     }
-                    healthBar.SetHealth(currentHealth);
+                    //healthBar.SetHealth(currentHealth);
                     break;
                 case barTypes.recoveryRate:
                     currentRecoveryRate -= amount;
@@ -74,7 +74,7 @@ namespace HOG.Character
                     {
                         Die();
                     }
-                    recoveryRateBar.SetHealth(currentRecoveryRate);
+                    //recoveryRateBar.SetHealth(currentRecoveryRate);
                     break;
                 case barTypes.resistance:
                     currentResistance -= amount;
@@ -82,7 +82,7 @@ namespace HOG.Character
                     {
                         Die();
                     }
-                    resistanceBar.SetHealth(currentResistance);
+                    //resistanceBar.SetHealth(currentResistance);
                     break;
             }
             
@@ -91,11 +91,11 @@ namespace HOG.Character
         public void ResetHealth(object obj)
         {
             currentHealth = maxHealth;
-            healthBar.SetHealth(currentHealth);
+            //healthBar.SetHealth(currentHealth);
             currentRecoveryRate = maxRecoveryRate;
-            recoveryRateBar.SetHealth(currentRecoveryRate);
+            //recoveryRateBar.SetHealth(currentRecoveryRate);
             currentResistance = maxResistance;
-            resistanceBar.SetHealth(currentResistance);
+            //resistanceBar.SetHealth(currentResistance);
         }
 
         private void OnTakeDamage(object obj)
