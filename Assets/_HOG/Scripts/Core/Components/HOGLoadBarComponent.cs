@@ -38,7 +38,6 @@ namespace HOG.Core
 
         private void UpdateView()
         {
-            HOGDebug.Log(targetAmount);
             loadingImage.DOFillAmount(targetAmount / 100, fillSpeed).SetEase(Ease.Linear);
             StartCoroutine(AnimateToTargetAmount((int)targetAmount));
         }
@@ -63,7 +62,6 @@ namespace HOG.Core
             currentAmount = targetAmount;
             loaderNumber.text = currentAmount.ToString("N0") + "%";
             isAnimating = false;
-            HOGDebug.Log ($"from IEnumerator, targetAmount = {targetAmount} and currentAmount={currentAmount}");
         }
 
     }

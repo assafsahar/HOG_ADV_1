@@ -16,7 +16,7 @@ namespace HOG.Character
 
         public HOGCharacterActions(int CharacterType, HOGUpgradableAttacksConfig AttacksData)
         {
-            HOGDebug.Log("AttacksData=" + AttacksData);
+            //HOGDebug.Log("AttacksData=" + AttacksData);
             allAttackData = AttacksData;
             UpdateAttacksData();
         }
@@ -96,7 +96,7 @@ namespace HOG.Character
 
         public void RemoveTempAction()
         {
-            HOGDebug.Log($"removing number {currentSlotNumber - 1}");
+            //HOGDebug.Log($"removing number {currentSlotNumber - 1}");
             if(currentSlotNumber <= 0)
             {
                 return;

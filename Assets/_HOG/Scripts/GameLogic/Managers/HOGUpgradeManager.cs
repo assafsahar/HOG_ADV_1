@@ -75,7 +75,7 @@ namespace HOG.GameLogic
         {
             //HOGAttacksConfig attackConfig = UpgradeAttacksConfig.UpgradableAttacks.FirstOrDefault(upgradable => upgradable.CharacterType == typeID);
             HOGUpgradableAttacksConfig attackConfig = UpgradeAttacksConfig;
-            HOGDebug.Log($"GetHogAttackConfig {attackConfig.ToString()}");
+            //HOGDebug.Log($"GetHogAttackConfig {attackConfig.ToString()}");
             return attackConfig;
         }
         public int GetPowerByIDAndLevel(UpgradeablesTypeID typeID, int level)

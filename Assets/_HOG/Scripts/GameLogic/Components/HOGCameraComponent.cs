@@ -14,11 +14,11 @@ namespace HOG.GameLogic
 
         private void OnEnable()
         {
-            AddListener(HOGEventNames.OnAttackFinish, OnHit);
+            AddListener(HOGEventNames.OnAttack, OnHit);
         }
         private void OnDisable()
         {
-            RemoveListener(HOGEventNames.OnAttackFinish, OnHit);
+            RemoveListener(HOGEventNames.OnAttack, OnHit);
         }
         private void OnHit(object obj)
         {

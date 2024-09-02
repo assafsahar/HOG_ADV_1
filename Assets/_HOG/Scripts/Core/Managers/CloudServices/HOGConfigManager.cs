@@ -17,7 +17,7 @@ namespace HOG.Core
             var defaults = new Dictionary<string, object>();
 
             defaults.Add("UpgradableConfig", "{}");
-            HOGDebug.Log("HOGConfigManager");
+            //HOGDebug.Log("HOGConfigManager");
             FirebaseRemoteConfig.DefaultInstance.SetDefaultsAsync(defaults).ContinueWithOnMainThread(OnDefaultValuesSet);
          }
 

@@ -24,6 +24,10 @@ namespace HOG.Character
         [SerializeField] int megaHitTreshold = 4;
         private int characterNumber;
         private HOGCharacterAnims characterAnims;
+        private Animator animator;
+        private bool effectTriggered = false;
+        Tuple<int, HOGCharacterActionBase> attackStrength;
+        private HOGCharacterHealth targetCharacterHealth;
 
         public HOGCharacterHealth()
         {
@@ -43,16 +47,37 @@ namespace HOG.Character
             HOGCharacterAnims hcAnimComponent;
             var isHOGCharacterAnim = TryGetComponent<HOGCharacterAnims>(out hcAnimComponent);
             characterAnims = hcAnimComponent;
+            TryGetComponent(out animator);
         }
         private void OnEnable()
         {
-            AddListener(HOGEventNames.OnAttackFinish,OnTakeDamage);
+            AddListener(HOGEventNames.OnAttack,OnTakeDamage);
             AddListener(HOGEventNames.OnGameReset, ResetHealth);
         }
         private void OnDisable()
         {
-            RemoveListener(HOGEventNames.OnAttackFinish, OnTakeDamage);
+            RemoveListener(HOGEventNames.OnAttack, OnTakeDamage);
             RemoveListener(HOGEventNames.OnGameReset, ResetHealth);
+        }
+
+        private void Update()
+        {
+            var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
+
+            if ((currentStateInfo.IsName("AttackingBackhand") || currentStateInfo.IsName("AttackingDownward")) &&
+                currentStateInfo.normalizedTime >= 0.9f && currentStateInfo.normalizedTime < 1.0f)
+            {
+                //HOGDebug.Log("animation completed");
+                if (!effectTriggered && attackStrength != null)
+                {
+                    targetCharacterHealth.ShowEffectPerStrength(attackStrength);
+                    effectTriggered = true;
+                }
+                else if (currentStateInfo.normalizedTime < 0.9f)
+                {
+                    effectTriggered = false;
+                }
+            }
         }
 
         public void TakeDamage(int amount, barTypes barObj)
@@ -97,12 +122,14 @@ namespace HOG.Character
             currentResistance = maxResistance;
             //resistanceBar.SetHealth(currentResistance);
         }
-
         private void OnTakeDamage(object obj)
         {
             if(obj is Tuple<int, HOGCharacterActionBase> tupleData)
             {
-                if(tupleData.Item1 != characterNumber)
+                effectTriggered = false;
+                attackStrength = tupleData;
+                targetCharacterHealth = FindTargetCharacterHealth(tupleData.Item1);
+                if (tupleData.Item1 != characterNumber)
                 {
                     HOGDebug.Log($"ActionID={tupleData.Item2.ActionId}");
                     switch (tupleData.Item2.ActionId)
@@ -118,10 +145,31 @@ namespace HOG.Character
                             break;
                     }
                     
-                    // TODO: particle effects
-                    //ShowEffectPerStrength(tupleData);
                 }
             }
+        }
+
+        private int GetOtherCharacterNumber()
+        {
+            if(characterNumber == 1)
+            {
+                return 2;
+            }
+            return 1;
+        }
+
+        private HOGCharacterHealth FindTargetCharacterHealth(int attackingCharacterNumber)
+        {
+            int targetNumber = attackingCharacterNumber == 1 ? 2 : 1;
+            var characters = FindObjectsOfType<HOGCharacterHealth>();
+            foreach (var character in characters)
+            {
+                if (character.characterNumber == targetNumber)
+                {
+                    return character;
+                }
+            }
+            return null;
         }
 
         private void ShowEffectPerStrength(Tuple<int, HOGCharacterActionBase> tupleData)
@@ -140,7 +188,7 @@ namespace HOG.Character
         private void Die()
         {
             InvokeEvent(HOGEventNames.OnCharacterDied, characterNumber);
-            HOGDebug.Log("Character died");
+            //HOGDebug.Log("Character died");
         }
     }
 }

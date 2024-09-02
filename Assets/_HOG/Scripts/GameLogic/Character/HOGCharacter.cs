@@ -87,7 +87,7 @@ namespace HOG.Character
             }
 
             var actionData = Tuple.Create(characterNumber, action);
-            InvokeEvent(HOGEventNames.OnAttackFinish, actionData);
+            InvokeEvent(HOGEventNames.OnAttack, actionData);
             if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.AttackBack)
             {
                 SetScore(action.ActionStrength);
@@ -112,7 +112,7 @@ namespace HOG.Character
         public void CreateActionSequence()
         {
             StartIdle();
-            HOGDebug.Log(characterNumber);
+            //HOGDebug.Log(characterNumber);
             var characterAttacksData = HOGGameLogicManager.Instance.UpgradeManager.GetHogAttackConfig();
             actions = new HOGCharacterActions(characterType, characterAttacksData);
             actions.ResetList();

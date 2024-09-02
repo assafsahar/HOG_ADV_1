@@ -49,7 +49,7 @@ namespace HOG.Anims
         {
             if (effect != null)
             {
-                var instance = Instantiate(effect, parent);
+                var instance = Instantiate(effect, transform.position, Quaternion.identity, transform);
                 instance.transform.localScale = new Vector3(effectScale, effectScale, effectScale);
             }
         }

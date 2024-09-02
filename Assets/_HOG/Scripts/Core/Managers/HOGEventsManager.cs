@@ -55,7 +55,7 @@ namespace HOG.Core
         PlayerTaken = 3,
         ReturnBullet = 4,
         OnAttacksFinish = 5,
-        OnAttackFinish = 6,
+        OnAttack = 6,
         OnGetHit = 7,
         OnCharacterDied = 8,
         OnGameReset = 9,
@@ -65,6 +65,7 @@ namespace HOG.Core
         OnTurnChange = 13,
         OnPreFightReady = 14,
         OnFightReady = 15,
-        OnEnergyUpdate = 17
+        OnEnergyUpdate = 17,
+        OnAttackAnimationComplete = 18
     }
 }

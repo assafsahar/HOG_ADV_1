@@ -37,7 +37,7 @@ namespace HOG.GameLogic
         {
             HOGManager.Instance.EventsManager.InvokeEvent(HOGEventNames.OnScoreSet, (tag, amount));
             PlayerScoreData.ScoreByTag[tag] = amount;
-            HOGDebug.Log($" set score {amount}");
+            //HOGDebug.Log($" set score {amount}");
             HOGManager.Instance.SaveManager.Save(PlayerScoreData);
         }
 

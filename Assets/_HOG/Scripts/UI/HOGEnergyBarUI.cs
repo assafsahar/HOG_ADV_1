@@ -21,7 +21,7 @@ namespace HOG.UI
 
         private void UpdateFillAmount(float currentValue)
         {
-            HOGDebug.Log($"currentValue={currentValue}");
+            //HOGDebug.Log($"currentValue={currentValue}");
         }
     }
 }
