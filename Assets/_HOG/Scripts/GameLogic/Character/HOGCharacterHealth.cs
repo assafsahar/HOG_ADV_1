@@ -22,12 +22,14 @@ namespace HOG.Character
         //[SerializeField] HOGHealthBar resistanceBar;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
+        [SerializeField] float effectTriggeringPercentageFromAnimation = 0.9f;
         private int characterNumber;
         private HOGCharacterAnims characterAnims;
         private Animator animator;
         private bool effectTriggered = false;
         Tuple<int, HOGCharacterActionBase> attackStrength;
         private HOGCharacterHealth targetCharacterHealth;
+        
 
         public HOGCharacterHealth()
         {
@@ -65,7 +67,7 @@ namespace HOG.Character
             var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
             if ((currentStateInfo.IsName("AttackingBackhand") || currentStateInfo.IsName("AttackingDownward")) &&
-                currentStateInfo.normalizedTime >= 0.9f && currentStateInfo.normalizedTime < 1.0f)
+                currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation && currentStateInfo.normalizedTime < 1.0f)
             {
                 //HOGDebug.Log("animation completed");
                 if (!effectTriggered && attackStrength != null)
@@ -73,7 +75,7 @@ namespace HOG.Character
                     targetCharacterHealth.ShowEffectPerStrength(attackStrength);
                     effectTriggered = true;
                 }
-                else if (currentStateInfo.normalizedTime < 0.9f)
+                else if (currentStateInfo.normalizedTime < effectTriggeringPercentageFromAnimation)
                 {
                     effectTriggered = false;
                 }

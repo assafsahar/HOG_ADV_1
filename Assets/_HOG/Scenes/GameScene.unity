@@ -3298,6 +3298,7 @@ MonoBehaviour:
   maxResistance: 50
   avarageHitTreshold: 1
   megaHitTreshold: 4
+  effectTriggeringPercentageFromAnimation: 0.5
 --- !u!114 &1266413784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4676,6 +4677,7 @@ MonoBehaviour:
   maxResistance: 50
   avarageHitTreshold: 1
   megaHitTreshold: 4
+  effectTriggeringPercentageFromAnimation: 0.5
 --- !u!1 &2015709503
 GameObject:
   m_ObjectHideFlags: 0
