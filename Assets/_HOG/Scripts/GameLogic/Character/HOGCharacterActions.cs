@@ -23,8 +23,6 @@ namespace HOG.Character
         public void ResetList()
         {
             ClearActions();
-            AddAction(attackData[2].ActionId, attackData[2].ActionStrength);
-            AddAction(attackData[1].ActionId, attackData[1].ActionStrength);
             AddAction(attackData[0].ActionId, attackData[0].ActionStrength);
             currentSlotNumber = 0;
         }

@@ -3290,7 +3290,7 @@ MonoBehaviour:
   scoreMultiplier: 10
   scoreTransform: {fileID: 0}
   characterType: 3
-  waitTimeBetweenAttacks: 3
+  waitTimeBetweenAttacks: 5
   deckManager: {fileID: 0}
 --- !u!95 &1266413786
 Animator:
@@ -4403,7 +4403,7 @@ MonoBehaviour:
   scoreMultiplier: 10
   scoreTransform: {fileID: 0}
   characterType: 0
-  waitTimeBetweenAttacks: 3
+  waitTimeBetweenAttacks: 5
   deckManager: {fileID: 1377031957}
 --- !u!95 &1937723550
 Animator:
