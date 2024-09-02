@@ -3,7 +3,6 @@ using HOG.Core;
 using HOG.GameLogic;
 using System;
 using System.Collections;
-using HOG.UI;
 using UnityEngine;
 
 namespace HOG.Character
@@ -13,9 +12,7 @@ namespace HOG.Character
         public int characterNumber = 1;
         private bool isDead = false;
 
-        [SerializeField] int attackStrength = 10;
         [SerializeField] int scoreMultiplier = 10;
-        //[SerializeField] HOGCharacterAttacksScriptable characterAttacksData;
         [SerializeField] Transform scoreTransform;
         [SerializeField] private int characterType = 1;
         [SerializeField] private float waitTimeBetweenAttacks = 1f;

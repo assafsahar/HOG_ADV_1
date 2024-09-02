@@ -3270,9 +3270,9 @@ MonoBehaviour:
   - attackBack
   - attackBack
   hitEffects:
-  - {fileID: 1247311384876784, guid: 7db950d3d2ba71b429335c018ba695ed, type: 3}
+  - {fileID: 100004, guid: 7f334f74595810145a1ef726541f6e05, type: 3}
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
-  - {fileID: 1995403933065894, guid: 7c4f0b5e8a5be2e428f6efee08e344b8, type: 3}
+  - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
 --- !u!114 &1266413785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3286,7 +3286,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterNumber: 2
-  attackStrength: 10
   scoreMultiplier: 10
   scoreTransform: {fileID: 0}
   characterType: 3
@@ -4399,7 +4398,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterNumber: 1
-  attackStrength: 10
   scoreMultiplier: 10
   scoreTransform: {fileID: 0}
   characterType: 0
@@ -4476,7 +4474,7 @@ MonoBehaviour:
   hitEffects:
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
   - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
-  - {fileID: 1995403933065894, guid: 7c4f0b5e8a5be2e428f6efee08e344b8, type: 3}
+  - {fileID: 100004, guid: 7f334f74595810145a1ef726541f6e05, type: 3}
 --- !u!114 &1937723552
 MonoBehaviour:
   m_ObjectHideFlags: 0

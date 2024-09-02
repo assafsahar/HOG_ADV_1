@@ -18,6 +18,7 @@ namespace HOG.Character
         {
             //HOGDebug.Log("AttacksData=" + AttacksData);
             allAttackData = AttacksData;
+            characterType = CharacterType;
             UpdateAttacksData();
         }
         public void ResetList()
@@ -126,10 +127,12 @@ namespace HOG.Character
                     if(characterType == 3) // enemy random
                     {
                         attackData = CreateRandomCharacterActions();
+                        break;
                     }
-                    else // player config
+                    else if (characterType == 0) // player config
                     {
                         attackData = element.CharacterActions;
+                        break;
                     }
                 }
             }
@@ -140,12 +143,16 @@ namespace HOG.Character
         {
             var characterActions = new List<HOGCharacterAction>();
             HOGCharacterAction action;
-            while(characterActions.Count < 3) {
+            /*while(characterActions.Count < 3) {
                 action = new HOGCharacterAction();
                 action.ActionId = GetRandomActionId();
                 action.ActionStrength = GetRandomActionStrength();
                 characterActions.Add(action);
-            }
+            }*/
+            action = new HOGCharacterAction();
+            action.ActionId = GetRandomActionId();
+            action.ActionStrength = GetRandomActionStrength();
+            characterActions.Add(action);
 
             return characterActions;
         }

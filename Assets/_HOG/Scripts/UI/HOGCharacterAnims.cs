@@ -30,7 +30,7 @@ namespace HOG.Anims
 
         public void PlayRandomEffect(Transform parent, float effectScale)
         {
-            var rand = Random.Range(1, hitEffects.Count);
+            var rand = Random.Range(0, hitEffects.Count);
             var effect = hitEffects[rand];
             InstantiateEffect(effect, parent, effectScale);
         }
