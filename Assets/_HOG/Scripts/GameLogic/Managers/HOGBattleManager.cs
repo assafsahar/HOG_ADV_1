@@ -59,6 +59,7 @@ namespace HOG.GameLogic
             character1.PreFight();
             character2.PreFight();
             InvokeEvent(HOGEventNames.OnPreFightReady);
+            HOGDebug.Log("animator Invoke OnPreFightReady!");
         }
 
         public void StartFight(object obj)
