@@ -1597,7 +1597,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &678264680
 GameObject:
@@ -1646,7 +1646,7 @@ Transform:
   - {fileID: 1544680976}
   - {fileID: 1593547710}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &695355473
 GameObject:
@@ -1714,8 +1714,81 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &696293894
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2353600328317625555, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335836179, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_Name
+      value: CFXR3 Hit Leaves A (Lit)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.9748411
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -2.2296877
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2353600328335939635, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742757422391285397, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5742757422888352936, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8846439398488242407, guid: ceec7516237b4104b94300043ca39784, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ceec7516237b4104b94300043ca39784, type: 3}
 --- !u!1 &710389193
 GameObject:
   m_ObjectHideFlags: 0
@@ -2279,7 +2352,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &925223298
 GameObject:
@@ -3221,7 +3294,7 @@ MonoBehaviour:
   currentResistance: 50
   maxResistance: 50
   avarageHitTreshold: 1
-  megaHitTreshold: 4
+  megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
 --- !u!114 &1266413784
 MonoBehaviour:
@@ -3271,9 +3344,11 @@ MonoBehaviour:
   - attackBack
   - attackBack
   hitEffects:
-  - {fileID: 100004, guid: 7f334f74595810145a1ef726541f6e05, type: 3}
-  - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
-  - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
+  - {fileID: 1134129239631916, guid: 09af7f5d2a780b04690ffbd181571681, type: 3}
+  - {fileID: 1280141305896002, guid: 2aae09cda9ca85b479fe06b7d774ef5f, type: 3}
+  - {fileID: 1845240806346120, guid: 5f93181306c2139429a602bed7f42e6a, type: 3}
+  - {fileID: 100018, guid: a40b64bf23366dc42a892af2c6ff6140, type: 3}
+  - {fileID: 2433282508537954060, guid: 75dd70b2416794749b002f23b11606bc, type: 3}
 --- !u!114 &1266413785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3684,7 +3759,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1377031959
 MonoBehaviour:
@@ -4552,8 +4627,10 @@ MonoBehaviour:
   - attack
   hitEffects:
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
-  - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
+  - {fileID: 1687118924408352, guid: d374538edd0ab41428099958a3ea0f06, type: 3}
+  - {fileID: 1965343156803978, guid: 99f2b035dd2b39e49a473457a627345d, type: 3}
   - {fileID: 100004, guid: 7f334f74595810145a1ef726541f6e05, type: 3}
+  - {fileID: 100000, guid: 2c9127af2b6283343bf405c92d96d5d1, type: 3}
 --- !u!114 &1937723552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4575,7 +4652,7 @@ MonoBehaviour:
   currentResistance: 50
   maxResistance: 50
   avarageHitTreshold: 1
-  megaHitTreshold: 4
+  megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
 --- !u!1 &2015709503
 GameObject:

@@ -167,7 +167,8 @@ namespace HOG.Character
         {
             if (tupleData.Item2.ActionStrength >= megaHitTreshold)
             {
-                characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2.ActionStrength);
+                //characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2.ActionStrength);
+                characterAnims.PlayRandomEffect(transform, tupleData.Item2.ActionStrength);
                 InvokeEvent(HOGEventNames.OnGetHit, characterNumber);
             }
             else if (tupleData.Item2.ActionStrength >= avarageHitTreshold)

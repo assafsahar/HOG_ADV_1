@@ -32,7 +32,7 @@ namespace HOG.Anims
         {
             var rand = Random.Range(0, hitEffects.Count);
             var effect = hitEffects[rand];
-            InstantiateEffect(effect, parent, effectScale / parent.localScale.y);
+            InstantiateEffect(effect, parent, effectScale / (parent.localScale.y - 1));
         }
 
         public void PlaySpecificEffect(int effectNumber, Transform parent, float effectScale)
@@ -42,7 +42,7 @@ namespace HOG.Anims
                 return;
             }
             var effect = hitEffects[effectNumber];
-            InstantiateEffect(effect, parent, effectScale / parent.localScale.y);
+            InstantiateEffect(effect, parent, effectScale / (parent.localScale.y - 1));
         }
 
         private void InstantiateEffect(GameObject effect, Transform parent, float effectScale)
