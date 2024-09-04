@@ -2,6 +2,7 @@ using HOG.Anims;
 using HOG.Core;
 using HOG.Screens;
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace HOG.Character
@@ -26,7 +27,7 @@ namespace HOG.Character
         private bool effectTriggered = false;
         Tuple<int, HOGCharacterActionBase> attackStrength;
         private HOGCharacterStats targetCharacter;
-        
+        private bool isDead = false;
 
         public HOGCharacterStats()
         {
@@ -86,27 +87,48 @@ namespace HOG.Character
             {
                 case barTypes.integrity:
                     currentIntegrity -= amount;
-                    if (currentIntegrity <= 0)
+                    if (currentIntegrity <= 0 && !isDead)
                     {
-                        Die();
+                        StartCoroutine(HandleDeath());
                     }
                     break;
                 case barTypes.recoveryRate:
                     currentRecoveryRate -= amount;
-                    if (currentRecoveryRate <= 0)
+                    if (currentRecoveryRate <= 0 && !isDead)
                     {
-                        Die();
+                        StartCoroutine(HandleDeath());
                     }
                     break;
                 case barTypes.resistance:
                     currentResistance -= amount;
-                    if (currentResistance <= 0)
+                    if (currentResistance <= 0 && !isDead)
                     {
-                        Die();
+                        StartCoroutine(HandleDeath());
                     }
                     break;
             }
             
+        }
+
+        private IEnumerator HandleDeath()
+        {
+            isDead = true;
+            HOGDebug.Log("HandleDeath");
+            while (true)
+            {
+                var currentStateInfo = targetCharacter.animator.GetCurrentAnimatorStateInfo(0);
+
+                if ((currentStateInfo.IsName("AttackingBackhand") || currentStateInfo.IsName("AttackingDownward")) &&
+                    currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation &&
+                    currentStateInfo.normalizedTime < 1.0f)
+                {
+                    //HOGDebug.Log("Correct timing reached, executing Die");
+                    break; 
+                }
+                yield return null; 
+            }
+
+            Die();
         }
 
         public void ResetStats(object obj)
@@ -128,13 +150,13 @@ namespace HOG.Character
                     switch (tupleData.Item2.ActionId)
                     {
                         case HOGCharacterState.CharacterStates.Attack:
-                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.integrity);
+                            TakeDamage(tupleData.Item2.ActionStrength*3, barTypes.integrity);
                             break;
                         case HOGCharacterState.CharacterStates.Defense:
-                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.integrity);
+                            TakeDamage(tupleData.Item2.ActionStrength * 3, barTypes.integrity);
                             break;
                         case HOGCharacterState.CharacterStates.AttackBack:
-                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.integrity);
+                            TakeDamage(tupleData.Item2.ActionStrength * 3, barTypes.integrity);
                             break;
                     }
                     
@@ -187,6 +209,7 @@ namespace HOG.Character
 
         private void Die()
         {
+            HOGDebug.Log("Die");
             InvokeEvent(HOGEventNames.OnCharacterDied, characterNumber);
             //HOGDebug.Log("Character died");
         }
