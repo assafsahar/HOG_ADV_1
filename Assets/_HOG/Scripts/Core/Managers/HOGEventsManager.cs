@@ -6,20 +6,27 @@ namespace HOG.Core
     public class HOGEventsManager
     {
         private Dictionary<HOGEventNames, List<Action<object>>> activeListeners = new();
+        private Dictionary<HOGEventNames, object> lastEventStates = new();
 
         public void AddListener(HOGEventNames eventName, Action<object> listener)
         {
             if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
-                if (listOfEvents.Contains(listener))
+                if (!listOfEvents.Contains(listener))
                 {
-                    return;
+                    listOfEvents.Add(listener);
                 }
-                listOfEvents.Add(listener);
-                return;
+            }
+            else
+            {
+                activeListeners.Add(eventName, new List<Action<object>> { listener });
             }
 
-            activeListeners.Add(eventName, new List<Action<object>> { listener });
+            // Check if there's a stored state for this event and invoke it immediately
+            if (lastEventStates.TryGetValue(eventName, out var lastState))
+            {
+                listener.Invoke(lastState);
+            }
         }
 
         public void RemoveListener(HOGEventNames eventName, Action<object> listener)
@@ -37,6 +44,9 @@ namespace HOG.Core
 
         public void InvokeEvent(HOGEventNames eventName, object obj)
         {
+            // Store the current state for this event
+            lastEventStates[eventName] = obj;
+
             if (activeListeners.TryGetValue(eventName, out var listOfEvents))
             {
                 foreach (var action in listOfEvents)
