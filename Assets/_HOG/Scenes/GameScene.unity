@@ -804,11 +804,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Value
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_MaxValue
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825830241936, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Color.b
@@ -844,6 +844,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
+--- !u!114 &233501706 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7943907825565135993, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
+  m_PrefabInstance: {fileID: 233501705}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe0c12384aaa90745948940d7e48c580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &233501707 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7943907825565135992, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
@@ -3287,8 +3298,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endurance: 1
   defenseRate: 1
-  currentHealth: 50
-  maxHealth: 50
+  currentIntegrity: 20
+  maxIntegrity: 20
   currentRecoveryRate: 50
   maxRecoveryRate: 50
   currentResistance: 50
@@ -3296,6 +3307,7 @@ MonoBehaviour:
   avarageHitTreshold: 1
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
+  integrityBar: {fileID: 233501706}
 --- !u!114 &1266413784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4645,8 +4657,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   endurance: 1
   defenseRate: 1
-  currentHealth: 50
-  maxHealth: 50
+  currentIntegrity: 20
+  maxIntegrity: 20
   currentRecoveryRate: 50
   maxRecoveryRate: 50
   currentResistance: 50
@@ -4654,6 +4666,7 @@ MonoBehaviour:
   avarageHitTreshold: 1
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
+  integrityBar: {fileID: 7943907826765550771}
 --- !u!1 &2015709503
 GameObject:
   m_ObjectHideFlags: 0
@@ -5020,11 +5033,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Value
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_MaxValue
-      value: 50
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825830241936, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Color.b
@@ -5060,3 +5073,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
+--- !u!114 &7943907826765550771 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7943907825565135993, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
+  m_PrefabInstance: {fileID: 7943907826765550770}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe0c12384aaa90745948940d7e48c580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

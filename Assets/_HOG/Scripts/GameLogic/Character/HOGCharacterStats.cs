@@ -1,16 +1,17 @@
 using HOG.Anims;
 using HOG.Core;
+using HOG.Screens;
 using System;
 using UnityEngine;
 
 namespace HOG.Character
 {
-    public class HOGCharacterHealth: HOGMonoBehaviour
+    public class HOGCharacterStats: HOGMonoBehaviour
     {
         [SerializeField] float endurance = 1f;
         [SerializeField] float defenseRate = 1f;
-        [SerializeField] int currentHealth = 1;
-        [SerializeField] int maxHealth;
+        [SerializeField] int currentIntegrity = 1;
+        [SerializeField] int maxIntegrity;
         [SerializeField] int currentRecoveryRate = 1;
         [SerializeField] int maxRecoveryRate;
         [SerializeField] int currentResistance = 1;
@@ -18,18 +19,19 @@ namespace HOG.Character
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
         [SerializeField] float effectTriggeringPercentageFromAnimation = 0.9f;
+        [SerializeField] HOGIntegrityBar integrityBar;
         private int characterNumber;
         private HOGCharacterAnims characterAnims;
         private Animator animator;
         private bool effectTriggered = false;
         Tuple<int, HOGCharacterActionBase> attackStrength;
-        private HOGCharacterHealth targetCharacterHealth;
+        private HOGCharacterStats targetCharacter;
         
 
-        public HOGCharacterHealth()
+        public HOGCharacterStats()
         {
-            maxHealth = 20;
-            currentHealth = maxHealth;
+            maxIntegrity = 20;
+            currentIntegrity = maxIntegrity;
             maxRecoveryRate = 20;
             currentRecoveryRate = maxRecoveryRate;
             maxResistance = 20;
@@ -49,12 +51,12 @@ namespace HOG.Character
         private void OnEnable()
         {
             AddListener(HOGEventNames.OnAttack,OnTakeDamage);
-            AddListener(HOGEventNames.OnGameReset, ResetHealth);
+            AddListener(HOGEventNames.OnGameReset, ResetStats);
         }
         private void OnDisable()
         {
             RemoveListener(HOGEventNames.OnAttack, OnTakeDamage);
-            RemoveListener(HOGEventNames.OnGameReset, ResetHealth);
+            RemoveListener(HOGEventNames.OnGameReset, ResetStats);
         }
 
         private void Update()
@@ -67,7 +69,7 @@ namespace HOG.Character
                 //HOGDebug.Log("animation completed");
                 if (!effectTriggered && attackStrength != null)
                 {
-                    targetCharacterHealth.ShowEffectPerStrength(attackStrength);
+                    targetCharacter.ShowEffectPerStrength(attackStrength);
                     effectTriggered = true;
                 }
                 else if (currentStateInfo.normalizedTime < effectTriggeringPercentageFromAnimation)
@@ -82,9 +84,9 @@ namespace HOG.Character
             HOGDebug.Log($"TakeDamage, amount={amount}");
             switch (barObj)
             {
-                case barTypes.health:
-                    currentHealth -= amount;
-                    if (currentHealth <= 0)
+                case barTypes.integrity:
+                    currentIntegrity -= amount;
+                    if (currentIntegrity <= 0)
                     {
                         Die();
                     }
@@ -107,9 +109,9 @@ namespace HOG.Character
             
         }
 
-        public void ResetHealth(object obj)
+        public void ResetStats(object obj)
         {
-            currentHealth = maxHealth;
+            currentIntegrity = maxIntegrity;
             currentRecoveryRate = maxRecoveryRate;
             currentResistance = maxResistance;
         }
@@ -119,25 +121,30 @@ namespace HOG.Character
             {
                 effectTriggered = false;
                 attackStrength = tupleData;
-                targetCharacterHealth = FindTargetCharacterHealth(tupleData.Item1);
+                targetCharacter = FindtargetCharacter(tupleData.Item1);
                 if (tupleData.Item1 != characterNumber)
                 {
-                    HOGDebug.Log($"ActionID={tupleData.Item2.ActionId}");
+                    //HOGDebug.Log($"ActionID={tupleData.Item2.ActionId}");
                     switch (tupleData.Item2.ActionId)
                     {
                         case HOGCharacterState.CharacterStates.Attack:
-                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.health);
+                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.integrity);
                             break;
                         case HOGCharacterState.CharacterStates.Defense:
-                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.recoveryRate);
+                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.integrity);
                             break;
                         case HOGCharacterState.CharacterStates.AttackBack:
-                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.resistance);
+                            TakeDamage(tupleData.Item2.ActionStrength, barTypes.integrity);
                             break;
                     }
                     
                 }
             }
+        }
+
+        private void UpdateIntegritybar()
+        {
+            integrityBar.SetValue(currentIntegrity);
         }
 
         private int GetOtherCharacterNumber()
@@ -149,10 +156,10 @@ namespace HOG.Character
             return 1;
         }
 
-        private HOGCharacterHealth FindTargetCharacterHealth(int attackingCharacterNumber)
+        private HOGCharacterStats FindtargetCharacter(int attackingCharacterNumber)
         {
             int targetNumber = attackingCharacterNumber == 1 ? 2 : 1;
-            var characters = FindObjectsOfType<HOGCharacterHealth>();
+            var characters = FindObjectsOfType<HOGCharacterStats>();
             foreach (var character in characters)
             {
                 if (character.characterNumber == targetNumber)
@@ -175,6 +182,7 @@ namespace HOG.Character
             {
                 characterAnims.PlayRandomEffect(transform, tupleData.Item2.ActionStrength);
             }
+            UpdateIntegritybar();
         }
 
         private void Die()
@@ -187,7 +195,7 @@ namespace HOG.Character
 
 public enum barTypes
 {
-    health = 0,
+    integrity = 0,
     recoveryRate = 1,
     resistance = 2
 }
