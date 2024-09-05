@@ -14,11 +14,13 @@ namespace HOG.Character
         [SerializeField] int maxIntegrity = 150;
         [SerializeField] int physics = 8;
         [SerializeField] int wits = 7;
-        [SerializeField] int speed = 7;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
         [SerializeField] float effectTriggeringPercentageFromAnimation = 0.9f;
         [SerializeField] float effectTriggeringAnimationEnd = 1.0f;
+
+        public int speed = 7;
+
         private int characterNumber;
         private HOGCharacterAnims characterAnims;
         private Animator animator;
