@@ -1,19 +1,21 @@
+using Codice.CM.Common;
 using HOG.Core;
 using HOG.Screens;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace HOG.UI
 {
     public class HOGMiniMap : HOGMonoBehaviour
     {
 
-       [SerializeField] Animator animator;
+        //[SerializeField] Animator animator;
+        [SerializeField] PlayableDirector playableDirector;  // Reference to the PlayableDirector component
 
         private void OnEnable()
         {
-            HOGDebug.Log("animator Enabled:" + animator);
             AddListener(HOGEventNames.OnPreFightReady, StartMiniMap);
         }
 
@@ -37,8 +39,7 @@ namespace HOG.UI
 
         private void StartMiniMap(object obj)
         {
-            HOGDebug.Log("animator:"+ animator);
-            animator.SetBool("start", true);
+            playableDirector.Play();
 
         }
 
