@@ -804,11 +804,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Value
-      value: 20
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_MaxValue
-      value: 20
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825830241936, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Color.b
@@ -3296,18 +3296,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff470e0a6c14c94882ebc8f693bbb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 1
-  defenseRate: 1
-  currentIntegrity: 20
-  maxIntegrity: 20
-  currentRecoveryRate: 50
-  maxRecoveryRate: 50
-  currentResistance: 50
-  maxResistance: 50
+  characterUI: {fileID: 1266413787}
+  currentIntegrity: 100
+  maxIntegrity: 150
+  physics: 8
+  wits: 7
   avarageHitTreshold: 1
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
-  integrityBar: {fileID: 233501706}
+  effectTriggeringAnimationEnd: 1
 --- !u!114 &1266413784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3400,6 +3397,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1266413787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1266413782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cdd491fc0ecce4f9a9ac9649b2d508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  integrityBar: {fileID: 233501706}
 --- !u!1 &1304988603
 GameObject:
   m_ObjectHideFlags: 0
@@ -4655,17 +4665,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eff470e0a6c14c94882ebc8f693bbb25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endurance: 1
-  defenseRate: 1
-  currentIntegrity: 20
-  maxIntegrity: 20
-  currentRecoveryRate: 50
-  maxRecoveryRate: 50
-  currentResistance: 50
-  maxResistance: 50
+  characterUI: {fileID: 1937723553}
+  currentIntegrity: 100
+  maxIntegrity: 150
+  physics: 8
+  wits: 7
   avarageHitTreshold: 1
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
+  effectTriggeringAnimationEnd: 1
+--- !u!114 &1937723553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937723548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19cdd491fc0ecce4f9a9ac9649b2d508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   integrityBar: {fileID: 7943907826765550771}
 --- !u!1 &2015709503
 GameObject:
@@ -5033,11 +5053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Value
-      value: 20
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825565135998, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_MaxValue
-      value: 20
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7943907825830241936, guid: 79825d3b5d9968446a479ba550ab08ae, type: 3}
       propertyPath: m_Color.b

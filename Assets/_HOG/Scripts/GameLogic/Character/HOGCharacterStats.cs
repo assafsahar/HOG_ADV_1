@@ -9,18 +9,16 @@ namespace HOG.Character
 {
     public class HOGCharacterStats: HOGMonoBehaviour
     {
-        [SerializeField] float endurance = 1f;
-        [SerializeField] float defenseRate = 1f;
-        [SerializeField] int currentIntegrity = 1;
-        [SerializeField] int maxIntegrity;
-        [SerializeField] int currentRecoveryRate = 1;
-        [SerializeField] int maxRecoveryRate;
-        [SerializeField] int currentResistance = 1;
-        [SerializeField] int maxResistance;
+        [SerializeField] private HOGCharacterUI characterUI;
+        [SerializeField] int currentIntegrity = 100;
+        [SerializeField] int maxIntegrity = 150;
+        [SerializeField] int physics = 8;
+        [SerializeField] int wits = 7;
+        [SerializeField] int speed = 7;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
         [SerializeField] float effectTriggeringPercentageFromAnimation = 0.9f;
-        [SerializeField] HOGIntegrityBar integrityBar;
+        [SerializeField] float effectTriggeringAnimationEnd = 1.0f;
         private int characterNumber;
         private HOGCharacterAnims characterAnims;
         private Animator animator;
@@ -28,16 +26,6 @@ namespace HOG.Character
         Tuple<int, HOGCharacterActionBase> attackStrength;
         private HOGCharacterStats targetCharacter;
         private bool isDead = false;
-
-        public HOGCharacterStats()
-        {
-            maxIntegrity = 20;
-            currentIntegrity = maxIntegrity;
-            maxRecoveryRate = 20;
-            currentRecoveryRate = maxRecoveryRate;
-            maxResistance = 20;
-            currentResistance = maxResistance;
-        }
 
         private void Awake()
         {
@@ -62,12 +50,16 @@ namespace HOG.Character
 
         private void Update()
         {
+            ShowEffectOnTime();
+        }
+
+        private void ShowEffectOnTime()
+        {
             var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
             if ((currentStateInfo.IsName("AttackingBackhand") || currentStateInfo.IsName("AttackingDownward")) &&
-                currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation && currentStateInfo.normalizedTime < 1.0f)
+                currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation && currentStateInfo.normalizedTime < effectTriggeringAnimationEnd)
             {
-                //HOGDebug.Log("animation completed");
                 if (!effectTriggered && attackStrength != null)
                 {
                     targetCharacter.ShowEffectPerStrength(attackStrength);
@@ -82,26 +74,12 @@ namespace HOG.Character
 
         public void TakeDamage(int amount, barTypes barObj)
         {
-            HOGDebug.Log($"TakeDamage, amount={amount}");
+            //HOGDebug.Log($"TakeDamage, amount={amount}");
             switch (barObj)
             {
-                case barTypes.integrity:
+                case barTypes.integrity:// currently affecting just integrity
                     currentIntegrity -= amount;
                     if (currentIntegrity <= 0 && !isDead)
-                    {
-                        StartCoroutine(HandleDeath());
-                    }
-                    break;
-                case barTypes.recoveryRate:
-                    currentRecoveryRate -= amount;
-                    if (currentRecoveryRate <= 0 && !isDead)
-                    {
-                        StartCoroutine(HandleDeath());
-                    }
-                    break;
-                case barTypes.resistance:
-                    currentResistance -= amount;
-                    if (currentResistance <= 0 && !isDead)
                     {
                         StartCoroutine(HandleDeath());
                     }
@@ -120,7 +98,7 @@ namespace HOG.Character
 
                 if ((currentStateInfo.IsName("AttackingBackhand") || currentStateInfo.IsName("AttackingDownward")) &&
                     currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation &&
-                    currentStateInfo.normalizedTime < 1.0f)
+                    currentStateInfo.normalizedTime < effectTriggeringAnimationEnd)
                 {
                     //HOGDebug.Log("Correct timing reached, executing Die");
                     break; 
@@ -134,8 +112,6 @@ namespace HOG.Character
         public void ResetStats(object obj)
         {
             currentIntegrity = maxIntegrity;
-            currentRecoveryRate = maxRecoveryRate;
-            currentResistance = maxResistance;
         }
         private void OnTakeDamage(object obj)
         {
@@ -166,7 +142,7 @@ namespace HOG.Character
 
         private void UpdateIntegritybar()
         {
-            integrityBar.SetValue(currentIntegrity);
+            characterUI.UpdateIntegrityBar(currentIntegrity);
         }
 
         private int GetOtherCharacterNumber()
