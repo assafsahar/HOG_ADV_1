@@ -239,5 +239,10 @@ namespace HOG.Character
             PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Idle, 0));
             InvokeEvent(HOGEventNames.OnAttacksFinish, characterNumber);
         }
+
+        public void PlayWin()
+        {
+            PlayAction(new HOGCharacterActionBase(HOGCharacterState.CharacterStates.Win, 0));
+        }
     }
 }

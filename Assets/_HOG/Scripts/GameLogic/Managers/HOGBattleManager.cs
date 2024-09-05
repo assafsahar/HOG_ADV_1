@@ -1,6 +1,7 @@
 using HOG.Character;
 using HOG.Core;
 using HOG.Screens;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -8,17 +9,21 @@ namespace HOG.GameLogic
 {
     public class HOGBattleManager : HOGMonoBehaviour
     {
-        private int turn;
-        
-
         [SerializeField] HOGCharacter[] characters;
         [SerializeField] HOGScreenManager screenManager;
         [SerializeField] HOGDeckManager deckManager;
+        [SerializeField] private float maxDistance = 10f;
+        [SerializeField] private float minDistance = 0f;
+
+        private float distance;
         private HOGCharacter character1;
         private HOGCharacter character2;
+        private HOGCharacterStats character1Stats;
+        private HOGCharacterStats character2Stats;
         private HOGCharacter chosenCharacter;
         private IEnumerator fightCoroutine = null;
-        private bool isFightLive = true;
+        private bool isFightLive = false;
+        private int turn;
         public int Turn {
              get {return turn; }
             private set { turn = value; }
@@ -51,6 +56,15 @@ namespace HOG.GameLogic
             if (characters[1] != null)
             {
                 InitCharacter2();
+            }
+            distance = character2.transform.position.x - character1.transform.position.x;
+        }
+
+        private void Update()
+        {
+            if (isFightLive)
+            {
+                UpdateDistance();
             }
         }
 
@@ -121,6 +135,7 @@ namespace HOG.GameLogic
             {
                 character1 = character;
                 character1.Init();
+                character1Stats = character1.GetComponent<HOGCharacterStats>();
             }
         }
 
@@ -130,7 +145,42 @@ namespace HOG.GameLogic
             {
                 character2 = character;
                 character2.Init();
+                character2Stats = character2.GetComponent<HOGCharacterStats>();
             }
+        }
+
+        private void UpdateDistance()
+        {
+            if (character1Stats != null && character2Stats != null)
+            {
+                int speed1 = character1Stats.speed;
+                int speed2 = character2Stats.speed;
+                float speedDifference = speed2 - speed1;
+                distance += speedDifference * Time.deltaTime;
+                distance = Mathf.Clamp(distance, minDistance, maxDistance);
+                Debug.Log($"distance={distance}");
+                character1.transform.position = new Vector2(character2.transform.position.x - distance, character1.transform.position.y);
+                if (distance >= maxDistance)
+                {
+                    TriggerChasedVictory();
+                }
+                else if (distance <= minDistance) // reached 0 distance
+                {
+                    TriggerCloseFighting();
+                }
+            }
+        }
+
+        private void TriggerCloseFighting()
+        {
+            Debug.Log("Reached 0 distance, Starting close fighting");
+        }
+
+        private void TriggerChasedVictory()
+        {
+            character2.PlayWin();
+            StopFight();
+            StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 2f));
         }
 
         private void PlayHit(object obj)
