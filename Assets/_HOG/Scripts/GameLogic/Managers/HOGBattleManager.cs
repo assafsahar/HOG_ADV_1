@@ -159,7 +159,7 @@ namespace HOG.GameLogic
                 distance += speedDifference * Time.deltaTime;
                 distance = Mathf.Clamp(distance, minDistance, maxDistance);
                 Debug.Log($"distance={distance}");
-                character1.transform.position = new Vector2(character2.transform.position.x - distance, character1.transform.position.y);
+                character1.transform.position = new Vector3(character2.transform.position.x - distance, character1.transform.position.y, character1.transform.position.z);
                 if (distance >= maxDistance)
                 {
                     TriggerChasedVictory();
