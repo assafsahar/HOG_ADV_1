@@ -2277,7 +2277,7 @@ MonoBehaviour:
   - {fileID: 1266413785}
   screenManager: {fileID: 678264681}
   deckManager: {fileID: 1377031957}
-  maxDistance: 12
+  maxDistance: 15
   minDistance: 0
 --- !u!4 &887696002
 Transform:
@@ -3273,10 +3273,10 @@ MonoBehaviour:
   - attack
   - attack
   winAnim:
-  - idle
-  - idle
-  - idle
-  - idle
+  - win
+  - win
+  - win
+  - win
   attackBackAnim:
   - attackBack
   - attackBack

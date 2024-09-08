@@ -1,7 +1,6 @@
 using HOG.Character;
 using HOG.Core;
 using HOG.Screens;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ namespace HOG.GameLogic
         [SerializeField] HOGCharacter[] characters;
         [SerializeField] HOGScreenManager screenManager;
         [SerializeField] HOGDeckManager deckManager;
-        [SerializeField] private float maxDistance = 10f;
+        [SerializeField] private float maxDistance = 12f;
         [SerializeField] private float minDistance = 0f;
 
         private float distance;
@@ -158,7 +157,6 @@ namespace HOG.GameLogic
                 float speedDifference = speed2 - speed1;
                 distance += speedDifference * Time.deltaTime;
                 distance = Mathf.Clamp(distance, minDistance, maxDistance);
-                Debug.Log($"distance={distance}");
                 character1.transform.position = new Vector3(character2.transform.position.x - distance, character1.transform.position.y, character1.transform.position.z);
                 if (distance >= maxDistance)
                 {
@@ -173,7 +171,7 @@ namespace HOG.GameLogic
 
         private void TriggerCloseFighting()
         {
-            Debug.Log("Reached 0 distance, Starting close fighting");
+            HOGDebug.Log("Reached 0 distance, Starting close fighting");
         }
 
         private void TriggerChasedVictory()

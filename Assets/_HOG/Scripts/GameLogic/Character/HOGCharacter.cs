@@ -11,6 +11,7 @@ namespace HOG.Character
     {
         public int characterNumber = 1;
         private bool isDead = false;
+        private bool isWin = false;
 
         [SerializeField] int scoreMultiplier = 10;
         [SerializeField] Transform scoreTransform;
@@ -28,7 +29,11 @@ namespace HOG.Character
             get { return isDead; }
             set { isDead = value; }
         }
-
+        public bool IsWin
+        {
+            get { return isWin; }
+            set { isWin = value; }
+        }
         private void OnEnable()
         {
             AddListener(HOGEventNames.OnAbilityChange, ChangeAction);
@@ -67,6 +72,7 @@ namespace HOG.Character
         public void PreFight()
         {
             IsDead = false;
+            IsWin = false;
             CreateActionSequence();
         }
         public void PlayAction(HOGCharacterActionBase action)
@@ -76,9 +82,10 @@ namespace HOG.Character
                 return;
             }
             IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
+            IsWin = (action.ActionId == HOGCharacterState.CharacterStates.Win);
             //spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
             animator.SetTrigger(characterAnims.StatesAnims[action.ActionId]);
-            if (IsDead)
+            if (IsDead || IsWin)
             {
                 return;
             }
