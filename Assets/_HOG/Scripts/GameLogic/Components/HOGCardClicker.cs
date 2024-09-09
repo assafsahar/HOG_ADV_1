@@ -20,8 +20,12 @@ namespace HOG.Components
 
         private Image selectedSymbol;
 
+        public Image popUp;
+        public Button closeBtn;
+        public Animator animator;
+
         // the following methods are called from the UI buttons (editor)
-     
+
 
         private void Awake()
         {
@@ -44,14 +48,37 @@ namespace HOG.Components
             bottomSymbol.GetComponent<Button>().interactable = false;
             leftSymbol.GetComponent<Button>().interactable = false;
             rightSymbol.GetComponent<Button>().interactable = false;
-        }
 
+            closeBtn.GetComponent<Button>().onClick.AddListener(() => OnCloseCard());
+
+            animator = GetComponent<Animator>();
+        }
+        private void OnCloseCard()
+        {
+            popUp.gameObject.SetActive(false);
+            closeBtn.gameObject.SetActive(false);
+
+            animator.SetBool("cardReverse", true);
+
+
+            topSymbol.GetComponent<Button>().interactable = false;
+            bottomSymbol.GetComponent<Button>().interactable = false;
+            leftSymbol.GetComponent<Button>().interactable = false;
+            rightSymbol.GetComponent<Button>().interactable = false;
+
+             WaitForAnimation(1.0f);
+            GetComponent<Button>().interactable = true;
+           
+
+        }
         private void OnCardClick()
         {
+            popUp.gameObject.SetActive(true);
+            closeBtn.gameObject.SetActive(true);
 
-            Animator animator = GetComponent<Animator>();
-            animator.Play("CardAnimation", 0, 1f); // Start from the end of the animation
-            WaitForAnimation(1.0f);
+            animator.SetBool("cardClicked", true);
+            animator.SetBool("cardReverse", false);
+            // WaitForAnimation(1.0f);
 
             topSymbol.GetComponent<Button>().interactable = true;
             bottomSymbol.GetComponent<Button>().interactable = true;
@@ -59,6 +86,7 @@ namespace HOG.Components
             rightSymbol.GetComponent<Button>().interactable = true;
 
             GetComponent<Button>().interactable = false;
+
 
         }
         IEnumerator WaitForAnimation(float duration)
