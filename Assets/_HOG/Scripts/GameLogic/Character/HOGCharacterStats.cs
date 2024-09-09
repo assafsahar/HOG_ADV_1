@@ -1,5 +1,6 @@
 using HOG.Anims;
 using HOG.Core;
+using HOG.GameLogic;
 using HOG.Screens;
 using System;
 using System.Collections;
@@ -13,7 +14,7 @@ namespace HOG.Character
         [SerializeField] int currentIntegrity = 100;
         [SerializeField] int maxIntegrity = 150;
         [SerializeField] int physics = 8;
-        [SerializeField] int wits = 7;
+        [SerializeField] int wits = 5;
         [SerializeField] int avarageHitTreshold = 2;
         [SerializeField] int megaHitTreshold = 4;
         [SerializeField] float effectTriggeringPercentageFromAnimation = 0.9f;
@@ -28,6 +29,7 @@ namespace HOG.Character
         Tuple<int, HOGCharacterActionBase> attackStrength;
         private HOGCharacterStats targetCharacter;
         private bool isDead = false;
+        private float distance;
 
         private void Awake()
         {
@@ -74,8 +76,27 @@ namespace HOG.Character
             }
         }
 
+        private int CalculateDamage(HOGCharacterActionBase action)
+        {
+            distance = HOGBattleManager.Instance.GetDistance();
+
+            int damageMultiplier;
+
+            if (distance <= 0) 
+            {
+                damageMultiplier = physics;
+            }
+            else 
+            {
+                damageMultiplier = wits;
+            }
+
+            return action.ActionStrength * damageMultiplier;
+        }
+
         public void TakeDamage(int amount, barTypes barObj)
         {
+            
             //HOGDebug.Log($"TakeDamage, amount={amount}");
             switch (barObj)
             {
@@ -114,30 +135,29 @@ namespace HOG.Character
         public void ResetStats(object obj)
         {
             currentIntegrity = maxIntegrity;
+            UpdateIntegritybar();
         }
         private void OnTakeDamage(object obj)
         {
-            if(obj is Tuple<int, HOGCharacterActionBase> tupleData)
+
+            if (obj is Tuple<int, HOGCharacterActionBase> tupleData)
             {
                 effectTriggered = false;
                 attackStrength = tupleData;
                 targetCharacter = FindtargetCharacter(tupleData.Item1);
                 if (tupleData.Item1 != characterNumber)
                 {
+                    int damage = CalculateDamage(tupleData.Item2);
                     //HOGDebug.Log($"ActionID={tupleData.Item2.ActionId}");
                     switch (tupleData.Item2.ActionId)
                     {
                         case HOGCharacterState.CharacterStates.Attack:
-                            TakeDamage(tupleData.Item2.ActionStrength*3, barTypes.integrity);
-                            break;
                         case HOGCharacterState.CharacterStates.Defense:
-                            TakeDamage(tupleData.Item2.ActionStrength * 3, barTypes.integrity);
-                            break;
                         case HOGCharacterState.CharacterStates.AttackBack:
-                            TakeDamage(tupleData.Item2.ActionStrength * 3, barTypes.integrity);
+                            TakeDamage(damage, barTypes.integrity);
                             break;
                     }
-                    
+
                 }
             }
         }
@@ -158,15 +178,21 @@ namespace HOG.Character
 
         private HOGCharacterStats FindtargetCharacter(int attackingCharacterNumber)
         {
-            int targetNumber = attackingCharacterNumber == 1 ? 2 : 1;
+            int targetNumber = attackingCharacterNumber == 1 ? 2 : 1; 
+            HOGDebug.Log($"Looking for target character: {targetNumber}");
+
             var characters = FindObjectsOfType<HOGCharacterStats>();
             foreach (var character in characters)
             {
-                if (character.characterNumber == targetNumber)
+                HOGDebug.Log($"Checking character: {character.characterNumber}");
+                if (character.characterNumber == targetNumber) 
                 {
+                    HOGDebug.Log($"Target character found: {character.characterNumber}");
                     return character;
                 }
             }
+
+            HOGDebug.Log("Target character not found.");
             return null;
         }
 

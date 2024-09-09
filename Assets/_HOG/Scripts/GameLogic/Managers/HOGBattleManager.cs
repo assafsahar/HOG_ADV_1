@@ -3,6 +3,7 @@ using HOG.Core;
 using HOG.Screens;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace HOG.GameLogic
 {
@@ -14,6 +15,13 @@ namespace HOG.GameLogic
         [SerializeField] private float maxDistance = 12f;
         [SerializeField] private float minDistance = 0f;
 
+        public static HOGBattleManager Instance { get; private set; }
+        public int Turn
+        {
+            get { return turn; }
+            private set { turn = value; }
+        }
+
         private float distance;
         private HOGCharacter character1;
         private HOGCharacter character2;
@@ -23,10 +31,9 @@ namespace HOG.GameLogic
         private IEnumerator fightCoroutine = null;
         private bool isFightLive = false;
         private int turn;
-        public int Turn {
-             get {return turn; }
-            private set { turn = value; }
-        }
+        Vector3 character1OriginalPosition;
+        Vector3 character2OriginalPosition;
+        
 
         private void OnEnable()
         {
@@ -47,6 +54,15 @@ namespace HOG.GameLogic
 
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;  
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);  
+            }
+
             Manager.PoolManager.InitPool("TextToast", 10);
             if (characters[0] != null)
             {
@@ -56,7 +72,8 @@ namespace HOG.GameLogic
             {
                 InitCharacter2();
             }
-            distance = character2.transform.position.x - character1.transform.position.x;
+            character1OriginalPosition = character1.transform.position;
+            character2OriginalPosition = character2.transform.position;
         }
 
         private void Update()
@@ -71,6 +88,9 @@ namespace HOG.GameLogic
         {
             character1.PreFight();
             character2.PreFight();
+            character1.transform.position = character1OriginalPosition;
+            character2.transform.position = character2OriginalPosition;
+            distance = character2.transform.position.x - character1.transform.position.x;
             InvokeEvent(HOGEventNames.OnPreFightReady);
         }
 
@@ -128,6 +148,11 @@ namespace HOG.GameLogic
             }
         }
 
+        public float GetDistance()
+        {
+            return distance;
+        }
+
         private void InitCharacter1()
         {
             if (characters[0].TryGetComponent<HOGCharacter>(out HOGCharacter character))
@@ -176,7 +201,8 @@ namespace HOG.GameLogic
 
         private void TriggerChasedVictory()
         {
-            character2.PlayWin();
+            //character2.PlayWin();
+            KillCharacter(1);
             StopFight();
             StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 2f));
         }
@@ -202,8 +228,9 @@ namespace HOG.GameLogic
             //HOGDebug.Log("Character died: " + obj.ToString());
             int num = (int)obj;
             characters[num - 1].Die();
+            characters[num].PlayWin();
             StopFight();
-            StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 2f));
+            StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 4f));
         }
     }
 }

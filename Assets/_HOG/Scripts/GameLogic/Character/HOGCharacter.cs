@@ -94,9 +94,9 @@ namespace HOG.Character
             InvokeEvent(HOGEventNames.OnAttack, actionData);
             if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.AttackBack)
             {
-                SetScore(action.ActionStrength);
-                ShowScore(action.ActionStrength);
-                NotifyDeckManagerOnScore();
+                //SetScore(action.ActionStrength);
+                //ShowScore(action.ActionStrength);
+                //NotifyDeckManagerOnScore();
             }
         }
 
@@ -187,11 +187,11 @@ namespace HOG.Character
             }
         }
 
-        private void SetScore(int actionStrength)
+        /*private void SetScore(int actionStrength)
         {
             ScoreTags scoreTag = GetScoreTagByCharacterNumber();
             HOGGameLogicManager.Instance.ScoreManager.ChangeScoreByTagByAmount(scoreTag, actionStrength * scoreMultiplier);
-        }
+        }*/
 
         private ScoreTags GetScoreTagByCharacterNumber()
         {
