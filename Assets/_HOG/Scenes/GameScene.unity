@@ -3229,7 +3229,7 @@ MonoBehaviour:
   currentIntegrity: 100
   maxIntegrity: 150
   physics: 8
-  wits: 7
+  wits: 5
   avarageHitTreshold: 1
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
@@ -4603,7 +4603,7 @@ MonoBehaviour:
   currentIntegrity: 100
   maxIntegrity: 150
   physics: 8
-  wits: 7
+  wits: 5
   avarageHitTreshold: 1
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
