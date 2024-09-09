@@ -1,6 +1,9 @@
 using HOG.Core;
 using HOG.GameLogic;
 using System;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace HOG.Components
 {
@@ -8,7 +11,17 @@ namespace HOG.Components
     {
         private HOGDeckManager deckManager;
 
+        public Image topSymbol;
+        public Image bottomSymbol;
+        public Image leftSymbol;
+        public Image rightSymbol;
+
+        public Image card;
+
+        private Image selectedSymbol;
+
         // the following methods are called from the UI buttons (editor)
+     
 
         private void Awake()
         {
@@ -17,6 +30,46 @@ namespace HOG.Components
             {
                 HOGDebug.LogException("HOGDeckManager not found. Make sure it exists in the scene.");
             }
+        }
+        void Start()
+        {
+            GetComponent<Button>().onClick.AddListener(() => OnCardClick());
+
+            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(topSymbol));
+            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(bottomSymbol));
+            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(leftSymbol));
+            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(rightSymbol));
+
+            topSymbol.GetComponent<Button>().interactable = false;
+            bottomSymbol.GetComponent<Button>().interactable = false;
+            leftSymbol.GetComponent<Button>().interactable = false;
+            rightSymbol.GetComponent<Button>().interactable = false;
+        }
+
+        private void OnCardClick()
+        {
+
+            Animator animator = GetComponent<Animator>();
+            animator.Play("CardAnimation", 0, 1f); // Start from the end of the animation
+            WaitForAnimation(1.0f);
+
+            topSymbol.GetComponent<Button>().interactable = true;
+            bottomSymbol.GetComponent<Button>().interactable = true;
+            leftSymbol.GetComponent<Button>().interactable = true;
+            rightSymbol.GetComponent<Button>().interactable = true;
+
+            GetComponent<Button>().interactable = false;
+
+        }
+        IEnumerator WaitForAnimation(float duration)
+        {
+            yield return new WaitForSeconds(duration);
+            Debug.Log("Animation Finished after waiting!");
+        }
+        private void OnSymbolClick(Image symbol)
+        {
+           
+            ApplyGlowEffect(symbol);
         }
 
         public void OnChangeAttackButtonClicked()
@@ -59,6 +112,42 @@ namespace HOG.Components
         {
             UpgradeablesTypeID upgradable = (UpgradeablesTypeID)upgradeId;
             HOGGameLogicManager.Instance.UpgradeManager.UpgradeItemByID(upgradable);
+        }
+
+
+        public void ApplyGlowEffect(Image symbol)
+        {
+            ResetGlow();  
+
+           
+            Outline outline = symbol.GetComponent<Outline>();
+            if (outline == null)
+            {
+                outline = symbol.gameObject.AddComponent<Outline>();
+            }
+
+           
+            outline.effectColor = Color.yellow;  
+            outline.effectDistance = new Vector2(5, 5); 
+        }
+
+        // reset effect on all symbols 
+        private void ResetGlow()
+        {
+            RemoveOutline(topSymbol);
+            RemoveOutline(bottomSymbol);
+            RemoveOutline(leftSymbol);
+            RemoveOutline(rightSymbol);
+        }
+
+        
+        private void RemoveOutline(Image symbol)
+        {
+            Outline outline = symbol.GetComponent<Outline>();
+            if (outline != null)
+            {
+                Destroy(outline); 
+            }
         }
     }
 }

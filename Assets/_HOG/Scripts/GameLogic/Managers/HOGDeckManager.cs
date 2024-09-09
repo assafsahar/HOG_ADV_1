@@ -123,14 +123,14 @@ namespace HOG.GameLogic
             {
                 deckUI.ShowUpgradeButton(2, true, false);
             }
-            if (HOGGameLogicManager.Instance.UpgradeManager.CanMakeUpgrade(UpgradeablesTypeID.ChangeCharacter))
+           /* if (HOGGameLogicManager.Instance.UpgradeManager.CanMakeUpgrade(UpgradeablesTypeID.ChangeCharacter))
             {
                 deckUI.ShowUpgradeButton(1, true, true);
             }
             else
             {
                 deckUI.ShowUpgradeButton(1, true, false);
-            }
+            }*/
         }
 
         private IEnumerator FillEnergyBarCoroutine()
@@ -170,15 +170,15 @@ namespace HOG.GameLogic
             {
                 changePowerLevel = changePowerData.CurrentLevel;
             }
-            int changeCharacterLevel = 1;
+            /*int changeCharacterLevel = 1;
             var changeCharacterData = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangeCharacter);
             if (changeCharacterData != null)
             {
                 changeCharacterLevel = changeCharacterData.CurrentLevel;
-            }
+            }*/
 
             UpdateCardLevel(2, changePowerLevel);
-            UpdateCardLevel(1, changeCharacterLevel);
+            //UpdateCardLevel(1, changeCharacterLevel);
         }
 
         private void AddCardsToDeckUI()
