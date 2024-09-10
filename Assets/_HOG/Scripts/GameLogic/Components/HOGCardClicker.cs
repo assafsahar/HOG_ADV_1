@@ -15,6 +15,12 @@ namespace HOG.Components
         public Image bottomSymbol;
         public Image leftSymbol;
         public Image rightSymbol;
+        
+        public Image glow_topSymbol;
+        public Image glow_bottomSymbol;
+        public Image glow_leftSymbol;
+        public Image glow_rightSymbol;
+
 
         public Image card;
 
@@ -39,10 +45,10 @@ namespace HOG.Components
         {
             GetComponent<Button>().onClick.AddListener(() => OnCardClick());
 
-            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(topSymbol));
-            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(bottomSymbol));
-            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(leftSymbol));
-            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(rightSymbol));
+            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_topSymbol));
+            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol));
+            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_leftSymbol));
+            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_rightSymbol));
 
             topSymbol.GetComponent<Button>().interactable = false;
             bottomSymbol.GetComponent<Button>().interactable = false;
@@ -66,7 +72,7 @@ namespace HOG.Components
             leftSymbol.GetComponent<Button>().interactable = false;
             rightSymbol.GetComponent<Button>().interactable = false;
 
-             WaitForAnimation(1.0f);
+            // WaitForAnimation(1.0f);
             GetComponent<Button>().interactable = true;
            
 
@@ -145,37 +151,25 @@ namespace HOG.Components
 
         public void ApplyGlowEffect(Image symbol)
         {
-            ResetGlow();  
+            ResetGlow();
 
-           
-            Outline outline = symbol.GetComponent<Outline>();
-            if (outline == null)
-            {
-                outline = symbol.gameObject.AddComponent<Outline>();
-            }
 
-           
-            outline.effectColor = Color.yellow;  
-            outline.effectDistance = new Vector2(5, 5); 
+            symbol.gameObject.SetActive(true);
         }
 
         // reset effect on all symbols 
         private void ResetGlow()
         {
-            RemoveOutline(topSymbol);
-            RemoveOutline(bottomSymbol);
-            RemoveOutline(leftSymbol);
-            RemoveOutline(rightSymbol);
+            RemoveOutline(glow_topSymbol);
+            RemoveOutline(glow_bottomSymbol);
+            RemoveOutline(glow_leftSymbol);
+            RemoveOutline(glow_rightSymbol);
         }
 
         
         private void RemoveOutline(Image symbol)
         {
-            Outline outline = symbol.GetComponent<Outline>();
-            if (outline != null)
-            {
-                Destroy(outline); 
-            }
+            symbol.gameObject.SetActive(false); 
         }
     }
 }
