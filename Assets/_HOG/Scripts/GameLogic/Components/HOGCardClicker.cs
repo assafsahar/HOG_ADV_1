@@ -30,8 +30,43 @@ namespace HOG.Components
         public Button closeBtn;
         public Animator animator;
 
+
         // the following methods are called from the UI buttons (editor)
 
+        private Vector2 startTouchPosition, endTouchPosition;
+
+       /* void Update()
+        {
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                startTouchPosition = Input.GetTouch(0).position;
+            }
+
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                endTouchPosition = Input.GetTouch(0).position;
+
+                // 
+                Vector2 direction = endTouchPosition - startTouchPosition;
+
+                if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                {
+                    // right/left
+                    if (direction.x > 0)
+                        SwipeDirection("right");
+                    else
+                        SwipeDirection("left");
+                }
+                else
+                {
+                    // up / down
+                    if (direction.y > 0)
+                        SwipeDirection("up");
+                    else
+                        SwipeDirection("down");
+                }
+            }
+        }*/
 
         private void Awake()
         {
@@ -59,7 +94,29 @@ namespace HOG.Components
 
             animator = GetComponent<Animator>();
         }
-        private void OnCloseCard()
+        public void SwipeDirection(string direction)
+        {
+
+            ResetGlow();
+
+
+            switch (direction)
+            {
+                case "up":
+                    selectedSymbol = topSymbol;
+                    break;
+                case "down":
+                    selectedSymbol = bottomSymbol;
+                    break;
+                case "left":
+                    selectedSymbol = leftSymbol;
+                    break;
+                case "right":
+                    selectedSymbol = rightSymbol;
+                    break;
+            }
+        }
+            private void OnCloseCard()
         {
             popUp.gameObject.SetActive(false);
             closeBtn.gameObject.SetActive(false);

@@ -1807,8 +1807,8 @@ MonoBehaviour:
   rightSymbol: {fileID: 1146610995}
   glow_topSymbol: {fileID: 1240930712}
   glow_bottomSymbol: {fileID: 93392892}
-  glow_leftSymbol: {fileID: 122570902}
-  glow_rightSymbol: {fileID: 1191666998}
+  glow_leftSymbol: {fileID: 1191666998}
+  glow_rightSymbol: {fileID: 122570902}
   card: {fileID: 710389197}
   popUp: {fileID: 118820166}
   closeBtn: {fileID: 495481421}
