@@ -13,7 +13,7 @@ namespace HOG.Character
         private bool isDead = false;
         private bool isWin = false;
 
-        [SerializeField] int scoreMultiplier = 10;
+        //[SerializeField] int scoreMultiplier = 10;
         [SerializeField] Transform scoreTransform;
         [SerializeField] private int characterType = 1;
         [SerializeField] private float waitTimeBetweenAttacks = 1f;

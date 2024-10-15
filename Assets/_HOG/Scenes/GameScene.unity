@@ -3252,7 +3252,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterNumber: 2
-  scoreMultiplier: 10
   scoreTransform: {fileID: 0}
   characterType: 3
   waitTimeBetweenAttacks: 5
@@ -4557,7 +4556,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterNumber: 1
-  scoreMultiplier: 10
   scoreTransform: {fileID: 0}
   characterType: 0
   waitTimeBetweenAttacks: 5
@@ -4621,10 +4619,10 @@ MonoBehaviour:
   - attack
   - attack
   winAnim:
-  - idle
-  - idle
-  - idle
-  - idle
+  - win
+  - win
+  - win
+  - win
   attackBackAnim:
   - attack
   - attack

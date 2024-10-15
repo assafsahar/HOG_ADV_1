@@ -227,8 +227,29 @@ namespace HOG.GameLogic
         {
             //HOGDebug.Log("Character died: " + obj.ToString());
             int num = (int)obj;
-            characters[num - 1].Die();
-            characters[num].PlayWin();
+            int index = num - 1;
+
+            if (index >= 0 && index < characters.Length)
+            {
+                characters[index].Die();
+            }
+            else
+            {
+                HOGDebug.LogError($"Invalid character number: {num}");
+                return;
+            }
+
+            int winningCharacterIndex = (num == 1) ? 1 : 0;
+
+            if (winningCharacterIndex >= 0 && winningCharacterIndex < characters.Length)
+            {
+                characters[winningCharacterIndex].PlayWin();
+            }
+            else
+            {
+                HOGDebug.LogError($"Invalid winning character index: {winningCharacterIndex}");
+            }
+
             StopFight();
             StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 4f));
         }
