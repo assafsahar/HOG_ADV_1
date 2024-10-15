@@ -15,13 +15,58 @@ namespace HOG.Components
         public Image bottomSymbol;
         public Image leftSymbol;
         public Image rightSymbol;
+        
+        public Image glow_topSymbol;
+        public Image glow_bottomSymbol;
+        public Image glow_leftSymbol;
+        public Image glow_rightSymbol;
+
 
         public Image card;
 
         private Image selectedSymbol;
 
+        public Image popUp;
+        public Button closeBtn;
+        public Animator animator;
+
+
         // the following methods are called from the UI buttons (editor)
-     
+
+        private Vector2 startTouchPosition, endTouchPosition;
+
+       /* void Update()
+        {
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            {
+                startTouchPosition = Input.GetTouch(0).position;
+            }
+
+            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+            {
+                endTouchPosition = Input.GetTouch(0).position;
+
+                // 
+                Vector2 direction = endTouchPosition - startTouchPosition;
+
+                if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                {
+                    // right/left
+                    if (direction.x > 0)
+                        SwipeDirection("right");
+                    else
+                        SwipeDirection("left");
+                }
+                else
+                {
+                    // up / down
+                    if (direction.y > 0)
+                        SwipeDirection("up");
+                    else
+                        SwipeDirection("down");
+                }
+            }
+        }*/
 
         private void Awake()
         {
@@ -35,23 +80,68 @@ namespace HOG.Components
         {
             GetComponent<Button>().onClick.AddListener(() => OnCardClick());
 
-            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(topSymbol));
-            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(bottomSymbol));
-            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(leftSymbol));
-            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(rightSymbol));
+            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_topSymbol));
+            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol));
+            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_leftSymbol));
+            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_rightSymbol));
 
             topSymbol.GetComponent<Button>().interactable = false;
             bottomSymbol.GetComponent<Button>().interactable = false;
             leftSymbol.GetComponent<Button>().interactable = false;
             rightSymbol.GetComponent<Button>().interactable = false;
-        }
 
-        private void OnCardClick()
+            closeBtn.GetComponent<Button>().onClick.AddListener(() => OnCloseCard());
+
+            animator = GetComponent<Animator>();
+        }
+        public void SwipeDirection(string direction)
         {
 
-            Animator animator = GetComponent<Animator>();
-            animator.Play("CardAnimation", 0, 1f); // Start from the end of the animation
-            WaitForAnimation(1.0f);
+            ResetGlow();
+
+
+            switch (direction)
+            {
+                case "up":
+                    selectedSymbol = topSymbol;
+                    break;
+                case "down":
+                    selectedSymbol = bottomSymbol;
+                    break;
+                case "left":
+                    selectedSymbol = leftSymbol;
+                    break;
+                case "right":
+                    selectedSymbol = rightSymbol;
+                    break;
+            }
+        }
+            private void OnCloseCard()
+        {
+            popUp.gameObject.SetActive(false);
+            closeBtn.gameObject.SetActive(false);
+
+            animator.SetBool("cardReverse", true);
+
+
+            topSymbol.GetComponent<Button>().interactable = false;
+            bottomSymbol.GetComponent<Button>().interactable = false;
+            leftSymbol.GetComponent<Button>().interactable = false;
+            rightSymbol.GetComponent<Button>().interactable = false;
+
+            // WaitForAnimation(1.0f);
+            GetComponent<Button>().interactable = true;
+           
+
+        }
+        private void OnCardClick()
+        {
+            popUp.gameObject.SetActive(true);
+            closeBtn.gameObject.SetActive(true);
+
+            animator.SetBool("cardClicked", true);
+            animator.SetBool("cardReverse", false);
+            // WaitForAnimation(1.0f);
 
             topSymbol.GetComponent<Button>().interactable = true;
             bottomSymbol.GetComponent<Button>().interactable = true;
@@ -59,6 +149,7 @@ namespace HOG.Components
             rightSymbol.GetComponent<Button>().interactable = true;
 
             GetComponent<Button>().interactable = false;
+
 
         }
         IEnumerator WaitForAnimation(float duration)
@@ -117,37 +208,25 @@ namespace HOG.Components
 
         public void ApplyGlowEffect(Image symbol)
         {
-            ResetGlow();  
+            ResetGlow();
 
-           
-            Outline outline = symbol.GetComponent<Outline>();
-            if (outline == null)
-            {
-                outline = symbol.gameObject.AddComponent<Outline>();
-            }
 
-           
-            outline.effectColor = Color.yellow;  
-            outline.effectDistance = new Vector2(5, 5); 
+            symbol.gameObject.SetActive(true);
         }
 
         // reset effect on all symbols 
         private void ResetGlow()
         {
-            RemoveOutline(topSymbol);
-            RemoveOutline(bottomSymbol);
-            RemoveOutline(leftSymbol);
-            RemoveOutline(rightSymbol);
+            RemoveOutline(glow_topSymbol);
+            RemoveOutline(glow_bottomSymbol);
+            RemoveOutline(glow_leftSymbol);
+            RemoveOutline(glow_rightSymbol);
         }
 
         
         private void RemoveOutline(Image symbol)
         {
-            Outline outline = symbol.GetComponent<Outline>();
-            if (outline != null)
-            {
-                Destroy(outline); 
-            }
+            symbol.gameObject.SetActive(false); 
         }
     }
 }
