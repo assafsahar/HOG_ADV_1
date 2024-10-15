@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace HOG.Core
@@ -9,8 +10,22 @@ namespace HOG.Core
         [SerializeField] private HOGLoadBarComponent loadbarComponent;
         private void Start()
         {
+            if (loadbarComponent == null)
+            {
+                HOGDebug.LogException("LoadBarComponent is not assigned in HOGGameLoader.");
+            }
+            else
+            {
+                HOGDebug.Log("LoadBarComponent is assigned.");
+            }
             loadbarComponent.SetTargetAmount(20);
-            WaitForSeconds(2, DelayStart);
+            StartCoroutine(WaitAndExecute(2f, DelayStart));
+        }
+
+        private IEnumerator WaitAndExecute(float seconds, System.Action action)
+        {
+            yield return new WaitForSeconds(seconds);
+            action?.Invoke();
         }
 
         private void DelayStart()
@@ -19,19 +34,25 @@ namespace HOG.Core
             loadbarComponent.SetTargetAmount(40);
             manager.LoadManager(() =>
             {
-                WaitForSeconds(2, () =>
+                StartCoroutine(WaitAndExecute(2f, () =>
                 {
                     loadbarComponent.SetTargetAmount(98);
+                    if (gameLogicLoader == null)
+                    {
+                        HOGDebug.LogException("gameLogicLoader is not assigned in HOGGameLoader.");
+                        return;
+                    }
+                    HOGDebug.Log("gameLogicLoader is assigned.");
                     gameLogicLoader.StartLoad(() =>
                     {
-                        WaitForSeconds(2, () =>
+                        StartCoroutine(WaitAndExecute(2f, () =>
                         {
                             loadbarComponent.SetTargetAmount(100);
                             SceneManager.LoadScene(1);
                             Destroy(this.gameObject);
-                        });
+                        }));
                     });
-                });
+                }));
             });
         }
     }

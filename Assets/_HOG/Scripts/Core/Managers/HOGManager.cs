@@ -20,10 +20,12 @@ namespace HOG.Core
         {
             if (Instance != null)
             {
+                HOGDebug.Log("HOGManager Instance already set.");
                 return;
             }
 
             Instance = this;
+            HOGDebug.Log("HOGManager Instance set.");
         }
 
         public void LoadManager(Action onComplete)
@@ -34,16 +36,35 @@ namespace HOG.Core
 
         private void InitManagers()
         {
-            //HOGDebug.Log("InitManagers");
-            CrashManager = new HOGCrashManager();
-            EventsManager = new HOGEventsManager();
-            FactoryManager = new HOGFactoryManager();
-            PoolManager = new HOGPoolManager();
-            SaveManager = new HOGSaveManager();
-            ConfigManager = new HOGConfigManager(delegate
+            HOGDebug.Log("HOGManager InitManagers called.");
+
+            try
             {
-                onInitAction.Invoke();
-            });
+                CrashManager = new HOGCrashManager();
+                HOGDebug.Log("HOGCrashManager initialized.");
+
+                EventsManager = new HOGEventsManager();
+                HOGDebug.Log("HOGEventsManager initialized.");
+
+                FactoryManager = new HOGFactoryManager();
+                HOGDebug.Log("HOGFactoryManager initialized.");
+
+                PoolManager = new HOGPoolManager();
+                HOGDebug.Log("HOGPoolManager initialized.");
+
+                SaveManager = new HOGSaveManager();
+                HOGDebug.Log("HOGSaveManager initialized.");
+
+                ConfigManager = new HOGConfigManager(delegate
+                {
+                    HOGDebug.Log("HOGConfigManager initialized.");
+                    onInitAction?.Invoke();
+                });
+            }
+            catch (Exception ex)
+            {
+                HOGDebug.LogException($"Exception during InitManagers: {ex.Message}");
+            }
         }
 
         private void InitFirebase(Action onComplete)

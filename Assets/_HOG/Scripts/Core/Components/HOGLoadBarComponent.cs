@@ -27,6 +27,7 @@ namespace HOG.Core
 
         public void SetTargetAmount(float amount)
         {
+            HOGDebug.Log($"SetTargetAmount called with amount: {amount}");
             DOTween.KillAll();
             if (isAnimating)
             {

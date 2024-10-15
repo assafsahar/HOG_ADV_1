@@ -26,6 +26,7 @@ namespace HOG.Character
             ActionId = actionId;
             ActionStrength = actionStrength;
             IsTemp = isTemp;
+            HOGDebug.Log($"HOGCharacterActionBase created with ActionId: {actionId}, ActionStrength: {actionStrength}, IsTemp: {IsTemp}");
         }
     }
 }

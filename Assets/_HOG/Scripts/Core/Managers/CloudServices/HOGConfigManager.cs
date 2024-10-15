@@ -14,6 +14,7 @@ namespace HOG.Core
         public HOGConfigManager(Action onComplete)
         {
             onInit = onComplete;
+            HOGDebug.Log("HOGConfigManager constructor called.");
             var defaults = new Dictionary<string, object>();
 
             defaults.Add("UpgradableConfig", "{}");

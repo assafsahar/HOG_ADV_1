@@ -17,5 +17,9 @@ namespace HOG.Core
         {
             Debug.LogException(new Exception(obj.ToString()));
         }
-    }
+        public static void LogError(object obj)
+            {
+                Debug.LogError(new Exception(obj.ToString()));
+            }
+        }
 }
