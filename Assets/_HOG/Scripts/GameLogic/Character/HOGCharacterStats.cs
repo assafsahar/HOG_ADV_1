@@ -114,19 +114,24 @@ namespace HOG.Character
         private IEnumerator HandleDeath()
         {
             isDead = true;
-            HOGDebug.Log("HandleDeath");
-            while (true)
+            HOGDebug.Log($"Character {characterNumber} HandleDeath started.");
+
+            float timeout = 5f;
+            float timer = 0f;
+
+            while (timer < timeout)
             {
-                var currentStateInfo = targetCharacter.animator.GetCurrentAnimatorStateInfo(0);
+                var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
                 if ((currentStateInfo.IsName("AttackingBackhand") || currentStateInfo.IsName("AttackingDownward")) &&
                     currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation &&
                     currentStateInfo.normalizedTime < effectTriggeringAnimationEnd)
                 {
-                    //HOGDebug.Log("Correct timing reached, executing Die");
-                    break; 
+                    HOGDebug.Log($"Character {characterNumber} animation condition met.");
+                    break;
                 }
-                yield return null; 
+                timer += Time.deltaTime;
+                yield return null;
             }
 
             Die();
@@ -135,7 +140,9 @@ namespace HOG.Character
         public void ResetStats(object obj)
         {
             currentIntegrity = maxIntegrity;
+            isDead = false;
             UpdateIntegritybar();
+            HOGDebug.Log($"Character {characterNumber} stats reset. Integrity: {currentIntegrity}, isDead: {isDead}");
         }
         private void OnTakeDamage(object obj)
         {
@@ -213,7 +220,7 @@ namespace HOG.Character
 
         private void Die()
         {
-            HOGDebug.Log("Die");
+            HOGDebug.Log($"Character {characterNumber} is dying.");
             InvokeEvent(HOGEventNames.OnCharacterDied, characterNumber);
             //HOGDebug.Log("Character died");
         }

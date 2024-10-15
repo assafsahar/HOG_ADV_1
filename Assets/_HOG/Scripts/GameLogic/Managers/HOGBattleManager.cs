@@ -88,6 +88,8 @@ namespace HOG.GameLogic
         {
             character1.PreFight();
             character2.PreFight();
+            character1Stats.ResetStats(null);
+            character2Stats.ResetStats(null);
             character1.transform.position = character1OriginalPosition;
             character2.transform.position = character2OriginalPosition;
             distance = character2.transform.position.x - character1.transform.position.x;
@@ -138,6 +140,11 @@ namespace HOG.GameLogic
         public void StopFight()
         {
             isFightLive = false;
+            if (fightCoroutine != null)
+            {
+                StopCoroutine(fightCoroutine);
+                fightCoroutine = null;
+            }
             if (character1.PlayActionSequence() != null)
             {
                 StopCoroutine(character1.PlayActionSequence());

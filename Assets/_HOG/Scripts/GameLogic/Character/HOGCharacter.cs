@@ -84,20 +84,25 @@ namespace HOG.Character
             IsDead = (action.ActionId == HOGCharacterState.CharacterStates.Die);
             IsWin = (action.ActionId == HOGCharacterState.CharacterStates.Win);
             //spriteRenderer.sprite = characterAnims.StatesAnims[action.ActionId];
-            animator.SetTrigger(characterAnims.StatesAnims[action.ActionId]);
+            string triggerName;
+            if (characterAnims.StatesAnims.TryGetValue(action.ActionId, out triggerName))
+            {
+                animator.SetTrigger(triggerName);
+                HOGDebug.Log($"Character {characterNumber} Set trigger: {triggerName} for action: {action.ActionId}");
+            }
+            else
+            {
+                HOGDebug.LogError($"Trigger not found for action: {action.ActionId}");
+            }
+
             if (IsDead || IsWin)
             {
+                HOGDebug.Log($"Character {characterNumber} isDead: {IsDead}, IsWin: {IsWin}");
                 return;
             }
 
             var actionData = Tuple.Create(characterNumber, action);
             InvokeEvent(HOGEventNames.OnAttack, actionData);
-            if (action.ActionId == HOGCharacterState.CharacterStates.Attack || action.ActionId == HOGCharacterState.CharacterStates.Defense || action.ActionId == HOGCharacterState.CharacterStates.AttackBack)
-            {
-                //SetScore(action.ActionStrength);
-                //ShowScore(action.ActionStrength);
-                //NotifyDeckManagerOnScore();
-            }
         }
 
         public IEnumerator PlayActionSequence()
