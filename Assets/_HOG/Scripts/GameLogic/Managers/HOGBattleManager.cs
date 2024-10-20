@@ -203,7 +203,7 @@ namespace HOG.GameLogic
 
         private void TriggerCloseFighting()
         {
-            HOGDebug.Log("Reached 0 distance, Starting close fighting");
+            //HOGDebug.Log("Reached 0 distance, Starting close fighting");
         }
 
         private void TriggerChasedVictory()

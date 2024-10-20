@@ -26,7 +26,7 @@ namespace HOG.Character
         private HOGCharacterAnims characterAnims;
         private Animator animator;
         private bool effectTriggered = false;
-        Tuple<int, HOGCharacterActionBase> attackStrength;
+        Tuple<HOGCharacter, HOGCharacterActionBase> attackStrength;
         private HOGCharacterStats targetCharacter;
         private bool isDead = false;
         private float distance;
@@ -43,6 +43,7 @@ namespace HOG.Character
         }
         private void OnEnable()
         {
+            HOGDebug.Log($"OnEnable, characterNumber={characterNumber}");
             AddListener(HOGEventNames.OnAttack,OnTakeDamage);
             AddListener(HOGEventNames.OnGameReset, ResetStats);
         }
@@ -57,6 +58,14 @@ namespace HOG.Character
             ShowEffectOnTime();
         }
 
+        public int GetWits()
+        {
+            return wits;
+        }
+        public int GetPhysics()
+        {
+            return physics;
+        }
         private void ShowEffectOnTime()
         {
             var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
@@ -76,7 +85,7 @@ namespace HOG.Character
             }
         }
 
-        private int CalculateDamage(HOGCharacterActionBase action)
+        private int CalculateDamage(Tuple<HOGCharacter, HOGCharacterActionBase> tupleData)
         {
             distance = HOGBattleManager.Instance.GetDistance();
 
@@ -84,20 +93,22 @@ namespace HOG.Character
 
             if (distance <= 0) 
             {
-                damageMultiplier = physics;
+                HOGDebug.Log($"CalculateDamage, using physics: {tupleData.Item1.GetStats().GetPhysics()}, characterNumber={characterNumber}");
+                damageMultiplier = tupleData.Item1.GetStats().GetPhysics();
             }
             else 
             {
-                damageMultiplier = wits;
+                HOGDebug.Log($"CalculateDamage, using wits: {tupleData.Item1.GetStats().GetWits()}, characterNumber={characterNumber}");
+                damageMultiplier = tupleData.Item1.GetStats().GetWits();
             }
-
-            return action.ActionStrength * damageMultiplier;
+            HOGDebug.Log($"returning {tupleData.Item2.ActionStrength} * {damageMultiplier}");
+            return tupleData.Item2.ActionStrength * damageMultiplier;
         }
 
         public void TakeDamage(int amount, barTypes barObj)
         {
             
-            //HOGDebug.Log($"TakeDamage, amount={amount}");
+            HOGDebug.Log($"TakeDamage, amount={amount}");
             switch (barObj)
             {
                 case barTypes.integrity:// currently affecting just integrity
@@ -114,7 +125,7 @@ namespace HOG.Character
         private IEnumerator HandleDeath()
         {
             isDead = true;
-            HOGDebug.Log($"Character {characterNumber} HandleDeath started.");
+            //HOGDebug.Log($"Character {characterNumber} HandleDeath started.");
 
             float timeout = 5f;
             float timer = 0f;
@@ -127,7 +138,7 @@ namespace HOG.Character
                     currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation &&
                     currentStateInfo.normalizedTime < effectTriggeringAnimationEnd)
                 {
-                    HOGDebug.Log($"Character {characterNumber} animation condition met.");
+                    //HOGDebug.Log($"Character {characterNumber} animation condition met.");
                     break;
                 }
                 timer += Time.deltaTime;
@@ -142,19 +153,21 @@ namespace HOG.Character
             currentIntegrity = maxIntegrity;
             isDead = false;
             UpdateIntegritybar();
-            HOGDebug.Log($"Character {characterNumber} stats reset. Integrity: {currentIntegrity}, isDead: {isDead}");
+            //HOGDebug.Log($"Character {characterNumber} stats reset. Integrity: {currentIntegrity}, isDead: {isDead}");
         }
         private void OnTakeDamage(object obj)
         {
 
-            if (obj is Tuple<int, HOGCharacterActionBase> tupleData)
+            if (obj is Tuple<HOGCharacter, HOGCharacterActionBase> tupleData)
             {
                 effectTriggered = false;
                 attackStrength = tupleData;
-                targetCharacter = FindtargetCharacter(tupleData.Item1);
-                if (tupleData.Item1 != characterNumber)
+                targetCharacter = FindtargetCharacter(tupleData.Item1.characterNumber);
+                HOGDebug.Log($"OnTakeDamage characterNumber={characterNumber}, tupleData.Item1={tupleData.Item1}");
+                if (tupleData.Item1.characterNumber != characterNumber)
                 {
-                    int damage = CalculateDamage(tupleData.Item2);
+                    
+                    int damage = CalculateDamage(tupleData);
                     //HOGDebug.Log($"ActionID={tupleData.Item2.ActionId}");
                     switch (tupleData.Item2.ActionId)
                     {
@@ -186,24 +199,24 @@ namespace HOG.Character
         private HOGCharacterStats FindtargetCharacter(int attackingCharacterNumber)
         {
             int targetNumber = attackingCharacterNumber == 1 ? 2 : 1; 
-            HOGDebug.Log($"Looking for target character: {targetNumber}");
+            //HOGDebug.Log($"Looking for target character: {targetNumber}");
 
             var characters = FindObjectsOfType<HOGCharacterStats>();
             foreach (var character in characters)
             {
-                HOGDebug.Log($"Checking character: {character.characterNumber}");
+                //HOGDebug.Log($"Checking character: {character.characterNumber}");
                 if (character.characterNumber == targetNumber) 
                 {
-                    HOGDebug.Log($"Target character found: {character.characterNumber}");
+                    //HOGDebug.Log($"Target character found: {character.characterNumber}");
                     return character;
                 }
             }
 
-            HOGDebug.Log("Target character not found.");
+            //HOGDebug.Log("Target character not found.");
             return null;
         }
 
-        private void ShowEffectPerStrength(Tuple<int, HOGCharacterActionBase> tupleData)
+        private void ShowEffectPerStrength(Tuple<HOGCharacter, HOGCharacterActionBase> tupleData)
         {
             if (tupleData.Item2.ActionStrength >= megaHitTreshold)
             {
@@ -220,7 +233,7 @@ namespace HOG.Character
 
         private void Die()
         {
-            HOGDebug.Log($"Character {characterNumber} is dying.");
+            //HOGDebug.Log($"Character {characterNumber} is dying.");
             InvokeEvent(HOGEventNames.OnCharacterDied, characterNumber);
             //HOGDebug.Log("Character died");
         }

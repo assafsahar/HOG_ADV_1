@@ -4,6 +4,7 @@ using HOG.GameLogic;
 using System;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace HOG.Character
 {
@@ -21,6 +22,7 @@ namespace HOG.Character
         private HOGCharacterActions actions;
         //private SpriteRenderer spriteRenderer;
         private Animator animator;
+        private HOGCharacterStats stats;
         private HOGCharacterAnims characterAnims;
         private int turn = 0;
         //private HOGScoreUI scoreComponent;
@@ -67,6 +69,9 @@ namespace HOG.Character
             {
                 animator = aComponent;
             }
+            HOGCharacterStats statsComponent;
+            var isHOGCharacterStats = TryGetComponent<HOGCharacterStats>(out statsComponent);
+            stats = statsComponent;
         }
 
         public void PreFight()
@@ -97,12 +102,26 @@ namespace HOG.Character
 
             if (IsDead || IsWin)
             {
-                HOGDebug.Log($"Character {characterNumber} isDead: {IsDead}, IsWin: {IsWin}");
+                //HOGDebug.Log($"Character {characterNumber} isDead: {IsDead}, IsWin: {IsWin}");
                 return;
             }
 
-            var actionData = Tuple.Create(characterNumber, action);
-            InvokeEvent(HOGEventNames.OnAttack, actionData);
+            var actionData = Tuple.Create(this, action);
+            switch (action.ActionId)
+            {
+                case HOGCharacterState.CharacterStates.Attack:
+                case HOGCharacterState.CharacterStates.Defense:
+                case HOGCharacterState.CharacterStates.AttackBack:
+                    InvokeEvent(HOGEventNames.OnAttack, actionData);
+                    HOGDebug.Log($"Invoke OnAttack, characterNumber={characterNumber}");
+                    break;
+            }
+            
+        }
+
+        public HOGCharacterStats GetStats()
+        {
+            return stats;
         }
 
         public IEnumerator PlayActionSequence()
@@ -113,7 +132,7 @@ namespace HOG.Character
                 yield return new WaitForSeconds(waitTimeBetweenAttacks);
                 actions.RemoveTempAction();
             }
-            HOGDebug.Log($"{characterNumber} play action sequence");
+            //HOGDebug.Log($"{characterNumber} play action sequence");
             FinishAttackSequence();
             yield break;
         }

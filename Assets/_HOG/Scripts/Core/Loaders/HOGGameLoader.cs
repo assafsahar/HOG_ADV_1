@@ -16,7 +16,7 @@ namespace HOG.Core
             }
             else
             {
-                HOGDebug.Log("LoadBarComponent is assigned.");
+                //HOGDebug.Log("LoadBarComponent is assigned.");
             }
             loadbarComponent.SetTargetAmount(20);
             StartCoroutine(WaitAndExecute(2f, DelayStart));
@@ -42,7 +42,7 @@ namespace HOG.Core
                         HOGDebug.LogException("gameLogicLoader is not assigned in HOGGameLoader.");
                         return;
                     }
-                    HOGDebug.Log("gameLogicLoader is assigned.");
+                    //HOGDebug.Log("gameLogicLoader is assigned.");
                     gameLogicLoader.StartLoad(() =>
                     {
                         StartCoroutine(WaitAndExecute(2f, () =>

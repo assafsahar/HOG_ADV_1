@@ -20,12 +20,12 @@ namespace HOG.Core
         {
             if (Instance != null)
             {
-                HOGDebug.Log("HOGManager Instance already set.");
+                //HOGDebug.Log("HOGManager Instance already set.");
                 return;
             }
 
             Instance = this;
-            HOGDebug.Log("HOGManager Instance set.");
+            //HOGDebug.Log("HOGManager Instance set.");
         }
 
         public void LoadManager(Action onComplete)
@@ -36,28 +36,28 @@ namespace HOG.Core
 
         private void InitManagers()
         {
-            HOGDebug.Log("HOGManager InitManagers called.");
+            //HOGDebug.Log("HOGManager InitManagers called.");
 
             try
             {
                 CrashManager = new HOGCrashManager();
-                HOGDebug.Log("HOGCrashManager initialized.");
+                //HOGDebug.Log("HOGCrashManager initialized.");
 
                 EventsManager = new HOGEventsManager();
-                HOGDebug.Log("HOGEventsManager initialized.");
+                //HOGDebug.Log("HOGEventsManager initialized.");
 
                 FactoryManager = new HOGFactoryManager();
-                HOGDebug.Log("HOGFactoryManager initialized.");
+                //HOGDebug.Log("HOGFactoryManager initialized.");
 
                 PoolManager = new HOGPoolManager();
-                HOGDebug.Log("HOGPoolManager initialized.");
+                //HOGDebug.Log("HOGPoolManager initialized.");
 
                 SaveManager = new HOGSaveManager();
-                HOGDebug.Log("HOGSaveManager initialized.");
+                //HOGDebug.Log("HOGSaveManager initialized.");
 
                 ConfigManager = new HOGConfigManager(delegate
                 {
-                    HOGDebug.Log("HOGConfigManager initialized.");
+                    //HOGDebug.Log("HOGConfigManager initialized.");
                     onInitAction?.Invoke();
                 });
             }
@@ -78,7 +78,7 @@ namespace HOG.Core
                     var app = Firebase.FirebaseApp.DefaultInstance;
 
                     // Set a flag here to indicate whether Firebase is ready to use by your app.
-                    HOGDebug.Log($"Firebase initialized");
+                    //HOGDebug.Log($"Firebase initialized");
                     onComplete.Invoke();
                 }
                 else
