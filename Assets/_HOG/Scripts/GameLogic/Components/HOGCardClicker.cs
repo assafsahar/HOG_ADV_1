@@ -80,10 +80,10 @@ namespace HOG.Components
         {
             GetComponent<Button>().onClick.AddListener(() => OnCardClick());
 
-            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_topSymbol));
-            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol));
-            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_leftSymbol));
-            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_rightSymbol));
+            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_topSymbol, CardSwipeDirections.up));
+            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol, CardSwipeDirections.down));
+            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_leftSymbol, CardSwipeDirections.left));
+            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_rightSymbol, CardSwipeDirections.right));
 
             topSymbol.GetComponent<Button>().interactable = false;
             bottomSymbol.GetComponent<Button>().interactable = false;
@@ -157,9 +157,9 @@ namespace HOG.Components
             yield return new WaitForSeconds(duration);
             Debug.Log("Animation Finished after waiting!");
         }
-        private void OnSymbolClick(Image symbol)
+        private void OnSymbolClick(Image symbol, CardSwipeDirections direction)
         {
-           
+            ChangeAttack(0, 10);
             ApplyGlowEffect(symbol);
         }
 
@@ -184,7 +184,8 @@ namespace HOG.Components
             {
                 deckManager.UpdateEnergy(-cardCost);
                 var amount = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangePower).CurrentLevel;
-                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));
+                //InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));
+                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense, 20));
             }
         }
 
@@ -229,4 +230,11 @@ namespace HOG.Components
             symbol.gameObject.SetActive(false); 
         }
     }
+}
+enum CardSwipeDirections
+{
+    right=0,
+    left=1,
+    up=2,
+    down=3
 }
