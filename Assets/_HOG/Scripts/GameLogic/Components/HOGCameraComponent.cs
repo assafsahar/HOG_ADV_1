@@ -2,6 +2,7 @@ using HOG.Core;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using HOG.Character;
 
 namespace HOG.GameLogic
 {
@@ -14,25 +15,24 @@ namespace HOG.GameLogic
 
         private void OnEnable()
         {
-            AddListener(HOGEventNames.OnAttack, OnHit);
+            AddListener(HOGEventNames.OnGetHit, OnHit);
         }
         private void OnDisable()
         {
-            RemoveListener(HOGEventNames.OnAttack, OnHit);
+            RemoveListener(HOGEventNames.OnGetHit, OnHit);
         }
         private void OnHit(object obj)
         {
-            if (obj is Tuple<int, int> tupleData)
+            if (obj is Tuple<HOGCharacter, HOGCharacterActionBase> tupleData)
             {
-                if(tupleData.Item2 >= megaHitTreshold)
-                {
-                    ShakeCamera(tupleData.Item2 * 10);
-                }
+                Debug.Log($"OnHit, ShakeCamera amount={tupleData.Item2.ActionStrength}");
+                ShakeCamera(tupleData.Item2.ActionStrength);
             }
         }
 
         private void ShakeCamera(int multiplyer)
         {
+            Debug.Log("ShakeCamera");
             transform.DOShakePosition(shakeDuration * multiplyer, baseStrengthShake * multiplyer, shakeVibBase);
         }
     }

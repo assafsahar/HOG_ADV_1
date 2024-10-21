@@ -2087,7 +2087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50d39eba9ea4caa45a4e43ad42d8f3c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  megaHitTreshold: 3
+  megaHitTreshold: 2
 --- !u!1 &812533464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3185,6 +3185,7 @@ MonoBehaviour:
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
   effectTriggeringAnimationEnd: 1
+  timeBeforeDeath: 2
   speed: 7
 --- !u!114 &1266413784
 MonoBehaviour:
@@ -4655,6 +4656,7 @@ MonoBehaviour:
   megaHitTreshold: 3
   effectTriggeringPercentageFromAnimation: 0.5
   effectTriggeringAnimationEnd: 1
+  timeBeforeDeath: 1.5
   speed: 7
 --- !u!114 &1937723553
 MonoBehaviour:

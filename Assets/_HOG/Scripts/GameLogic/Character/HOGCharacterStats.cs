@@ -19,6 +19,7 @@ namespace HOG.Character
         [SerializeField] int megaHitTreshold = 4;
         [SerializeField] float effectTriggeringPercentageFromAnimation = 0.9f;
         [SerializeField] float effectTriggeringAnimationEnd = 1.0f;
+        [SerializeField] float timeBeforeDeath = 2f;
 
         public int speed = 7;
 
@@ -127,20 +128,11 @@ namespace HOG.Character
             isDead = true;
             //HOGDebug.Log($"Character {characterNumber} HandleDeath started.");
 
-            float timeout = 5f;
+            float timeout = timeBeforeDeath;
             float timer = 0f;
 
             while (timer < timeout)
             {
-                var currentStateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-                if ((currentStateInfo.IsName("AttackingBackhand") || currentStateInfo.IsName("AttackingDownward")) &&
-                    currentStateInfo.normalizedTime >= effectTriggeringPercentageFromAnimation &&
-                    currentStateInfo.normalizedTime < effectTriggeringAnimationEnd)
-                {
-                    //HOGDebug.Log($"Character {characterNumber} animation condition met.");
-                    break;
-                }
                 timer += Time.deltaTime;
                 yield return null;
             }
@@ -216,17 +208,21 @@ namespace HOG.Character
             return null;
         }
 
-        private void ShowEffectPerStrength(Tuple<HOGCharacter, HOGCharacterActionBase> tupleData)
+        private void ShowEffectPerStrength(Tuple<HOGCharacter, HOGCharacterActionBase> otherCharacterData)
         {
-            if (tupleData.Item2.ActionStrength >= megaHitTreshold)
+            Debug.Log($"ShowEffectPerStrength, characterNumber {characterNumber}, otherCharacterData.Item1.characterNumber={otherCharacterData.Item1.characterNumber}");
+            if (otherCharacterData.Item2.ActionStrength >= megaHitTreshold)
             {
-                //characterAnims.PlaySpecificEffect(0, transform, tupleData.Item2.ActionStrength);
-                characterAnims.PlayRandomEffect(transform, tupleData.Item2.ActionStrength);
-                InvokeEvent(HOGEventNames.OnGetHit, characterNumber);
+                //characterAnims.PlaySpecificEffect(0, transform, otherCharacterData.Item2.ActionStrength);
+                characterAnims.PlayRandomEffect(transform, otherCharacterData.Item2.ActionStrength);
+                if (currentIntegrity > 0) // just if not died show hit animation
+                {
+                    InvokeEvent(HOGEventNames.OnGetHit, otherCharacterData);
+                }
             }
-            else if (tupleData.Item2.ActionStrength >= avarageHitTreshold)
+            else if (otherCharacterData.Item2.ActionStrength >= avarageHitTreshold)
             {
-                characterAnims.PlayRandomEffect(transform, tupleData.Item2.ActionStrength);
+                characterAnims.PlayRandomEffect(transform, otherCharacterData.Item2.ActionStrength);
             }
             UpdateIntegritybar();
         }

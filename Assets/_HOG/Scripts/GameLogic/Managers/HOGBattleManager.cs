@@ -1,6 +1,7 @@
 using HOG.Character;
 using HOG.Core;
 using HOG.Screens;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
@@ -208,7 +209,7 @@ namespace HOG.GameLogic
 
         private void TriggerChasedVictory()
         {
-            //character2.PlayWin();
+            character2.PlayWin();
             KillCharacter(1);
             StopFight();
             StartCoroutine(screenManager.EnableScreen(HOGScreenNames.OpeningScreen, 2f));
@@ -216,18 +217,21 @@ namespace HOG.GameLogic
 
         private void PlayHit(object obj)
         {
-            int num = (int)obj;
-            characters[num - 1].PlayHit();
-            if(!characters[num - 1].IsDead)
+            if (obj is Tuple<HOGCharacter, HOGCharacterActionBase> otherCharacterData)
             {
-                StartCoroutine(PlayIdle(obj, 0.5f));
+                int num = (int)otherCharacterData.Item1.characterNumber==1?1:0;
+                characters[num].PlayHit();
+                if (!characters[num].IsDead)
+                {
+                    StartCoroutine(PlayIdle(num, 0.5f));
+                }
             }
         }
-        private IEnumerator PlayIdle(object obj, float timer)
+        private IEnumerator PlayIdle(int characterIndexNumber, float timer)
         {
             yield return new WaitForSeconds(timer);
-            int num = (int)obj;
-            characters[num - 1].StartIdle();
+            //int num = (int)obj;
+            characters[characterIndexNumber].StartIdle();
         }
 
         private void KillCharacter(object obj)
