@@ -15,7 +15,14 @@ namespace HOG.Components
         public Image bottomSymbol;
         public Image leftSymbol;
         public Image rightSymbol;
-        
+
+        public Button HitArea;
+
+        public Button topBtn;
+        public Button bottomBtn;
+        public Button leftBtn;
+        public Button rightBtn;
+
         public Image glow_topSymbol;
         public Image glow_bottomSymbol;
         public Image glow_leftSymbol;
@@ -78,17 +85,17 @@ namespace HOG.Components
         }
         void Start()
         {
-            GetComponent<Button>().onClick.AddListener(() => OnCardClick());
+            HitArea.onClick.AddListener(() => OnCardClick());
 
-            topSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_topSymbol, CardSwipeDirections.up));
-            bottomSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol, CardSwipeDirections.down));
-            leftSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_leftSymbol, CardSwipeDirections.left));
-            rightSymbol.GetComponent<Button>().onClick.AddListener(() => OnSymbolClick(glow_rightSymbol, CardSwipeDirections.right));
+            topBtn.onClick.AddListener(() => OnSymbolClick(glow_topSymbol, CardSwipeDirections.up));
+            bottomBtn.onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol, CardSwipeDirections.down));
+            leftBtn.onClick.AddListener(() => OnSymbolClick(glow_leftSymbol, CardSwipeDirections.left));
+            rightBtn.onClick.AddListener(() => OnSymbolClick(glow_rightSymbol, CardSwipeDirections.right));
 
-            topSymbol.GetComponent<Button>().interactable = false;
-            bottomSymbol.GetComponent<Button>().interactable = false;
-            leftSymbol.GetComponent<Button>().interactable = false;
-            rightSymbol.GetComponent<Button>().interactable = false;
+            topBtn.interactable = false;
+            bottomBtn.interactable = false;
+            leftBtn.interactable = false;
+            rightBtn.interactable = false;
 
             closeBtn.GetComponent<Button>().onClick.AddListener(() => OnCloseCard());
 
@@ -124,18 +131,20 @@ namespace HOG.Components
             animator.SetBool("cardReverse", true);
 
 
-            topSymbol.GetComponent<Button>().interactable = false;
-            bottomSymbol.GetComponent<Button>().interactable = false;
-            leftSymbol.GetComponent<Button>().interactable = false;
-            rightSymbol.GetComponent<Button>().interactable = false;
+            topBtn.interactable = false;
+            bottomBtn.GetComponent<Button>().interactable = false;
+            leftBtn.GetComponent<Button>().interactable = false;
+            rightBtn.GetComponent<Button>().interactable = false;
 
             // WaitForAnimation(1.0f);
-            GetComponent<Button>().interactable = true;
+            HitArea.interactable = true;
            
 
         }
         private void OnCardClick()
         {
+            Debug.Log("Anat"+gameObject.GetComponent<RectTransform>().rect);
+
             popUp.gameObject.SetActive(true);
             closeBtn.gameObject.SetActive(true);
 
@@ -143,12 +152,12 @@ namespace HOG.Components
             animator.SetBool("cardReverse", false);
             // WaitForAnimation(1.0f);
 
-            topSymbol.GetComponent<Button>().interactable = true;
-            bottomSymbol.GetComponent<Button>().interactable = true;
-            leftSymbol.GetComponent<Button>().interactable = true;
-            rightSymbol.GetComponent<Button>().interactable = true;
+            topBtn.interactable = true;
+            bottomBtn.GetComponent<Button>().interactable = true;
+            leftBtn.GetComponent<Button>().interactable = true;
+            rightBtn.GetComponent<Button>().interactable = true;
 
-            GetComponent<Button>().interactable = false;
+            HitArea.interactable = false;
 
 
         }
