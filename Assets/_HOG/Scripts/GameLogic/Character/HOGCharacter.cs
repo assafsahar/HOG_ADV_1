@@ -129,8 +129,12 @@ namespace HOG.Character
             while (actions.CanContinue())
             {
                 PlayAction(actions.GetAction());
+                if (characterNumber == 1)
+                {
+                    actions.RemoveTempAction();
+                }
                 yield return new WaitForSeconds(waitTimeBetweenAttacks);
-                actions.RemoveTempAction();
+                
             }
             //HOGDebug.Log($"{characterNumber} play action sequence");
             FinishAttackSequence();
@@ -149,10 +153,10 @@ namespace HOG.Character
 
         public void ChangeAction(object obj)
         {
-            if (turn == characterNumber)
+            /*if (turn == characterNumber)
             {
                 return;
-            }
+            }*/
             if (characterNumber == 1)
             {
                 Tuple<HOGCharacterState.CharacterStates, int> tupleData = (Tuple<HOGCharacterState.CharacterStates, int>)obj;

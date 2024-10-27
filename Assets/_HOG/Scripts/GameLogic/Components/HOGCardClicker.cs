@@ -10,6 +10,7 @@ namespace HOG.Components
     public class HOGCardClicker : HOGMonoBehaviour
     {
         private HOGDeckManager deckManager;
+        private HOGBattleManager battleManager;
 
         public Image topSymbol;
         public Image bottomSymbol;
@@ -81,6 +82,11 @@ namespace HOG.Components
             if(deckManager == null)
             {
                 HOGDebug.LogException("HOGDeckManager not found. Make sure it exists in the scene.");
+            }
+            battleManager = FindObjectOfType<HOGBattleManager>();
+            if(battleManager == null)
+            {
+                HOGDebug.LogException("HOGBattleManager not found. Make sure it exists in the scene.");
             }
         }
         void Start()
@@ -168,7 +174,7 @@ namespace HOG.Components
         }
         private void OnSymbolClick(Image symbol, CardSwipeDirections direction)
         {
-            ChangeAttack(0, 10);
+            ChangeAttack(0, 9);
             ApplyGlowEffect(symbol);
         }
 
