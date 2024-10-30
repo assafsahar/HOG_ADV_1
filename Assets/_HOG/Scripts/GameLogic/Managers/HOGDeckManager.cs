@@ -62,7 +62,7 @@ namespace HOG.GameLogic
             {
                 if (card != null)
                 {
-                    card.CardButton.interactable = false;
+                    //card.CardButton.interactable = false;
                     //ShowCard(card.CardId, true, false);
                 }
             }
@@ -156,7 +156,7 @@ namespace HOG.GameLogic
                     bool isCardEnabled = CurrentEnergy >= card.CardCost; 
                     if(Turn != 1)
                     {
-                        card.CardButton.interactable = isCardEnabled;
+                       // card.CardButton.interactable = isCardEnabled;
                     }
                 }
             }

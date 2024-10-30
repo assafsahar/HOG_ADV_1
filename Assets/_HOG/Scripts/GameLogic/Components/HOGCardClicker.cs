@@ -1,8 +1,11 @@
+using DG.Tweening;
 using HOG.Core;
 using HOG.GameLogic;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace HOG.Components
@@ -39,44 +42,126 @@ namespace HOG.Components
         public Animator animator;
 
 
+        public RectTransform cardRect; 
+        public Vector3 targetPosition; 
+        public float targetScale = 1.5f; 
+        public float duration = 0.5f;
+
+        private Vector3 originalPosition;
+        private Vector3 originalScale; 
+
+
+
         // the following methods are called from the UI buttons (editor)
 
         private Vector2 startTouchPosition, endTouchPosition;
 
-       /* void Update()
+         void Update()
+         {
+             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+             {
+                 startTouchPosition = Input.GetTouch(0).position;
+             }
+
+             if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
+             {
+                 endTouchPosition = Input.GetTouch(0).position;
+
+                 // 
+                 Vector2 direction = endTouchPosition - startTouchPosition;
+
+                 if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                 {
+                     // right/left
+                     if (direction.x > 0)
+                         SwipeDirection("right");
+                     else
+                         SwipeDirection("left");
+                 }
+                 else
+                 {
+                     // up / down
+                     if (direction.y > 0)
+                         SwipeDirection("up");
+                     else
+                         SwipeDirection("down");
+                 }
+             }
+         }
+        private void Start()
         {
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
+            originalPosition = transform.position;
+            originalScale = transform.localScale;
+        }
+        private void OnEnable()
+        {
+            Debug.Log("Anat -> Onstart");
+            // WaitForAnimation(1.0f);
+
+          
+
+
+            topBtn.onClick.AddListener(() => OnSymbolClick(glow_topSymbol, CardSwipeDirections.up));
+            bottomBtn.onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol, CardSwipeDirections.down));
+            leftBtn.onClick.AddListener(() => OnSymbolClick(glow_leftSymbol, CardSwipeDirections.left));
+            rightBtn.onClick.AddListener(() => OnSymbolClick(glow_rightSymbol, CardSwipeDirections.right));
+
+            topBtn.interactable = false;
+            bottomBtn.interactable = false;
+            leftBtn.interactable = false;
+            rightBtn.interactable = false;
+
+
+
+            closeBtn.GetComponent<Button>().onClick.AddListener(OnCloseCard);
+
+            animator = GetComponent<Animator>();
+
+            HitArea.onClick.AddListener(OnCardClick);
+            HitArea.gameObject.SetActive(true);
+            HitArea.interactable = true;
+
+
+        }
+
+        void AnimateCard()
+        {
+            
+            cardRect.DOScale(targetScale, duration).SetEase(Ease.OutBack);
+            cardRect.DOMove(targetPosition, duration).SetEase(Ease.OutBack);
+               
+        }
+
+        void ReturnCard()
+        {
+            
+            cardRect.DOScale(originalScale, duration).SetEase(Ease.InBack);
+            cardRect.DOMove(originalPosition, duration).SetEase(Ease.InBack);
+        }
+        /*void Update()
+        {
+            if (Input.GetMouseButtonDown(0))
             {
-                startTouchPosition = Input.GetTouch(0).position;
-            }
+                PointerEventData pointerData = new PointerEventData(EventSystem.current);
+                pointerData.position = Input.mousePosition;
 
-            if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended)
-            {
-                endTouchPosition = Input.GetTouch(0).position;
+                List<RaycastResult> results = new List<RaycastResult>();
+                EventSystem.current.RaycastAll(pointerData, results);
 
-                // 
-                Vector2 direction = endTouchPosition - startTouchPosition;
-
-                if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                foreach (RaycastResult result in results)
                 {
-                    // right/left
-                    if (direction.x > 0)
-                        SwipeDirection("right");
-                    else
-                        SwipeDirection("left");
-                }
-                else
-                {
-                    // up / down
-                    if (direction.y > 0)
-                        SwipeDirection("up");
-                    else
-                        SwipeDirection("down");
+                    Debug.Log("Anat UI Element Hit: " + result.gameObject.name);
+                    Button button = result.gameObject.GetComponent<Button>();
+                    if (button != null)
+                    {
+                        Debug.Log("Anat Button is active: " + button.interactable);
+
+                    }
                 }
             }
-        }*/
+    }*/
 
-        private void Awake()
+    private void Awake()
         {
             deckManager = FindObjectOfType<HOGDeckManager>();
             if(deckManager == null)
@@ -89,24 +174,7 @@ namespace HOG.Components
                 HOGDebug.LogException("HOGBattleManager not found. Make sure it exists in the scene.");
             }
         }
-        void Start()
-        {
-            HitArea.onClick.AddListener(() => OnCardClick());
-
-            topBtn.onClick.AddListener(() => OnSymbolClick(glow_topSymbol, CardSwipeDirections.up));
-            bottomBtn.onClick.AddListener(() => OnSymbolClick(glow_bottomSymbol, CardSwipeDirections.down));
-            leftBtn.onClick.AddListener(() => OnSymbolClick(glow_leftSymbol, CardSwipeDirections.left));
-            rightBtn.onClick.AddListener(() => OnSymbolClick(glow_rightSymbol, CardSwipeDirections.right));
-
-            topBtn.interactable = false;
-            bottomBtn.interactable = false;
-            leftBtn.interactable = false;
-            rightBtn.interactable = false;
-
-            closeBtn.GetComponent<Button>().onClick.AddListener(() => OnCloseCard());
-
-            animator = GetComponent<Animator>();
-        }
+       
         public void SwipeDirection(string direction)
         {
 
@@ -134,36 +202,44 @@ namespace HOG.Components
             popUp.gameObject.SetActive(false);
             closeBtn.gameObject.SetActive(false);
 
-            animator.SetBool("cardReverse", true);
+            // animator.SetBool("cardReverse", true);
+            ReturnCard();
 
 
-            topBtn.interactable = false;
+            topBtn.GetComponent<Button>().interactable = false;
             bottomBtn.GetComponent<Button>().interactable = false;
             leftBtn.GetComponent<Button>().interactable = false;
             rightBtn.GetComponent<Button>().interactable = false;
 
             // WaitForAnimation(1.0f);
             HitArea.interactable = true;
-           
+            HitArea.gameObject.SetActive(true);
+
+            HitArea.onClick.AddListener(OnCardClick);
+
 
         }
-        private void OnCardClick()
+        public void OnCardClick()
         {
             Debug.Log("Anat"+gameObject.GetComponent<RectTransform>().rect);
 
             popUp.gameObject.SetActive(true);
             closeBtn.gameObject.SetActive(true);
 
-            animator.SetBool("cardClicked", true);
-            animator.SetBool("cardReverse", false);
+            // animator.SetBool("cardClicked", true);
+            // animator.SetBool("cardReverse", false);
             // WaitForAnimation(1.0f);
 
-            topBtn.interactable = true;
+            AnimateCard();
+
+            topBtn.GetComponent<Button>().interactable = true;
             bottomBtn.GetComponent<Button>().interactable = true;
             leftBtn.GetComponent<Button>().interactable = true;
             rightBtn.GetComponent<Button>().interactable = true;
 
             HitArea.interactable = false;
+            HitArea.gameObject.SetActive(false);
+            HitArea.onClick.RemoveAllListeners();
 
 
         }
@@ -172,10 +248,15 @@ namespace HOG.Components
             yield return new WaitForSeconds(duration);
             Debug.Log("Animation Finished after waiting!");
         }
-        private void OnSymbolClick(Image symbol, CardSwipeDirections direction)
+        void  OnSymbolClick(Image symbol, CardSwipeDirections direction)
         {
+            Debug.Log("Anat OnSymbolClick");
+
             ChangeAttack(0, 9);
             ApplyGlowEffect(symbol);
+            WaitForAnimation(1.0f);
+            OnCloseCard();
+
         }
 
         public void OnChangeAttackButtonClicked()
@@ -243,6 +324,20 @@ namespace HOG.Components
         private void RemoveOutline(Image symbol)
         {
             symbol.gameObject.SetActive(false); 
+        }
+        private void OnDisable()
+        {
+            Debug.Log("Anat -> OnDisable");
+            HitArea.onClick.RemoveAllListeners();
+
+            topBtn.onClick.RemoveAllListeners();
+            bottomBtn.onClick.RemoveAllListeners();
+            leftBtn.onClick.RemoveAllListeners();
+            rightBtn.onClick.RemoveAllListeners();
+
+           closeBtn.GetComponent<Button>().onClick.RemoveAllListeners();
+
+ 
         }
     }
 }

@@ -37,7 +37,7 @@ namespace HOG.UI
             {
                 HOGDebug.LogException("Button with ID " + buttonId + " not found.");
             }
-            button.interactable = toEnable;
+           // button.interactable = toEnable;
             button.enabled = toShow;
             // If the button was not found, throw an exception
             if (button == null)
