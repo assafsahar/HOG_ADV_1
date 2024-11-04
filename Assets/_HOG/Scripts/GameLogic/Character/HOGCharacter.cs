@@ -112,6 +112,7 @@ namespace HOG.Character
                 case HOGCharacterState.CharacterStates.Attack:
                 case HOGCharacterState.CharacterStates.Defense:
                 case HOGCharacterState.CharacterStates.AttackBack:
+                case HOGCharacterState.CharacterStates.AttackSpeed:
                     InvokeEvent(HOGEventNames.OnAttack, actionData);
                     HOGDebug.Log($"Invoke OnAttack, characterNumber={characterNumber}");
                     break;

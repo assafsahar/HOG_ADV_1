@@ -15,6 +15,7 @@ namespace HOG.Anims
         [SerializeField] string[] defenseAnim;
         [SerializeField] string[] winAnim;
         [SerializeField] string[] attackBackAnim;
+        [SerializeField] string[] attackSpeedAnim;
         [SerializeField] List<GameObject> hitEffects;
 
         public void FillDictionary(int characterType)
@@ -26,6 +27,7 @@ namespace HOG.Anims
             StatesAnims[HOGCharacterState.CharacterStates.Defense] = defenseAnim[characterType];
             StatesAnims[HOGCharacterState.CharacterStates.Win] = winAnim[characterType];
             StatesAnims[HOGCharacterState.CharacterStates.AttackBack] = attackBackAnim[characterType];
+            StatesAnims[HOGCharacterState.CharacterStates.AttackSpeed] = attackSpeedAnim[characterType];
         }
 
         public void PlayRandomEffect(Transform parent, float effectScale)

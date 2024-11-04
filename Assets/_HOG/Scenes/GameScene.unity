@@ -1744,9 +1744,9 @@ RectTransform:
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -526.3427, y: -399.99997}
-  m_SizeDelta: {x: -1792.162, y: -699.75}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 530, y: 83.125}
+  m_SizeDelta: {x: 127.83801, y: 166.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &710389197
 MonoBehaviour:
@@ -2691,9 +2691,9 @@ RectTransform:
   m_Father: {fileID: 710389194}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.0004}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 64.105, y: 84.7}
   m_SizeDelta: {x: 128.21, y: 169.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1146610993
@@ -3304,6 +3304,11 @@ MonoBehaviour:
   - attackBack
   - attackBack
   - attackBack
+  attackSpeedAnim:
+  - attack
+  - attack
+  - attack
+  - attack
   hitEffects:
   - {fileID: 1134129239631916, guid: 09af7f5d2a780b04690ffbd181571681, type: 3}
   - {fileID: 1280141305896002, guid: 2aae09cda9ca85b479fe06b7d774ef5f, type: 3}
@@ -3399,7 +3404,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 545.6}
+  m_AnchoredPosition: {x: 960, y: 532}
   m_SizeDelta: {x: 1920, y: 866.3946}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1304988605
@@ -4695,6 +4700,11 @@ MonoBehaviour:
   - win
   - win
   attackBackAnim:
+  - attack
+  - attack
+  - attack
+  - attack
+  attackSpeedAnim:
   - attack
   - attack
   - attack

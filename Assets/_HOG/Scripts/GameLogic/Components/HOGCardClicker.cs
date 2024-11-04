@@ -252,7 +252,7 @@ namespace HOG.Components
         {
             Debug.Log("Anat OnSymbolClick");
 
-            ChangeAttack(0, 9);
+            ChangeAttack(0, 7, HOGEventNames.OnAbilityChange);
             ApplyGlowEffect(symbol);
             WaitForAnimation(1.0f);
             OnCloseCard();
@@ -261,9 +261,9 @@ namespace HOG.Components
 
         public void OnChangeAttackButtonClicked()
         {
-            int cardCost = deckManager.configurableCards[0].CardCost; // Set the desired card cost
+            /*int cardCost = deckManager.configurableCards[0].CardCost; // Set the desired card cost
             int cardValue = deckManager.configurableCards[0].CardValue;
-            ChangeAttack(cardValue, cardCost);
+            ChangeAttack(cardValue, cardCost);*/
         }
 
         public void OnCharacterNumberButtonClicked()
@@ -273,7 +273,7 @@ namespace HOG.Components
             CharacterNumber(cardValue, cardCost);
         }
 
-        public void ChangeAttack(int cardValue, int cardCost)
+        public void ChangeAttack(int cardValue, int cardCost, HOGEventNames changeType)
         {
 
             if (deckManager != null && deckManager.CurrentEnergy >= cardCost)
@@ -281,7 +281,8 @@ namespace HOG.Components
                 deckManager.UpdateEnergy(-cardCost);
                 var amount = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangePower).CurrentLevel;
                 //InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));
-                InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense, 20));
+                //InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense, 10));
+                InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.AttackSpeed, amount));
             }
         }
 

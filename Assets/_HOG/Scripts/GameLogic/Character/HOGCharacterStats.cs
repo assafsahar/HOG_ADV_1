@@ -22,6 +22,7 @@ namespace HOG.Character
         [SerializeField] float timeBeforeDeath = 2f;
 
         public int speed = 7;
+        private int originalSpeed;
 
         private int characterNumber;
         private HOGCharacterAnims characterAnims;
@@ -168,10 +169,30 @@ namespace HOG.Character
                         case HOGCharacterState.CharacterStates.AttackBack:
                             TakeDamage(damage, barTypes.integrity);
                             break;
+                        case HOGCharacterState.CharacterStates.AttackSpeed:
+                            Invoke("ChangeSpeedToSix", 1f);
+                            TakeDamage(damage, barTypes.integrity);
+                            break;
                     }
 
                 }
             }
+        }
+
+        private void ChangeSpeedToSix()
+        {
+            ChangeSpeedTemp(6);
+        }
+
+        private void ChangeSpeedTemp(int newSpeed)
+        {
+            originalSpeed = speed;
+            speed = newSpeed;
+            Invoke("ReturnToOriginalSpeed", 2);
+        }
+        private void ReturnToOriginalSpeed()
+        {
+            speed = originalSpeed;
         }
 
         private void UpdateIntegritybar()
