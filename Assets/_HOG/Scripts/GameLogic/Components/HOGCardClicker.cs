@@ -4,6 +4,7 @@ using HOG.GameLogic;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -95,7 +96,7 @@ namespace HOG.Components
         }
         private void OnEnable()
         {
-            Debug.Log("Anat -> Onstart");
+            HOGDebug.Log("Anat -> Onstart");
             // WaitForAnimation(1.0f);
 
           
@@ -221,7 +222,7 @@ namespace HOG.Components
         }
         public void OnCardClick()
         {
-            Debug.Log("Anat"+gameObject.GetComponent<RectTransform>().rect);
+            HOGDebug.Log("Anat"+gameObject.GetComponent<RectTransform>().rect);
 
             popUp.gameObject.SetActive(true);
             closeBtn.gameObject.SetActive(true);
@@ -246,13 +247,13 @@ namespace HOG.Components
         IEnumerator WaitForAnimation(float duration)
         {
             yield return new WaitForSeconds(duration);
-            Debug.Log("Animation Finished after waiting!");
+            //HOGDebug.Log("Animation Finished after waiting!");
         }
         void  OnSymbolClick(Image symbol, CardSwipeDirections direction)
         {
-            Debug.Log("Anat OnSymbolClick");
+            //HOGDebug.Log("Anat OnSymbolClick");
 
-            ChangeAttack(0, 7, HOGEventNames.OnAbilityChange);
+            ChangeAttack(0, 7, HOGEventNames.OnAbilityChange, direction);
             ApplyGlowEffect(symbol);
             WaitForAnimation(1.0f);
             OnCloseCard();
@@ -273,7 +274,7 @@ namespace HOG.Components
             CharacterNumber(cardValue, cardCost);
         }
 
-        public void ChangeAttack(int cardValue, int cardCost, HOGEventNames changeType)
+        public void ChangeAttack(int cardValue, int cardCost, HOGEventNames changeType, CardSwipeDirections cardDirection)
         {
 
             if (deckManager != null && deckManager.CurrentEnergy >= cardCost)
@@ -281,8 +282,16 @@ namespace HOG.Components
                 deckManager.UpdateEnergy(-cardCost);
                 var amount = HOGGameLogicManager.Instance.UpgradeManager.GetUpgradeableByID(UpgradeablesTypeID.ChangePower).CurrentLevel;
                 //InvokeEvent(HOGEventNames.OnAbilityChange, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Attack, amount));
-                //InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense, 10));
-                InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.AttackSpeed, amount));
+                switch (cardDirection){
+                    case CardSwipeDirections.up:
+                    case CardSwipeDirections.down:
+                        InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense, 10));
+                        break;
+                    case CardSwipeDirections.right:
+                    case CardSwipeDirections.left:
+                        InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.AttackSpeed, amount));
+                        break;
+                }
             }
         }
 
@@ -328,7 +337,7 @@ namespace HOG.Components
         }
         private void OnDisable()
         {
-            Debug.Log("Anat -> OnDisable");
+            HOGDebug.Log("Anat -> OnDisable");
             HitArea.onClick.RemoveAllListeners();
 
             topBtn.onClick.RemoveAllListeners();
@@ -342,7 +351,7 @@ namespace HOG.Components
         }
     }
 }
-enum CardSwipeDirections
+public enum CardSwipeDirections
 {
     right=0,
     left=1,
