@@ -1111,7 +1111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: -37}
+  m_AnchoredPosition: {x: 168.56, y: -37}
   m_SizeDelta: {x: 64.203, y: 68.181}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &613930220
@@ -1745,7 +1745,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 530, y: 83.125}
+  m_AnchoredPosition: {x: 530, y: -3.1700134}
   m_SizeDelta: {x: 127.83801, y: 166.25}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &710389197
@@ -1816,7 +1816,7 @@ MonoBehaviour:
   closeBtn: {fileID: 495481421}
   animator: {fileID: 0}
   cardRect: {fileID: 710389194}
-  targetPosition: {x: 200, y: 100, z: 0}
+  targetPosition: {x: 700, y: 300, z: 0}
   targetScale: 2.25
   duration: 0.5
 --- !u!1 &748123861
