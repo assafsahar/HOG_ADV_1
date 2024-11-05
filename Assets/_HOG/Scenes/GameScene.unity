@@ -331,6 +331,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 83366061}
   fillDuration: 0.5
+  missingEnergyIndicator: {fileID: 826276024547388954, guid: 1da4ba4fc3e2b13468c0efb003300851, type: 3}
+  energyBar: {fileID: 83366058}
   maxValue: 1
 --- !u!114 &83366061 stripped
 MonoBehaviour:
@@ -561,7 +563,7 @@ RectTransform:
   m_GameObject: {fileID: 118820164}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.21, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 495481424}
@@ -570,7 +572,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -269.3, y: 0}
+  m_AnchoredPosition: {x: 11, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &118820166
@@ -1011,7 +1013,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &495481421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1816,8 +1818,8 @@ MonoBehaviour:
   closeBtn: {fileID: 495481421}
   animator: {fileID: 0}
   cardRect: {fileID: 710389194}
-  targetPosition: {x: 700, y: 300, z: 0}
-  targetScale: 2.25
+  targetPosition: {x: 870, y: 550, z: 0}
+  targetScale: 4
   duration: 0.5
 --- !u!1 &748123861
 GameObject:

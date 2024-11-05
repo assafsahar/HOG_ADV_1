@@ -225,7 +225,7 @@ namespace HOG.Components
             HOGDebug.Log("Anat"+gameObject.GetComponent<RectTransform>().rect);
 
             popUp.gameObject.SetActive(true);
-            closeBtn.gameObject.SetActive(true);
+            //closeBtn.gameObject.SetActive(true);
 
             // animator.SetBool("cardClicked", true);
             // animator.SetBool("cardReverse", false);
@@ -276,7 +276,7 @@ namespace HOG.Components
 
         public void ChangeAttack(int cardValue, int cardCost, HOGEventNames changeType, CardSwipeDirections cardDirection)
         {
-
+            float missingEnergy = cardCost - deckManager.CurrentEnergy;
             if (deckManager != null && deckManager.CurrentEnergy >= cardCost)
             {
                 deckManager.UpdateEnergy(-cardCost);
@@ -292,6 +292,11 @@ namespace HOG.Components
                         InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.AttackSpeed, amount));
                         break;
                 }
+            }
+            else
+            {
+                deckManager.ShowMissingEnergyIndicator(missingEnergy);
+                HOGDebug.Log($"Missing {missingEnergy} energy units");
             }
         }
 

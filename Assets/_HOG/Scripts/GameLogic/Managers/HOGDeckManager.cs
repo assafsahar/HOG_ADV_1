@@ -56,6 +56,11 @@ namespace HOG.GameLogic
             UpdateCardButtonInteractivity();
         }
 
+        public void ShowMissingEnergyIndicator(float missingEnergy)
+        {
+            energyBar.ShowMissingEnergyIndicator(missingEnergy);
+        }
+
         public void DisableAllCards(object obj = null)
         {
             foreach (var card in configurableCards)
