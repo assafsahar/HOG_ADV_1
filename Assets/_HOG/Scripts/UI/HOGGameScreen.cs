@@ -35,6 +35,7 @@ namespace HOG.Screens
 
         private IEnumerator EnableReadyText(bool toEnable)
         {
+            readyText.CrossFadeAlpha(1, 0.1f, false);
             if (toEnable)
             {
                 readyTextRectTransform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
