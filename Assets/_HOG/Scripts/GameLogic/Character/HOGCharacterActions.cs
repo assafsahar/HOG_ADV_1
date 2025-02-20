@@ -159,7 +159,7 @@ namespace HOG.Character
 
         private int GetRandomActionStrength()
         {
-            return Random.Range(1, 5);
+            return Random.Range(3, 5);
         }
 
         private HOGCharacterState.CharacterStates GetRandomActionId()
@@ -172,7 +172,7 @@ namespace HOG.Character
                 case 2:
                     return HOGCharacterState.CharacterStates.Attack;
                 case 3:
-                    return HOGCharacterState.CharacterStates.AttackBack;
+                    return HOGCharacterState.CharacterStates.Attack;
                 default:
                     return HOGCharacterState.CharacterStates.Defense;
             }

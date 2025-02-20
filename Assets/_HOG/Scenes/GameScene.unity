@@ -4936,7 +4936,7 @@ MonoBehaviour:
   characterNumber: 1
   scoreTransform: {fileID: 0}
   characterType: 0
-  waitTimeBetweenAttacks: 5
+  waitTimeBetweenAttacks: 3
   deckManager: {fileID: 1377031957}
 --- !u!1 &1454772690
 GameObject:
@@ -5904,7 +5904,7 @@ MonoBehaviour:
   characterNumber: 2
   scoreTransform: {fileID: 0}
   characterType: 3
-  waitTimeBetweenAttacks: 5
+  waitTimeBetweenAttacks: 3
   deckManager: {fileID: 1377031957}
 --- !u!114 &1626305151
 MonoBehaviour:
