@@ -285,7 +285,7 @@ namespace HOG.Components
                 switch (cardDirection){
                     case CardSwipeDirections.up:
                     case CardSwipeDirections.down:
-                        InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense, 20));
+                        InvokeEvent(changeType, new Tuple<HOGCharacterState.CharacterStates, int>(HOGCharacterState.CharacterStates.Defense, 10));
                         break;
                     case CardSwipeDirections.right:
                     case CardSwipeDirections.left:

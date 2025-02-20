@@ -159,13 +159,12 @@ namespace HOG.Character
 
         private int GetRandomActionStrength()
         {
-            return Random.Range(3, 5);
+            return Random.Range(1, 5);
         }
 
         private HOGCharacterState.CharacterStates GetRandomActionId()
         {
-            //int randomIndex = Random.Range(1, 4);
-            int randomIndex = 3;
+            int randomIndex = Random.Range(1, 4);
             switch (randomIndex)
             {
                 case 1:
