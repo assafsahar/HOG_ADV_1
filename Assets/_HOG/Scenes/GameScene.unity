@@ -1412,6 +1412,11 @@ MonoBehaviour:
   - attack
   - attack
   - attack
+  selfHealAnim:
+  - attack
+  - attack
+  - attack
+  - attack
   hitEffects:
   - {fileID: 1892078723244562, guid: adb360e23607102489cdc234fe0cdd7b, type: 3}
   - {fileID: 1687118924408352, guid: d374538edd0ab41428099958a3ea0f06, type: 3}
@@ -2592,7 +2597,6 @@ MonoBehaviour:
   card: {fileID: 710389197}
   popUp: {fileID: 118820166}
   closeBtn: {fileID: 495481421}
-  animator: {fileID: 0}
   cardRect: {fileID: 710389194}
   targetPosition: {x: 870, y: 550, z: 0}
   targetScale: 4
@@ -4189,6 +4193,11 @@ MonoBehaviour:
   - attackBack
   - attackBack
   attackSpeedAnim:
+  - attack
+  - attack
+  - attack
+  - attack
+  selfHealAnim:
   - attack
   - attack
   - attack

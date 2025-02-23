@@ -99,6 +99,7 @@ namespace HOG.Core
         OnPreFightReady = 14,
         OnFightReady = 15,
         OnEnergyUpdate = 17,
-        OnAttackAnimationComplete = 18
+        OnAttackAnimationComplete = 18,
+        OnSelfHeal = 19
     }
 }

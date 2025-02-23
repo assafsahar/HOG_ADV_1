@@ -20,6 +20,7 @@ namespace HOG.Character
         [SerializeField] float effectTriggeringPercentageFromAnimation = 0.9f;
         [SerializeField] float effectTriggeringAnimationEnd = 1.0f;
         [SerializeField] float timeBeforeDeath = 2f;
+        [SerializeField] int selfHealAmount = 20;
 
         public int speed = 7;
         private int originalSpeed;
@@ -47,11 +48,13 @@ namespace HOG.Character
         {
             HOGDebug.Log($"OnEnable, characterNumber={characterNumber}");
             AddListener(HOGEventNames.OnAttack,OnTakeDamage);
+            AddListener(HOGEventNames.OnSelfHeal,OnTakeDamage);
             AddListener(HOGEventNames.OnGameReset, ResetStats);
         }
         private void OnDisable()
         {
             RemoveListener(HOGEventNames.OnAttack, OnTakeDamage);
+            RemoveListener(HOGEventNames.OnSelfHeal, OnTakeDamage);
             RemoveListener(HOGEventNames.OnGameReset, ResetStats);
         }
 
@@ -115,6 +118,14 @@ namespace HOG.Character
             {
                 case barTypes.integrity:// currently affecting just integrity
                     currentIntegrity -= amount;
+                    if(amount < 0) // if healing
+                    {
+                        UpdateIntegritybar();
+                        if (currentIntegrity > maxIntegrity)
+                        {
+                            currentIntegrity = maxIntegrity;
+                        }
+                    }
                     if (currentIntegrity <= 0 && !isDead)
                     {
                         StartCoroutine(HandleDeath());
@@ -159,7 +170,7 @@ namespace HOG.Character
                 HOGDebug.Log($"OnTakeDamage characterNumber={characterNumber}, tupleData.Item1={tupleData.Item1}");
                 if (tupleData.Item1.characterNumber != characterNumber)
                 {
-                    
+
                     int damage = CalculateDamage(tupleData);
                     //HOGDebug.Log($"ActionID={tupleData.Item2.ActionId}");
                     switch (tupleData.Item2.ActionId)
@@ -173,9 +184,20 @@ namespace HOG.Character
                             Invoke("ChangeSpeedToSix", 1f);
                             TakeDamage(damage, barTypes.integrity);
                             break;
+                        
                     }
 
                 }
+                else
+                {
+                    HOGDebug.Log($"Character {characterNumber} is Healing itself.");
+                    if(tupleData.Item2.ActionId == HOGCharacterState.CharacterStates.SelfHeal)
+                        if (currentIntegrity < maxIntegrity)
+                        {
+                            TakeDamage(-selfHealAmount, barTypes.integrity);
+
+                        }
+                    }
             }
         }
 

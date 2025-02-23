@@ -116,6 +116,10 @@ namespace HOG.Character
                     InvokeEvent(HOGEventNames.OnAttack, actionData);
                     HOGDebug.Log($"Invoke OnAttack, characterNumber={characterNumber}");
                     break;
+                case HOGCharacterState.CharacterStates.SelfHeal:
+                    InvokeEvent(HOGEventNames.OnSelfHeal, actionData);
+                    HOGDebug.Log($"Invoke OnHeal, characterNumber={characterNumber}");
+                    break;
             }
             
         }

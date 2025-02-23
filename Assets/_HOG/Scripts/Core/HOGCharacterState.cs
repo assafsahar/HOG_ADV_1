@@ -11,7 +11,8 @@ namespace HOG.Core
             Die = 4,
             Hurt = 5,
             Win = 6,
-            AttackSpeed = 7
+            AttackSpeed = 7,
+            SelfHeal = 8,
         }
     }
 }
