@@ -156,6 +156,7 @@ namespace HOG.GameLogic
             {
                 StopCoroutine(character2.PlayActionSequence());
             }
+            InvokeEvent(HOGEventNames.OnFightEnded);
         }
 
         public float GetDistance()

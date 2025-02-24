@@ -102,6 +102,7 @@ namespace HOG.Core
         OnAttackAnimationComplete = 18,
         OnSelfHeal = 19,
         OnEffectEnded = 20,
-        OnEffectTriggered = 21
+        OnEffectTriggered = 21,
+        OnFightEnded = 22
     }
 }
