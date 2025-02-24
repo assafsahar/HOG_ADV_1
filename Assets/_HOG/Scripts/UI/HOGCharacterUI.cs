@@ -1,12 +1,17 @@
+using HOG.Core;
 using HOG.Screens;
 using UnityEngine;
 
-public class HOGCharacterUI : MonoBehaviour
+namespace HOG.UI
 {
-    [SerializeField] private HOGIntegrityBar integrityBar;
 
-    public void UpdateIntegrityBar(float integrityPercentage)
+    public class HOGCharacterUI : HOGMonoBehaviour
     {
-        integrityBar.SetValue(integrityPercentage);
+        [SerializeField] private HOGIntegrityBar integrityBar;
+
+        public void UpdateIntegrityBar(float integrityPercentage)
+        {
+            integrityBar.SetValue(integrityPercentage);
+        }
     }
 }

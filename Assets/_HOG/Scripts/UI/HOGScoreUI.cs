@@ -1,9 +1,10 @@
+using HOG.Core;
 using TMPro;
 using UnityEngine;
 
 namespace HOG.UI
 {
-    public class HOGScoreUI : MonoBehaviour
+    public class HOGScoreUI : HOGMonoBehaviour
     {
         [SerializeField] TextMeshProUGUI score1;
        

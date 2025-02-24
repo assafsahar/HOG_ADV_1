@@ -2,7 +2,7 @@ using HOG.Core;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HOG.Anims
+namespace HOG.UI
 {
     public class HOGCharacterAnims: HOGMonoBehaviour
     {

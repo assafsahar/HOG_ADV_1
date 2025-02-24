@@ -99,7 +99,7 @@ namespace HOG.GameLogic
 
         public void StartFight(object obj)
         {
-            SoundManager.Instance.PlayBackgroundMusic();
+            HOGSoundManager.Instance.PlayBackgroundMusic();
             isFightLive = true;
             if (obj == null)
             {
@@ -141,7 +141,7 @@ namespace HOG.GameLogic
 
         public void StopFight()
         {
-            SoundManager.Instance.StopBackgroundMusic();
+            HOGSoundManager.Instance.StopBackgroundMusic();
             isFightLive = false;
             if (fightCoroutine != null)
             {

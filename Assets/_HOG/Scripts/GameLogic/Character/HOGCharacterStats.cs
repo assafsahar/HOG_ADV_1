@@ -1,7 +1,8 @@
-using HOG.Anims;
 using HOG.Core;
 using HOG.GameLogic;
+using HOG.GameLogic.VFX;
 using HOG.Screens;
+using HOG.UI;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -48,14 +49,18 @@ namespace HOG.Character
         {
             HOGDebug.Log($"OnEnable, characterNumber={characterNumber}");
             AddListener(HOGEventNames.OnAttack,OnTakeDamage);
+            AddListener(HOGEventNames.OnAttack,PlayParticleEffect);
             AddListener(HOGEventNames.OnSelfHeal,OnTakeDamage);
             AddListener(HOGEventNames.OnGameReset, ResetStats);
         }
+
+        
         private void OnDisable()
         {
             RemoveListener(HOGEventNames.OnAttack, OnTakeDamage);
             RemoveListener(HOGEventNames.OnSelfHeal, OnTakeDamage);
             RemoveListener(HOGEventNames.OnGameReset, ResetStats);
+            RemoveListener(HOGEventNames.OnAttack, PlayParticleEffect);
         }
 
         private void Update()
@@ -86,6 +91,17 @@ namespace HOG.Character
                 else if (currentStateInfo.normalizedTime < effectTriggeringPercentageFromAnimation)
                 {
                     effectTriggered = false;
+                }
+            }
+        }
+
+        private void PlayParticleEffect(object obj)
+        {
+            if (obj is Tuple<HOGCharacter, HOGCharacterActionBase> tupleData)
+            {
+                if (tupleData.Item1.characterNumber != characterNumber)
+                {
+                    InvokeEvent(HOGEventNames.OnEffectTriggered, obj);
                 }
             }
         }
